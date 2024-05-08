@@ -21,6 +21,27 @@ body {
   font-weight: 600;
 }
 
+.btn {
+  display: inline-block;
+  padding: 0.7rem 2.2rem;
+  background-color: #070707;
+  border-radius: 30px;
+  font-size: 1.8rem;
+  color: #fff;
+  transition: background-color 0.2s, top 0.2s ease-in;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: #323232;
+}
+
+.btn:active {
+  position: relative;
+  top: 1px;
+  background-color: #000;
+}
+
 .header {
   padding-top: 4.6rem;
   background-color: #f1f1f1;
@@ -146,4 +167,35 @@ body {
 .project-title a {
   color: #000;
   text-decoration: underline;
+}
+
+.contacts {
+  padding: 9rem 0;
+  text-align: center;
+}
+
+.contacts-title {
+  margin-bottom: 4rem;
+}
+
+.contacts-content {
+  min-width: 48rem;
+  font-size: 1.8rem;
+  margin: 0 auto 4rem;
+}
+
+.contacts-button {
+  margin-bottom: 8rem;
+}
+
+.contacts-social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 6rem;
+  margin-bottom: 4rem;
+}
+
+.contacts-footer {
+  color: #828282;
 }
