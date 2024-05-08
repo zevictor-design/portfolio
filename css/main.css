@@ -25,6 +25,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  margin-bottom: 7.6rem;
 }
 
 .logo {
@@ -46,4 +47,41 @@ body {
   height: 0.8rem;
   background-color: #fda300;
   border-radius: 50%;
+}
+
+.nav-list {
+  display: flex;
+  column-gap: 5rem;
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+.nav-link {
+  color: #000;
+}
+
+.nav-link.active {
+  color: #606060;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 3rem;
+}
+
+.header-heading {
+  margin-bottom: 2rem;
+  font-weight: 600;
+  font-size: 4.4rem;
+}
+
+.header-content {
+  max-width: 50rem;
+  margin-top: 12.4rem;
+}
+
+.header-content p {
+  font-size: 1.4rem;
+  line-height: 2;
 }
