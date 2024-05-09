@@ -6,6 +6,13 @@
     <title>Portfolio Website</title>
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/media.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
     <header class="header">
@@ -37,9 +44,10 @@
         </div>
 
         <div class="header-row">
-          <div class="header-content">
+          <div class="header-content" data-aos="fade-up">
             <h1 class="header-heading">
-              John Sample Software Developer <br />UI/UX Designer
+              John Sample <br />
+              <span>Software Developer <br />UI/UX Designer</span>
             </h1>
             <p>
               I'm lorem ipsum, dolor sit amet consectetur adipisicing elit.
@@ -47,8 +55,14 @@
               alias veniam libero cumque!
             </p>
           </div>
-          <div class="header-img">
-            <img src="img/header/hero.png" alt="" />
+          <div class="header-img" data-aos="fade-left">
+            <picture>
+              <source
+                media="(max-width: 799px)"
+                srcset="img/header/hero-mobile.png"
+              />
+              <img src="img/header/hero.png" alt="" />
+            </picture>
           </div>
         </div>
       </div>
@@ -57,7 +71,7 @@
     <section class="services">
       <div class="container">
         <div class="services-row">
-          <div class="service-card">
+          <div class="service-card" data-aos="fade-down">
             <img class="service-card-img" src="img/services/01.svg" alt="" />
             <h3 class="service-card-title">UI/UX Design</h3>
             <p>
@@ -67,7 +81,8 @@
               nesciunt natus.
             </p>
           </div>
-          <div class="service-card">
+
+          <div class="service-card" data-aos="fade-down">
             <img class="service-card-img" src="img/services/02.svg" alt="" />
             <h3 class="service-card-title">Development</h3>
             <p>
@@ -77,7 +92,8 @@
               nesciunt natus.
             </p>
           </div>
-          <div class="service-card">
+
+          <div class="service-card" data-aos="fade-down">
             <img class="service-card-img" src="img/services/03.svg" alt="" />
             <h3 class="service-card-title">Software Testing</h3>
             <p>
@@ -97,21 +113,21 @@
           <h2 class="title-1">Portfolio</h2>
         </div>
 
-        <div class="project">
+        <div class="project" data-aos="flip-up">
           <img src="img/portfolio/01.jpg" alt="" class="project-img" />
           <h3 class="project-title">
             <a href="#!">Online fashion store - Homepage</a>
           </h3>
         </div>
 
-        <div class="project">
+        <div class="project" data-aos="flip-up">
           <img src="img/portfolio/02.jpg" alt="" class="project-img" />
           <h3 class="project-title">
             <a href="#!">Reebok Store - Concept</a>
           </h3>
         </div>
 
-        <div class="project">
+        <div class="project" data-aos="flip-up">
           <img src="img/portfolio/03.jpg" alt="" class="project-img" />
           <h3 class="project-title">
             <a href="#!">Braun landing page - Concept</a>
@@ -125,16 +141,16 @@
         <div class="contacts-title">
           <h2 class="title-1">Contacts</h2>
         </div>
-        <div class="contacts-content">
+        <div class="contacts-content" data-aos="fade-down">
           <p>
             Want to know more or just chat? <br />
             You are welcome!
           </p>
         </div>
         <div class="contacts-button">
-          <a href="#!" class="btn">Send Message</a>
+          <a href="#!" class="btn" data-aos="fade-down">Send Message</a>
         </div>
-        <div class="contacts-social">
+        <div class="contacts-social" data-aos="zoom-in">
           <a href="#!">
             <img src="img/socials/LinkedIn.svg" alt="LinkedIn" />
           </a>
@@ -150,12 +166,18 @@
           <a href="#!"> <img src="img/socials/Dribble.svg" alt="Dribble" /></a>
         </div>
 
-        <div class="contacts-footer">
+        <div class="contacts-footer" data-aos="fade-up">
           <p>Like me on <br />LinkedIn, Instagram Behance, Dribble</p>
         </div>
       </div>
     </footer>
 
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
+      integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script src="js/main.js"></script>
   </body>
 </html>

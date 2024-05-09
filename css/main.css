@@ -122,9 +122,15 @@ body {
 
 .services-row {
   display: flex;
-  gap: 3rem;
+  column-gap: 3rem;
+  row-gap: 6rem;
+  flex-wrap: wrap;
 }
-/* service-card*/
+
+.service-card {
+  flex: 1 1 0;
+  min-width: 31.5rem;
+}
 
 .service-card-img {
   margin-bottom: 3rem;
@@ -183,7 +189,6 @@ body {
 }
 
 .contacts-content {
-  min-width: 48rem;
   font-size: 1.8rem;
   margin: 0 auto 4rem;
 }
