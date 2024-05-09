@@ -82,6 +82,10 @@ body {
   font-size: 1.4rem;
 }
 
+.nav-btn {
+  display: none;
+}
+
 .nav-link {
   color: #000;
 }
