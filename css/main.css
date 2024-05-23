@@ -2,17 +2,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 :root {
-  --primary-bg-color: #f1f1f1;
-  --primary-accent: #2e282a;
-  --secondary-accent: #c03221;
+  --primary-bg-color: #f7fbfd;
+  --primary-accent: #0c1618;
+  --secondary-accent: #6f1d1b;
 
-  --main-text-color: #232323;
+  --main-text-color: #0c1618;
+  --gray-text-color: #5c5d8d;
 
-  --gray-text-color: #828282;
+  --white-color: #fff;
 
   --color-preloader-bg: #eceeec;
   --color-loader: #1a1a1a;
-  --color-loader-light: #8e8f8e;
+  --color-loader-light: #5c5d8d;
 }
 
 html {
@@ -74,9 +75,9 @@ body {
   position: relative;
   padding: 0 1.2rem 0.3rem 0;
   line-height: 1;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 3.2rem;
-  color: #000;
+  color: var(--main-text-color);
 }
 
 .logo::after {
@@ -107,7 +108,8 @@ body {
 }
 
 .nav-link.active {
-  color: var(--main-text-color);
+  color: var(--secondary-accent);
+  font-weight: 500;
 }
 
 .header-row {
@@ -141,6 +143,44 @@ body {
   font-size: 2rem;
   font-weight: 400;
   /* color: var(--gray-text-color); */
+}
+
+.header-content-btns {
+  margin-top: 6.4rem;
+}
+.btn-2 {
+  display: inline-block;
+  height: 5.2rem;
+  font-weight: 500;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  line-height: 5.2rem;
+  padding: 0 3.6rem;
+  margin: 0 1.2rem 1.6rem 0;
+  color: var(--white-color);
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s;
+  background-color: var(--primary-accent);
+  border: 2px solid var(--primary-accent);
+}
+
+.btn-2:hover,
+.btn-2:focus {
+  background-color: var(--secondary-accent);
+  border-color: var(--secondary-accent);
+  color: var(--white-color);
+  outline: 0;
+}
+
+.btn-3 {
+  background: transparent !important;
+  font-weight: 700;
+  border: 2px solid var(--primary-accent);
+  color: var(--primary-accent);
 }
 
 /* .header-img {
