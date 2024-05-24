@@ -10,6 +10,7 @@
   --gray-text-color: #565a5b;
 
   --white-color: #fff;
+  --gray-color: #e9e8e8;
 
   --color-preloader-bg: #eceeec;
   --color-loader: #1a1a1a;
@@ -228,6 +229,59 @@ body {
   margin-bottom: 4rem;
 }
 
+.about-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 8rem;
+}
+
+.about-content {
+  flex: 0 0 60%;
+  max-width: 60%;
+  padding-right: 4rem;
+}
+
+.about-skills {
+  flex: 0 0 40%;
+  max-width: 40%;
+  padding-left: 4rem;
+}
+
+.skill {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+.skill-title,
+.skill-percent {
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+
+.skill-percent {
+  float: right;
+}
+
+.skillbar {
+  height: 0.4rem;
+  background-color: var(--secondary-accent);
+}
+
+.skillbar:before {
+  background: var(--gray-color);
+  content: "";
+  height: 0.4rem;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+}
+
 .about-descr {
   font-size: 1.8rem;
   font-weight: 400;
@@ -236,10 +290,6 @@ body {
 
 .about-download-btn {
   margin-top: 4rem;
-}
-
-.services {
-  padding: 9rem 0;
 }
 
 .services-row {
