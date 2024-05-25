@@ -21,7 +21,7 @@ navBtn.onclick = () => {
   }
 };
 
-//Sticky header
+//Sticky header & goToTop button
 window.addEventListener("scroll", function () {
   const header = document.querySelector("#header");
   const hero = document.querySelector("#home");
