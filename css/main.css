@@ -482,7 +482,7 @@ h5 {
 }
 
 .contact form {
-  max-width: 60rem;
+  max-width: 50rem;
   margin: 2rem auto;
   text-align: center;
 }
@@ -504,7 +504,7 @@ h5 {
 }
 
 .contact form .input-box input {
-  width: 49%;
+  width: 100%;
 }
 
 .contact form textarea {
