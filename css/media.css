@@ -1,6 +1,41 @@
-@media (max-width: 1230px) {
-  .container {
-    max-width: 100rem;
+@media (max-width: 1320px) {
+  .container-lg {
+    max-width: 120rem;
+  }
+
+  .hero-content {
+    padding: 0;
+  }
+
+  .header-nav {
+    padding: 0;
+  }
+  /* .about-content {
+    flex: 0 0 58.3333%;
+    max-width: 58.3333%;
+    padding-right: 3rem;
+  }
+
+  .about-skills {
+    flex: 0 0 41.6667%;
+    max-width: 41.6667%;
+    padding-left: 3rem;
+  } */
+}
+
+@media (max-width: 1084px) {
+  html {
+    font-size: 56.25%;
+  }
+
+  .hero-heading {
+    font-size: 7.6rem;
+  }
+}
+
+@media (max-width: 975px) {
+  .project-box {
+    max-width: 40rem;
   }
 }
 

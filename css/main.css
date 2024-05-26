@@ -30,12 +30,9 @@ body {
 }
 
 .container {
-  max-width: 123rem;
-  width: 100%;
-  padding-right: 3rem;
-  padding-left: 3rem;
-  margin-right: auto;
-  margin-left: auto;
+  padding: 0 3.2rem;
+  max-width: 120rem;
+  margin: 0 auto;
 }
 
 .container-lg {
@@ -293,7 +290,6 @@ h5 {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  column-gap: 3rem;
   row-gap: 6rem;
   margin-bottom: 8rem;
 }
@@ -306,15 +302,15 @@ h5 {
 }
 
 .about-content {
-  flex: 1 1 0;
-  min-width: 48rem;
+  flex: 0 0 58.3333%;
+  max-width: 58.3333%;
+  padding-right: 3rem;
 }
 
 .about-skills {
-  flex: 1 1 45rem;
-  min-width: 45rem;
-  /* max-width: 40%; */
-  /* padding-left: 4rem; */
+  flex: 0 0 41.6667%;
+  max-width: 41.6667%;
+  padding-left: 3rem;
 }
 
 .skill {
