@@ -302,14 +302,12 @@ h5 {
 }
 
 .about-content {
-  flex: 0 0 58.3333%;
-  max-width: 58.3333%;
+  flex: 60%;
   padding-right: 3rem;
 }
 
 .about-skills {
-  flex: 0 0 41.6667%;
-  max-width: 41.6667%;
+  min-width: 45rem;
   padding-left: 3rem;
 }
 
@@ -353,14 +351,13 @@ h5 {
 
 .services-row {
   display: flex;
-  column-gap: 3rem;
   row-gap: 6rem;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .service-card {
-  flex: 1 1 0;
-  min-width: 31.5rem;
+  flex: 33.33333333%;
 }
 
 .service-card-img {
