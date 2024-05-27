@@ -160,9 +160,14 @@
 
   .services-row {
     justify-content: center;
+    row-gap: 5rem;
   }
   .service-card {
     flex: 0 0 30.5rem;
+  }
+
+  .service-card-img {
+    height: 4rem;
   }
 
   .project-box {
@@ -206,10 +211,6 @@
     text-align: center;
     flex: 0 0 100%;
     max-width: 100%;
-  }
-
-  .service-card-img {
-    height: 4rem;
   }
 
   .about-social-list {
