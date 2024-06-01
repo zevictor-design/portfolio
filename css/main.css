@@ -18,6 +18,7 @@
   --color-dots: #1a1a1a;
 }
 
+/* Common styles */
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
@@ -126,6 +127,7 @@ h5 {
   color: var(--white-color);
 }
 
+/* Header */
 .header {
   z-index: 100;
   background-color: transparent;
@@ -203,6 +205,7 @@ h5 {
   font-weight: 600;
 }
 
+/* Hero section */
 .hero {
   position: relative;
   padding-top: 18rem;
@@ -278,6 +281,7 @@ h5 {
     brightness(97%) contrast(103%);
 }
 
+/* About section */
 .about {
   padding: 10rem 0;
 }
@@ -384,6 +388,7 @@ h5 {
   color: var(--gray-text-color);
 }
 
+/* Works */
 .projects {
   padding: 10rem 0;
   background-color: var(--primary-bg-color);
@@ -475,6 +480,7 @@ h5 {
   text-align: left;
 }
 
+/* Contact */
 .contact {
   padding: 10rem 0;
   text-align: center;
@@ -519,6 +525,7 @@ h5 {
   resize: none;
 }
 
+/* Footer */
 .footer {
   background-color: var(--primary-accent);
   color: var(--gray-color-3);
@@ -545,6 +552,7 @@ h5 {
   font-size: 1.6rem;
 }
 
+/* "go to top" button */
 .goToTop {
   z-index: 599;
   position: fixed;
@@ -588,6 +596,7 @@ h5 {
   transition: all 0.3s;
 }
 
+/* Preloader with jumping dots */
 #preloader {
   position: fixed;
   display: flex;
