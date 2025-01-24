@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $name = $_POST['name'];
-  $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+  $email = $_POST['email'];
   $message = $_POST['message'];
 
   if (empty($name) || empty($email) || empty($message)) {
@@ -9,12 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit;
   }
 
-  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    echo "Invalid email address";
-    exit;
-  }
-
-  $to = "alexandr.litvin@tuhh.de"; // Replace this line with your email!!!
+  $to = "your_email@mail.me"; // Replace this line with your email!!!
   $subject = "New Message";
   $body = "Name: $name\nEmail: $email\nMessage:\n$message";
   $headers = "From: $email";
