@@ -500,6 +500,10 @@ h5 {
   resize: none;
 }
 
+.contact-button {
+  margin-top: 20px;
+}
+
 /* Footer */
 .footer {
   background-color: var(--primary-accent);
@@ -525,6 +529,29 @@ h5 {
 
 .footer-copyright {
   font-size: clamp(0.75rem, 0.679rem + 0.36vw, 1rem);
+}
+
+.response {
+  position: fixed;
+  display: inline-block;
+  background-color: var(--primary-accent);
+  color: var(--white-color);
+  border: 1px solid var(--white-color);
+  min-width: 280px;
+  padding: 20px 40px;
+  bottom: -100px;
+  left: 50%;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%);
+  transition: all 0.3s ease-in-out;
+  z-index: 5;
+}
+
+.response.open {
+  bottom: 20px;
+  opacity: 1;
+  visibility: visible;
 }
 
 /* "go to top" button */

@@ -1,12 +1,12 @@
 "use strict";
-// import form from "./form";
+import form from "./form.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   //AOS animations settings
   AOS.init({
     once: true,
   });
-  // form();
+  form();
   const nav = document.querySelector("#nav");
   const navBtn = document.querySelector("#nav-btn");
   const navBtnImg = document.querySelector("#nav-btn-img");
