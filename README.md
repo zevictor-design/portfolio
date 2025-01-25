@@ -16,10 +16,10 @@ This is a very simple, but elegant responsive portfolio template built using pla
 
 ## Features
 
-- **Responsive Design**
-- **Single-page layout**
-- **Simple and customizable**
-- **PHP Mailer Integration**
+- Responsive Design
+- Single-page layout
+- Simple and customizable
+- PHP Mailer Integration
 
 ## Live Preview
 
@@ -42,14 +42,14 @@ To use this template, follow these steps:
    - Configure the `mail.php` file with your email credentials.
 4. **Deployment**:
    - Host the project on a server that supports PHP for email functionality.
-   - **If hosting on GitHub Pages, note that email handling will not work**.
+   - **If hosting on GitHub Pages, note that email handling will not work, since GitHub Pages is a static hosting service**.
 
 ## Recent Updates
 
 - Refactored font sizes and styles for improved readability and balance.
 - Reworked animations for smoother transitions and a modern look.
 - Removed the preloader for a faster, simplified user experience.
-- Added PHP Mailer integration for email handling (requires a PHP-enabled server, not supported on GitHub Pages).
+- Added [PHP Mailer](https://github.com/PHPMailer/PHPMailer) integration for email handling (requires a PHP-enabled server, not supported on GitHub Pages).
 
 ## License
 
