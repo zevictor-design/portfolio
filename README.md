@@ -11,7 +11,7 @@ This is a very simple, but elegant responsive portfolio template built using pla
 - [Features](#features)
 - [Live Preview](#live-preview)
 - [Usage](#usage)
-- [Todo](#todo)
+- [Recent Updates](#recent-updates)
 - [License](#license)
 
 ## Features
@@ -19,6 +19,7 @@ This is a very simple, but elegant responsive portfolio template built using pla
 - **Responsive Design**
 - **Single-page layout**
 - **Simple and customizable**
+- **PHP Mailer Integration**
 
 ## Live Preview
 
@@ -32,12 +33,23 @@ To use this template, follow these steps:
     ```bash
     git clone https://github.com/hhlitval/simple-portfolio-template.git
     ```
-2. **Customize the Content**
-3. **Deploy**.
+2. **Customization**:
+   - Update `index.html` with your information.
+   - Modify `style.css` for custom styles.
+3. **Email Integration**:
+   To enable email functionality:
+   - Upload the project to a PHP-enabled server.
+   - Configure the `mail.php` file with your email credentials.
+4. **Deployment**:
+   - Host the project on a server that supports PHP for email functionality.
+   - **If hosting on GitHub Pages, note that email handling will not work**.
 
-## Todo
+## Recent Updates
 
-- **Contact Form**: Implement the functionality to send messages from the contact form. You can use an email service or integrate with a backend solution.
+- Refactored font sizes and styles for improved readability and balance.
+- Reworked animations for smoother transitions and a modern look.
+- Removed the preloader for a faster, simplified user experience.
+- Added PHP Mailer integration for email handling (requires a PHP-enabled server, not supported on GitHub Pages).
 
 ## License
 
