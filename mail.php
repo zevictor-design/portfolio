@@ -1,24 +1,39 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  $name = $_POST['name'];
-  $email = $_POST['email'];
-  $message = $_POST['message'];
+require 'phpmailer/PHPMailer.php';
+require 'phpmailer/SMTP.php';
+require 'phpmailer/Exception.php';
 
-  if (empty($name) || empty($email) || empty($message)) {
-    echo "All fields are required!";
-    exit;
-  }
+$title = "New message";
+$name = $_POST['name'];
+$email = $_POST['email'];
+$message = $_POST['message'];
 
-  $to = "your_email@mail.me"; // Replace this line with your email!!!
-  $subject = "New Message";
-  $body = "Name: $name\nEmail: $email\nMessage:\n$message";
-  $headers = "From: $email";
+$subject = "New Message";
+$body = "Name: $name\nEmail: $email\nMessage:\n$message";
 
-  if (mail($to, $subject, $body, $headers)) {
-    echo "Message sent successfully!";
-  } else {
-    echo "Failed to send the message. Try again";
-  }
-} else {
-  echo "Invalid request method.";
+$mail = new PHPMailer\PHPMailer\PHPMailer();
+
+try {
+  $mail->isSMTP();
+  $mail->CharSet = "UTF-8";
+  $mail->SMTPAuth   = true;
+
+  $mail->Host       = 'smtp.example.com';                     //Set the SMTP server to send through
+  $mail->Username   = 'user@example.com';                     //SMTP username
+  $mail->Password   = 'secret';                               //SMTP password
+  $mail->SMTPSecure = 'ssl';
+  $mail->Port       = 465;
+
+  $mail->setFrom('from@example.com', $title);
+  $mail->addAddress('youraddress@mail.me');
+  $mail->isHTML(true);
+  $mail->Subject = $title;
+  $mail->Body = $body;
+
+  $mail->send();
+  http_response_code(200);
+  echo "Message sent successfully!";
+} catch (Exception $e) {
+  http_response_code(500);
+  echo "Failed to send the message. Try again";
 }

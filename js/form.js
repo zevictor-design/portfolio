@@ -1,30 +1,38 @@
 const form = () => {
   const contactForm = document.querySelector(".contactForm"),
     responseMessage = document.querySelector(".response");
+
   contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
+    responseMessage.classList.add("open");
+    responseMessage.textContent = "Please wait...";
 
-    try {
-      const response = await fetch("mail.php", {
-        method: "POST",
-        body: formData,
-      });
-      if (response.ok) {
-        result = await response.text();
+    async function getData() {
+      try {
+        const response = await fetch("mail.php", {
+          method: "POST",
+          body: formData,
+        });
+        if (!response.ok) {
+          responseMessage.textContent = result;
+        }
+
+        const result = await response.text();
+        responseMessage.textContent = result;
+      } catch (error) {
+        console.error(error.message);
       }
-      responseMessage.classList.add("open");
-      responseMessage.textContent = result;
-      console.log(result);
-    } catch (error) {
-      responseMessage.classList.add("open");
-      responseMessage.textContent = "An error occurred. Please try again.";
     }
-    setTimeout(() => {
-      responseMessage.classList.remove("open");
-    }, 3000);
-    form.reset();
+
+    getData()
+      .then(
+        setTimeout(() => {
+          responseMessage.classList.remove("open");
+        }, 3000)
+      )
+      .finally(form.reset());
   });
 };
 export default form;
