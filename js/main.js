@@ -1,12 +1,14 @@
 "use strict";
 import form from "./form.js";
+import skillbar from "./skillbar.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  //AOS animations settings
   AOS.init({
     once: true,
   });
   form();
+  skillbar();
+
   const nav = document.querySelector("#nav");
   const navBtn = document.querySelector("#nav-btn");
   const navBtnImg = document.querySelector("#nav-btn-img");
