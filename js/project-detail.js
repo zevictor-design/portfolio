@@ -3,47 +3,56 @@
 // Dados dos projetos
 const projectsData = {
   "project-1": {
-    title: "E-commerce Platform",
-    description: "Uma plataforma completa de e-commerce desenvolvida com React e Node.js. O projeto inclui sistema de autenticação, carrinho de compras, pagamentos integrados e painel administrativo. Foi desenvolvido com foco em performance e experiência do usuário, utilizando as melhores práticas de desenvolvimento web moderno.",
-    tags: ["React", "Node.js", "MongoDB", "Stripe", "Responsive"],
+    title: "Magalu Ads",
+    description: "Um produto de Ads para a Magalu, com o objetivo de criar uma nova linha de receita para a companhia. O projeto abrange toda a jornada do usuário, desde a criação da campanha, com interface intuitiva e moderna, até a análise de resultados com gráficos simples e intuitivos. Foi desenvolvido seguindo os princípios de UX/UI Design e testado com usuários reais para garantir a melhor experiência possível.",
+    tags: ["UX Research", "Usability Testing", "User Interviews", "Prototyping", "Data Visualization", "Illustration"],
     images: [
-      "img/works/01.jpg",
-      "img/works/02.jpg",
-      "img/works/03.jpg",
-      "img/works/04.jpg"
+      "img/works/01.png",
+      "img/works/magalu-02.png",
+      "img/works/magalu-03.png",
+      "img/works/magalu-04.png",
+      "img/works/magalu-05.png",
+      "img/works/magalu-06.png",
+      "img/works/magalu-07.png",
+      "img/works/magalu-08.png"
+
     ]
   },
   "project-2": {
-    title: "Mobile App Design",
-    description: "Design de aplicativo mobile para delivery de comida. O projeto abrange toda a jornada do usuário, desde o cadastro até a entrega, com interface intuitiva e moderna. Foi desenvolvido seguindo os princípios de UX/UI Design e testado com usuários reais para garantir a melhor experiência possível.",
-    tags: ["Figma", "UX/UI", "Mobile First", "Prototyping", "User Testing"],
+    title: "Só Joga",
+    description: "Design de aplicativo mobile para competição com o Cartola FC. O projeto foi desenvolvido com o objetivo de criar uma nova forma de jogar Cartola FC entre amigos, com diversão e responsabilidade.",
+    tags: ["UX/UI Design", "Mobile", "Prototyping", "User Testing"],
     images: [
-      "img/works/02.jpg",
-      "img/works/03.jpg",
-      "img/works/05.jpg",
-      "img/works/06.jpg"
+      "img/works/02.png",
+      "img/works/sojoga-02.png",
+      "img/works/sojoga-03.png",
+      "img/works/sojoga-04.png"
     ]
   },
   "project-3": {
-    title: "Corporate Website",
-    description: "Website corporativo responsivo para uma empresa de tecnologia. O projeto inclui design moderno, otimização para SEO, integração com redes sociais e sistema de blog. O site foi desenvolvido com foco em conversão e engajamento dos visitantes.",
-    tags: ["HTML5", "CSS3", "JavaScript", "SEO", "WordPress"],
+    title: "Freeler",
+    description: "Design de aplicativo mobile para freelancers. O projeto foi desenvolvido com o objetivo de criar uma nova forma de encontrar freelancers para projetos específicos. O projeot entrega um aplicativo mobile para o freelancer e uma área administrativa para o cliente gerenciar os eventos e os contratos.",
+    tags: ["UX/UI Design", "Mobile/Desktop", "Prototyping", "User Testing"],
     images: [
-      "img/works/03.jpg",
-      "img/works/04.jpg",
-      "img/works/01.jpg",
-      "img/works/02.jpg"
+      "img/works/03.png",
+      "img/works/freeler-02.png",
+      "img/works/freeler-03.png",
+      "img/works/freeler-04.png",
+      "img/works/freeler-05.png",
+      "img/works/freeler-06.png"
     ]
   },
   "project-4": {
-    title: "Dashboard Analytics",
-    description: "Dashboard de analytics desenvolvido para monitoramento de métricas em tempo real. O projeto inclui gráficos interativos, filtros avançados e exportação de relatórios. Foi desenvolvido com foco em performance e escalabilidade.",
-    tags: ["Vue.js", "D3.js", "Python", "PostgreSQL", "Docker"],
+    title: "Voi",
+    description: "Visual identity creation for Voi, a scented candle brand. This project covered everything from the brand concept development and logo design to the visual identity guidelines.",
+    tags: ["Branding", "Viusual", "Logo Design", "Brand Guidelines"],
     images: [
-      "img/works/04.jpg",
-      "img/works/05.jpg",
-      "img/works/06.jpg",
-      "img/works/01.jpg"
+      "img/works/04.png",
+      "img/works/voi-02.png",
+      "img/works/voi-03.png",
+      "img/works/voi-04.png",
+      "img/works/voi-05.png",
+      "img/works/voi-06.png"
     ]
   },
   "project-5": {
