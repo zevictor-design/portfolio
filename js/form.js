@@ -7,32 +7,31 @@ const form = () => {
     const form = e.target;
     const formData = new FormData(form);
     responseMessage.classList.add("open");
-    responseMessage.textContent = "Please wait...";
+    responseMessage.textContent = "Enviando mensagem...";
 
-    async function getData() {
-      try {
-        const response = await fetch("mail.php", {
-          method: "POST",
-          body: formData,
-        });
-        if (!response.ok) {
-          responseMessage.textContent = result;
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
         }
+      });
 
-        const result = await response.text();
-        responseMessage.textContent = result;
-      } catch (error) {
-        console.error(error.message);
+      if (response.ok) {
+        responseMessage.textContent = "Mensagem enviada com sucesso!";
+        form.reset();
+      } else {
+        responseMessage.textContent = "Erro ao enviar mensagem. Tente novamente.";
       }
+    } catch (error) {
+      console.error(error.message);
+      responseMessage.textContent = "Erro ao enviar mensagem. Tente novamente.";
     }
 
-    getData()
-      .then(
-        setTimeout(() => {
-          responseMessage.classList.remove("open");
-        }, 3000)
-      )
-      .finally(form.reset());
+    setTimeout(() => {
+      responseMessage.classList.remove("open");
+    }, 3000);
   });
 };
 export default form;

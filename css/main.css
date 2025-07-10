@@ -4,7 +4,7 @@
 :root {
   --primary-bg-color: #f7fbfd;
   --primary-accent: #0c1618;
-  --secondary-accent: #6f1d1b;
+  --secondary-accent: #3E8BE6;
 
   --main-text-color: #0c1618;
   --supportive-text-color: #242d2f;
@@ -90,12 +90,12 @@ body {
   transition: all 0.3s ease-in;
 }
 
-.btn-white:hover,
-.btn-white:focus {
-  background: var(--primary-accent);
-  border: 2px solid var(--primary-accent);
-  color: var(--white-color);
-}
+  .btn-white:hover,
+  .btn-white:focus {
+    background: #9CA3AF;
+    border: 2px solid #9CA3AF;
+    color: var(--main-text-color);
+  }
 
 .btn-white:active {
   background-color: #3c4446;
@@ -371,6 +371,10 @@ h5 {
 .projects {
   padding: 7rem 0;
   background-color: #ffffff;
+}
+
+.about{
+  background-color: #f7fbfd;
 }
 
 .projects-title {
