@@ -7,15 +7,7 @@ const projectsData = {
     description: "Um produto de Ads para a Magalu, com o objetivo de criar uma nova linha de receita para a companhia. O projeto abrange toda a jornada do usuário, desde a criação da campanha, com interface intuitiva e moderna, até a análise de resultados com gráficos simples e intuitivos. Foi desenvolvido seguindo os princípios de UX/UI Design e testado com usuários reais para garantir a melhor experiência possível.",
     tags: ["UX Research", "Usability Testing", "User Interviews", "Prototyping", "Data Visualization", "Illustration"],
     images: [
-      "img/works/01.png",
-      "img/works/magalu-02.png",
-      "img/works/magalu-03.png",
-      "img/works/magalu-04.png",
-      "img/works/magalu-05.png",
-      "img/works/magalu-06.png",
-      "img/works/magalu-07.png",
-      "img/works/magalu-08.png"
-
+      "img/works/01.png"
     ]
   },
   "project-2": {
@@ -23,10 +15,7 @@ const projectsData = {
     description: "Design de aplicativo mobile para competição com o Cartola FC. O projeto foi desenvolvido com o objetivo de criar uma nova forma de jogar Cartola FC entre amigos, com diversão e responsabilidade.",
     tags: ["UX/UI Design", "Mobile", "Prototyping", "User Testing"],
     images: [
-      "img/works/02.png",
-      "img/works/sojoga-02.png",
-      "img/works/sojoga-03.png",
-      "img/works/sojoga-04.png"
+      "img/works/02.png"
     ]
   },
   "project-3": {
@@ -34,25 +23,15 @@ const projectsData = {
     description: "Design de aplicativo mobile para freelancers. O projeto foi desenvolvido com o objetivo de criar uma nova forma de encontrar freelancers para projetos específicos. O projeot entrega um aplicativo mobile para o freelancer e uma área administrativa para o cliente gerenciar os eventos e os contratos.",
     tags: ["UX/UI Design", "Mobile/Desktop", "Prototyping", "User Testing"],
     images: [
-      "img/works/03.png",
-      "img/works/freeler-02.png",
-      "img/works/freeler-03.png",
-      "img/works/freeler-04.png",
-      "img/works/freeler-05.png",
-      "img/works/freeler-06.png"
+      "img/works/03.png"
     ]
   },
   "project-4": {
     title: "Voi",
     description: "Visual identity creation for Voi, a scented candle brand. This project covered everything from the brand concept development and logo design to the visual identity guidelines.",
-    tags: ["Branding", "Viusual", "Logo Design", "Brand Guidelines"],
+    tags: ["Branding", "Visual", "Logo Design", "Brand Guidelines"],
     images: [
-      "img/works/04.png",
-      "img/works/voi-02.png",
-      "img/works/voi-03.png",
-      "img/works/voi-04.png",
-      "img/works/voi-05.png",
-      "img/works/voi-06.png"
+      "img/works/04.png"
     ]
   },
   "project-5": {
