@@ -188,6 +188,16 @@
   .project-tags {
     padding: 0 20px;
   }
+
+  .project-content {
+    padding: 0 20px;
+    gap: 40px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
 }
 
 @media (max-width: 720px) {
@@ -219,6 +229,11 @@
 
   .gallery-item {
     border-radius: 6px;
+  }
+
+  .feature-card-image {
+    border-radius: 8px;
+    margin-bottom: 15px;
   }
 }
 
