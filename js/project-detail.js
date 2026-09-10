@@ -106,6 +106,30 @@ const projectsData = {
       }
     ]
   },
+  "project-8": {
+    title: "Novo Projeto 1",
+    description: "Case em construção — substitua por uma descrição real deste projeto.",
+    tags: ["Product Design", "UX/UI Design"],
+    images: [
+      "img/works/02.png"
+    ]
+  },
+  "project-9": {
+    title: "Novo Projeto 2",
+    description: "Case em construção — substitua por uma descrição real deste projeto.",
+    tags: ["Product Design", "UX/UI Design"],
+    images: [
+      "img/works/03.png"
+    ]
+  },
+  "project-10": {
+    title: "Novo Projeto 3",
+    description: "Case em construção — substitua por uma descrição real deste projeto.",
+    tags: ["Product Design", "UX/UI Design"],
+    images: [
+      "img/works/04.png"
+    ]
+  },
   "project-5": {
     title: "Brand Identity",
     description: "Identidade visual completa para uma startup de tecnologia. O projeto inclui logo, paleta de cores, tipografia, aplicações em diferentes suportes e guidelines de marca. Foi desenvolvido com foco em memorabilidade e diferenciação no mercado.",
