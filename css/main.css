@@ -3,12 +3,13 @@
 
 :root {
   --primary-bg-color: #f7fbfd;
-  --primary-accent: #0c1618;
+  --primary-accent: #3D3E3F;
   --secondary-accent: #3E8BE6;
 
-  --main-text-color: #0c1618;
-  --supportive-text-color: #242d2f;
+  --main-text-color: #3D3E3F;
+  --supportive-text-color: #616263;
   --gray-text-color: #565a5b;
+  --icon-color: #757677;
 
   --white-color: #fff;
   --gray-color: #e9e8e8;
@@ -615,14 +616,14 @@ h5 {
 }
 
 .project-header {
-  margin-bottom: 24px;
+  margin-bottom: 40px;
   text-align: center;
 }
 
 .project-title {
   font-size: clamp(2.5rem, 2rem + 2.5vw, 4rem);
   font-weight: 600;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   color: var(--primary-accent);
 }
 
@@ -646,8 +647,8 @@ h5 {
 }
 
 .project-description {
-  margin-bottom: 24px;
-  max-width: 800px;
+  margin-bottom: 40px;
+  max-width: 100%;
   text-align: left;
 }
 
@@ -718,7 +719,7 @@ h5 {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 40px;
   text-align: left;
 }
 
@@ -763,7 +764,7 @@ h5 {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
-  color: var(--secondary-accent);
+  color: var(--icon-color);
 }
 
 .feature-card-icon svg {
