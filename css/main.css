@@ -3,10 +3,10 @@
 
 :root {
   --primary-bg-color: #f7fbfd;
-  --primary-accent: #3D3E3F;
+  --primary-accent: #1F1F1F;
   --secondary-accent: #3E8BE6;
 
-  --main-text-color: #3D3E3F;
+  --main-text-color: #1F1F1F;
   --supportive-text-color: #616263;
   --gray-text-color: #565a5b;
   --icon-color: #757677;
@@ -392,7 +392,7 @@ h5 {
   position: relative;
   overflow: hidden;
   display: block;
-  max-width: 560px;
+  max-width: 420px;
 }
 
 .project-box a {
@@ -418,6 +418,9 @@ h5 {
 .project-img {
   transform: scale(1);
   width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
   transition: all 2s cubic-bezier(0.23, 1, 0.32, 1) 0s;
 }
 

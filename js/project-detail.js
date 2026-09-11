@@ -3,11 +3,11 @@
 // Dados dos projetos
 const projectsData = {
   "project-1": {
-    title: "Magalu Ads",
-    description: "Um produto de Ads para a Magalu, com o objetivo de criar uma nova linha de receita para a companhia. O projeto abrange toda a jornada do usuário, desde a criação da campanha, com interface intuitiva e moderna, até a análise de resultados com gráficos simples e intuitivos. Foi desenvolvido seguindo os princípios de UX/UI Design e testado com usuários reais para garantir a melhor experiência possível.",
-    tags: ["UX Research", "Usability Testing", "User Interviews", "Prototyping", "Data Visualization", "Illustration"],
+    title: "Incognia",
+    description: "Case em construção da Incognia, com foco em autenticação, integrações e classificação de risco para experiências digitais mais seguras.",
+    tags: ["Product Design", "UX/UI Design"],
     images: [
-      "img/works/01.png"
+      "img/works/case-incognia-01.png"
     ],
     // Exemplo de bloco de conteúdo (feature-grid + texto full-width).
     // Troque as imagens, ícones e textos pelo conteúdo real do case.
@@ -17,19 +17,19 @@ const projectsData = {
         items: [
           {
             icon: "layout-grid",
-            image: "img/works/01.png",
+            image: "img/works/case-incognia-01.png",
             title: "Título do destaque 1",
             text: "Texto breve explicando esse destaque do case. Substitua por conteúdo real do projeto."
           },
           {
             icon: "target",
-            image: "img/works/02.png",
+            image: "img/works/case-incognia-02.png",
             title: "Título do destaque 2",
             text: "Texto breve explicando esse destaque do case. Substitua por conteúdo real do projeto."
           },
           {
             icon: "sparkles",
-            image: "img/works/03.png",
+            image: "img/works/case-incognia-03.png",
             title: "Título do destaque 3",
             text: "Texto breve explicando esse destaque do case. Substitua por conteúdo real do projeto."
           }
@@ -107,16 +107,16 @@ const projectsData = {
     ]
   },
   "project-8": {
-    title: "Novo Projeto 1",
-    description: "Case em construção — substitua por uma descrição real deste projeto.",
+    title: "Ume",
+    description: "Conteúdo placeholder do case Ume. Substitua esta descrição pelo contexto, objetivo e resultados do projeto.",
     tags: ["Product Design", "UX/UI Design"],
     images: [
       "img/works/02.png"
     ]
   },
   "project-9": {
-    title: "Novo Projeto 2",
-    description: "Case em construção — substitua por uma descrição real deste projeto.",
+    title: "Loft",
+    description: "Conteúdo placeholder do case Loft. Substitua esta descrição pelo contexto, objetivo e resultados do projeto.",
     tags: ["Product Design", "UX/UI Design"],
     images: [
       "img/works/03.png"
