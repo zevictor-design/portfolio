@@ -62,12 +62,12 @@ const projectsData = {
     ]
   },
   "project-3": {
-    title: "Freeler",
+    title: "Voi",
     descriptionTitle: "Sobre o projeto",
-    description: "Design de aplicativo mobile para freelancers. O projeto foi desenvolvido com o objetivo de criar uma nova forma de encontrar freelancers para projetos específicos. O projeot entrega um aplicativo mobile para o freelancer e uma área administrativa para o cliente gerenciar os eventos e os contratos.",
-    tags: ["UX/UI Design", "Mobile/Desktop", "Prototyping", "User Testing"],
+    description: "Visual identity creation for Voi, a scented candle brand. This project covered everything from the brand concept development and logo design to the visual identity guidelines.",
+    tags: ["Branding", "Visual", "Logo Design", "Brand Guidelines"],
     images: [
-      "img/works/03.png"
+      "img/works/04.png"
     ]
   },
   "project-4": {

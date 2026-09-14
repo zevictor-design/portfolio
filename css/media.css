@@ -41,6 +41,23 @@
     font-size: 36px;
   }
 
+  .logo {
+    font-size: 1.05rem;
+  }
+
+  .brand-wrap {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .brand-role {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    margin-left: 0;
+    margin-top: 0;
+  }
+
   .hero-row {
     flex-direction: column;
     row-gap: 40px;
@@ -54,6 +71,11 @@
   .hero-heading {
     margin-left: auto;
     margin-right: auto;
+    font-size: clamp(2.35rem, 8vw, 3.1rem);
+  }
+
+  .hero-heading-subtitle {
+    font-size: 0.95rem;
   }
 
   .hero-img {
@@ -93,7 +115,7 @@
     flex-direction: column;
     text-align: center;
     row-gap: 24px;
-    font-size: 48px;
+    font-size: 36px;
     font-weight: 500;
   }
 
