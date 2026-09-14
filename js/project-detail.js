@@ -4,46 +4,57 @@
 const projectsData = {
   "project-1": {
     title: "Incognia",
-    description: "Case em construção da Incognia, com foco em autenticação, integrações e classificação de risco para experiências digitais mais seguras.",
-    tags: ["Product Design", "UX/UI Design"],
+    descriptionTitle: "Transformando complexidade em decisões mais claras",
+    description: "Como conduzi a evolução de experiências centrais e ajudei a consolidar um sistema de interface mais claro, consistente e escalável em uma plataforma B2B de prevenção a fraudes.",
+    tags: ["ANTI-FRAUD PLATFORM", "B2B", "ANALYTICS", "DESIGN SYSTEMS", "PRODUCT DESIGN"],
     images: [
       "img/works/case-incognia-01.png"
     ],
-    // Exemplo de bloco de conteúdo (feature-grid + texto full-width).
+    // Exemplo de bloco de conteúdo (feature-grid + texto full-width com imagem opcional).
     // Troque as imagens, ícones e textos pelo conteúdo real do case.
     content: [
       {
         type: "feature-grid",
         items: [
           {
-            icon: "layout-grid",
+            icon: "component",
             image: "img/works/case-incognia-01.png",
-            title: "Título do destaque 1",
-            text: "Texto breve explicando esse destaque do case. Substitua por conteúdo real do projeto."
+            title: "Consistência centrada no usuário",
+            text: "Um novo design system e novos padrões que tornaram a experiência mais escalável e consistente."
           },
           {
-            icon: "target",
+            icon: "square-code",
             image: "img/works/case-incognia-02.png",
-            title: "Título do destaque 2",
-            text: "Texto breve explicando esse destaque do case. Substitua por conteúdo real do projeto."
+            title: "Métricas do SDK no produto",
+            text: "Dados do SDK exibidos no produto nas fases mais críticas de integração."
           },
           {
             icon: "sparkles",
             image: "img/works/case-incognia-03.png",
-            title: "Título do destaque 3",
-            text: "Texto breve explicando esse destaque do case. Substitua por conteúdo real do projeto."
+            title: "Mais clareza na investigação",
+            text: "Informações críticas ficaram mais fáceis de encontrar, entender e explicar."
           }
         ]
       },
       {
         type: "text",
         heading: "Título do bloco de texto",
-        text: "Bloco de texto ocupando 100% da largura. Use para aprofundar em algum ponto do processo, contexto ou resultado do projeto depois de um bloco de destaques."
+        text: "Bloco de texto ocupando 100% da largura. Use para aprofundar em algum ponto do processo, contexto ou resultado do projeto depois de um bloco de destaques.",
+        image: "img/works/case-incognia-02.png",
+        imageAlt: "Detalhe do projeto Incognia"
+      },
+      {
+        type: "text",
+        heading: "Título do bloco de texto",
+        text: "Bloco de texto ocupando 100% da largura. Use para aprofundar em algum ponto do processo, contexto ou resultado do projeto depois de um bloco de destaques.",
+        image: "img/works/case-incognia-03.png",
+        imageAlt: "Outra visão do projeto Incognia"
       }
     ]
   },
   "project-2": {
     title: "Só Joga",
+    descriptionTitle: "Sobre o projeto",
     description: "Design de aplicativo mobile para competição com o Cartola FC. O projeto foi desenvolvido com o objetivo de criar uma nova forma de jogar Cartola FC entre amigos, com diversão e responsabilidade.",
     tags: ["UX/UI Design", "Mobile", "Prototyping", "User Testing"],
     images: [
@@ -52,6 +63,7 @@ const projectsData = {
   },
   "project-3": {
     title: "Freeler",
+    descriptionTitle: "Sobre o projeto",
     description: "Design de aplicativo mobile para freelancers. O projeto foi desenvolvido com o objetivo de criar uma nova forma de encontrar freelancers para projetos específicos. O projeot entrega um aplicativo mobile para o freelancer e uma área administrativa para o cliente gerenciar os eventos e os contratos.",
     tags: ["UX/UI Design", "Mobile/Desktop", "Prototyping", "User Testing"],
     images: [
@@ -60,6 +72,7 @@ const projectsData = {
   },
   "project-4": {
     title: "Voi",
+    descriptionTitle: "Sobre o projeto",
     description: "Visual identity creation for Voi, a scented candle brand. This project covered everything from the brand concept development and logo design to the visual identity guidelines.",
     tags: ["Branding", "Visual", "Logo Design", "Brand Guidelines"],
     images: [
@@ -68,6 +81,7 @@ const projectsData = {
   },
   "project-7": {
     title: "Incognia",
+    descriptionTitle: "Sobre o projeto",
     description: "Case em construção — substitua por uma descrição real do projeto Incognia (contexto, objetivo e seu papel no time).",
     tags: ["Product Design", "UX/UI Design"],
     images: [
@@ -108,6 +122,7 @@ const projectsData = {
   },
   "project-8": {
     title: "Ume",
+    descriptionTitle: "Sobre o projeto",
     description: "Conteúdo placeholder do case Ume. Substitua esta descrição pelo contexto, objetivo e resultados do projeto.",
     tags: ["Product Design", "UX/UI Design"],
     images: [
@@ -116,6 +131,7 @@ const projectsData = {
   },
   "project-9": {
     title: "Loft",
+    descriptionTitle: "Sobre o projeto",
     description: "Conteúdo placeholder do case Loft. Substitua esta descrição pelo contexto, objetivo e resultados do projeto.",
     tags: ["Product Design", "UX/UI Design"],
     images: [
@@ -124,6 +140,7 @@ const projectsData = {
   },
   "project-10": {
     title: "Novo Projeto 3",
+    descriptionTitle: "Sobre o projeto",
     description: "Case em construção — substitua por uma descrição real deste projeto.",
     tags: ["Product Design", "UX/UI Design"],
     images: [
@@ -132,6 +149,7 @@ const projectsData = {
   },
   "project-5": {
     title: "Brand Identity",
+    descriptionTitle: "Sobre o projeto",
     description: "Identidade visual completa para uma startup de tecnologia. O projeto inclui logo, paleta de cores, tipografia, aplicações em diferentes suportes e guidelines de marca. Foi desenvolvido com foco em memorabilidade e diferenciação no mercado.",
     tags: ["Branding", "Logo Design", "Typography", "Color Theory", "Print Design"],
     images: [
@@ -143,6 +161,7 @@ const projectsData = {
   },
   "project-6": {
     title: "Social Media Campaign",
+    descriptionTitle: "Sobre o projeto",
     description: "Campanha completa de redes sociais para lançamento de produto. O projeto inclui estratégia de conteúdo, design de posts, planejamento editorial e métricas de engajamento. A campanha resultou em aumento significativo de seguidores e conversões.",
     tags: ["Social Media", "Content Strategy", "Graphic Design", "Analytics", "Marketing"],
     images: [
@@ -152,18 +171,6 @@ const projectsData = {
       "img/works/04.jpg"
     ]
   }
-};
-
-// Ícones da biblioteca Lucide (https://lucide.dev), inline, 24x24, stroke currentColor
-const ICONS = {
-  "layout-grid": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>',
-  target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
-  sparkles: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg>',
-  layers: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>',
-  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
-  folder: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>',
-  "shield-check": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>',
-  gauge: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>'
 };
 
 // Função para renderizar os blocos de conteúdo do case (feature-grid / texto full-width)
@@ -185,14 +192,14 @@ function renderProjectContent(project) {
         card.setAttribute('data-aos-duration', '1000');
         card.setAttribute('data-aos-delay', (i * 150).toString());
 
-        const iconSvg = ICONS[item.icon] || ICONS.layout;
+        const iconName = item.icon || 'circle-help';
 
         card.innerHTML = `
           <div class="feature-card-image">
             <img src="${item.image}" alt="${item.title}" loading="lazy" />
           </div>
           <div class="feature-card-heading">
-            <span class="feature-card-icon">${iconSvg}</span>
+            <span class="feature-card-icon"><i data-lucide="${iconName}"></i></span>
             <span class="feature-card-title">${item.title}</span>
           </div>
           <p class="feature-card-text">${item.text}</p>
@@ -202,6 +209,7 @@ function renderProjectContent(project) {
       });
 
       container.appendChild(grid);
+      window.lucide.createIcons();
     } else if (block.type === 'text') {
       const wrap = document.createElement('div');
       wrap.className = 'content-text-block';
@@ -218,6 +226,19 @@ function renderProjectContent(project) {
       const p = document.createElement('p');
       p.textContent = block.text;
       wrap.appendChild(p);
+
+      if (block.image) {
+        const imgWrap = document.createElement('div');
+        imgWrap.className = 'content-text-image';
+
+        const img = document.createElement('img');
+        img.src = block.image;
+        img.alt = block.imageAlt || block.heading || 'Imagem do projeto';
+        img.loading = 'lazy';
+
+        imgWrap.appendChild(img);
+        wrap.appendChild(imgWrap);
+      }
 
       container.appendChild(wrap);
     }
@@ -247,6 +268,9 @@ function loadProjectData() {
   
   // Atualizar título do projeto
   document.getElementById('project-title').textContent = project.title;
+
+  // Atualizar título da descrição
+  document.getElementById('project-description-title').textContent = project.descriptionTitle;
   
   // Atualizar descrição
   document.getElementById('project-description').textContent = project.description;
@@ -261,25 +285,6 @@ function loadProjectData() {
     tagsContainer.appendChild(tagElement);
   });
   
-  // Criar galeria
-  const galleryContainer = document.getElementById('project-gallery');
-  galleryContainer.innerHTML = '';
-  project.images.forEach((image, index) => {
-    const imageElement = document.createElement('div');
-    imageElement.className = 'gallery-item';
-    imageElement.setAttribute('data-aos', 'fade-up');
-    imageElement.setAttribute('data-aos-duration', '1000');
-    imageElement.setAttribute('data-aos-delay', (index * 100).toString());
-    
-    const img = document.createElement('img');
-    img.src = image;
-    img.alt = `${project.title} - Imagem ${index + 1}`;
-    img.loading = 'lazy';
-    
-    imageElement.appendChild(img);
-    galleryContainer.appendChild(imageElement);
-  });
-
   // Renderizar blocos de conteúdo adicionais (feature-grid / texto full-width)
   renderProjectContent(project);
 }
