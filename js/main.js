@@ -12,15 +12,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const nav = document.querySelector("#nav");
   const navBtn = document.querySelector("#nav-btn");
   const navBtnImg = document.querySelector("#nav-btn-img");
+  const navAnimationDuration = 300;
+
+  const closeNav = () => {
+    if (!nav.classList.contains("open")) return;
+
+    nav.classList.remove("open");
+    nav.classList.add("closing");
+    navBtnImg.src = "img/icons/open.svg";
+
+    window.setTimeout(() => {
+      nav.classList.remove("closing");
+    }, navAnimationDuration);
+  };
 
   //Hamburger menu
   navBtn.onclick = () => {
-    if (nav.classList.toggle("open")) {
-      navBtnImg.src = "img/icons/close.svg";
+    if (nav.classList.contains("open")) {
+      closeNav();
     } else {
-      navBtnImg.src = "img/icons/open.svg";
+      nav.classList.remove("closing");
+      nav.classList.add("open");
+      navBtnImg.src = "img/icons/close.svg";
     }
   };
+
+  document.addEventListener("click", (event) => {
+    if (
+      nav.classList.contains("open") &&
+      !nav.contains(event.target) &&
+      !navBtn.contains(event.target)
+    ) {
+      closeNav();
+    }
+  });
 
   window.addEventListener("scroll", function () {
     const header = document.querySelector("#header");

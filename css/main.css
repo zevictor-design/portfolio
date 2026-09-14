@@ -59,6 +59,7 @@ a{
 .btn {
   display: inline-block;
   height: 52px;
+  min-width: 224px;
   font-weight: 400;
   font-size: 12px;
   text-transform: uppercase;
