@@ -252,11 +252,13 @@ h5 {
 }
 
 .hero-greeting {
-  font-size: clamp(1rem, 0.929rem + 0.36vw, 1.25rem);
-  font-weight: 300;
+  display: inline-block;
+  font-size: clamp(0.95rem, 0.72rem + 0.38vw, 1.2rem);
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 0.22em;
   color: var(--secondary-accent);
+  line-height: 1.2;
 }
 
 .hero-heading {

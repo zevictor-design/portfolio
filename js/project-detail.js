@@ -35,11 +35,12 @@ const projectsData = {
             text: "Informações críticas ficaram mais fáceis de encontrar, entender e explicar."
           }
         ]
-      },
+      }
       {
         type: "text",
-        heading: "Título do bloco de texto",
-        text: "Bloco de texto ocupando 100% da largura. Use para aprofundar em algum ponto do processo, contexto ou resultado do projeto depois de um bloco de destaques.",
+        heading: "Contexto",
+        text: "A Incognia utiliza device intelligence para ajudar bancos, fintechs, empresas de delivery e outras grandes plataformas a detectar comportamentos suspeitos e evitar transações fraudulentas. Seu produto de analytics conecta os clientes à API de riscos da empresa, onde analistas acompanham avaliações, investigam as informações que determinaram cada classificação e monitoram o desempenho da solução.",
+        text: "O produto precisava transformar uma grande quantidade de dados técnicos e sensíveis em informações que pudessem ser compreendidas e utilizadas em uma investigação.",
         image: "img/works/case-incognia-02.png",
         imageAlt: "Detalhe do projeto Incognia"
       },
