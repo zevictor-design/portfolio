@@ -3,9 +3,8 @@
 // Dados dos projetos
 const projectsData = {
   "project-1": {
-    title: "Incognia",
-    descriptionTitle: "Transformando complexidade em decisões mais claras",
-    description: "Como conduzi a evolução de experiências centrais e ajudei a consolidar um sistema de interface mais claro, consistente e escalável em uma plataforma B2B de prevenção a fraudes.",
+    title: "Transformando complexidade em decisões mais claras",
+    description: "Como conduzi a evolução de experiências centrais e ajudei a consolidar um sistema de interface mais claro, consistente e escalável na plataforma B2B de prevenção a fraudes da Incognia.",
     tags: ["ANTI-FRAUD PLATFORM", "B2B", "ANALYTICS", "DESIGN SYSTEMS", "PRODUCT DESIGN"],
     images: [
       "img/works/case-incognia-01.png"
@@ -35,21 +34,41 @@ const projectsData = {
             text: "Informações críticas ficaram mais fáceis de encontrar, entender e explicar."
           }
         ]
-      }
-      {
-        type: "text",
-        heading: "Contexto",
-        text: "A Incognia utiliza device intelligence para ajudar bancos, fintechs, empresas de delivery e outras grandes plataformas a detectar comportamentos suspeitos e evitar transações fraudulentas. Seu produto de analytics conecta os clientes à API de riscos da empresa, onde analistas acompanham avaliações, investigam as informações que determinaram cada classificação e monitoram o desempenho da solução.",
-        text: "O produto precisava transformar uma grande quantidade de dados técnicos e sensíveis em informações que pudessem ser compreendidas e utilizadas em uma investigação.",
-        image: "img/works/case-incognia-02.png",
-        imageAlt: "Detalhe do projeto Incognia"
       },
       {
         type: "text",
-        heading: "Título do bloco de texto",
-        text: "Bloco de texto ocupando 100% da largura. Use para aprofundar em algum ponto do processo, contexto ou resultado do projeto depois de um bloco de destaques.",
-        image: "img/works/case-incognia-03.png",
-        imageAlt: "Outra visão do projeto Incognia"
+        heading: "Contexto",
+        text: [
+          "A Incognia utiliza device intelligence para ajudar grandes empresas a detectar comportamentos suspeitos e evitar transações fraudulentas nas suas aplicações. Seu produto de analytics conecta os clientes à API de riscos da empresa através de um SDK, então os analistas podem acompanhar avaliações, investigar as informações que determinaram cada classificação e monitorar o desempenho da sua aplicação.",
+          "O produto cresceu ao longo dos anos e precisava transformar uma grande quantidade de dados técnicos e sensíveis em informações que pudessem ser compreendidas e utilizadas mais facilmente em uma investigação."
+        ]
+      },
+      {
+        type: "feature-plus-text",
+        heading: "Desafio",
+        items: [
+          {
+            icon: "search",
+            title: "Informações dispersas",
+            text: "Dados importantes em avaliações de risco eram difíceis de localizar e interpretar."
+          },
+          {
+            icon: "wrench",
+            title: "Fragmentação técnica",
+            text: "Dados coletados pelo SDK estavam espalhados em ferramentas externas."
+          },
+          {
+            icon: "triangle-alert",
+            title: "Inconsistência visual",
+            text: "Componentes semelhantes possuíam padrões diferentes, aumentando fricção."
+          }
+        ]
+      },
+      {
+        type: "text",
+        text: [
+          "Não era possível apenas esconder a complexidade. Os analistas precisavam de profundidade e transparência para compreender por que uma avaliação havia recebido determinado nível de risco. O desafio era tornar o produto mais fácil de entender sem comprometer a riqueza das informações, a explicabilidade ou a performance necessária para operar em grande escala."
+        ]
       }
     ]
   },
@@ -211,6 +230,59 @@ function renderProjectContent(project) {
 
       container.appendChild(grid);
       window.lucide.createIcons();
+    } else if (block.type === 'feature-plus-text') {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'feature-plus-text';
+      wrapper.setAttribute('data-aos', 'fade-up');
+      wrapper.setAttribute('data-aos-duration', '1000');
+
+      const copy = document.createElement('div');
+      copy.className = 'feature-plus-text-copy';
+
+      if (block.heading) {
+        const h = document.createElement('h2');
+        h.className = 'content-heading';
+        h.textContent = block.heading;
+        copy.appendChild(h);
+      }
+
+      const paragraphs = Array.isArray(block.text) ? block.text : [block.text];
+      paragraphs.forEach((paragraphText) => {
+        if (!paragraphText) return;
+        const p = document.createElement('p');
+        p.textContent = paragraphText;
+        copy.appendChild(p);
+      });
+
+      const grid = document.createElement('div');
+      grid.className = 'feature-grid feature-grid--icon-cards';
+
+      block.items.forEach((item, i) => {
+        const card = document.createElement('div');
+        card.className = 'feature-card feature-card--icon-only';
+        card.setAttribute('data-aos', 'fade-up');
+        card.setAttribute('data-aos-duration', '1000');
+        card.setAttribute('data-aos-delay', (i * 150).toString());
+
+        const iconName = item.icon || 'circle-help';
+
+        card.innerHTML = `
+          <div class="feature-card-visual">
+            <span class="feature-card-icon feature-card-icon--big"><i data-lucide="${iconName}"></i></span>
+          </div>
+          <div class="feature-card-heading">
+            <span class="feature-card-title">${item.title}</span>
+          </div>
+          <p class="feature-card-text">${item.text}</p>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      wrapper.appendChild(copy);
+      wrapper.appendChild(grid);
+      container.appendChild(wrapper);
+      window.lucide.createIcons();
     } else if (block.type === 'text') {
       const wrap = document.createElement('div');
       wrap.className = 'content-text-block';
@@ -224,9 +296,13 @@ function renderProjectContent(project) {
         wrap.appendChild(h);
       }
 
-      const p = document.createElement('p');
-      p.textContent = block.text;
-      wrap.appendChild(p);
+      const paragraphs = Array.isArray(block.text) ? block.text : [block.text];
+      paragraphs.forEach((paragraphText) => {
+        if (!paragraphText) return;
+        const p = document.createElement('p');
+        p.textContent = paragraphText;
+        wrap.appendChild(p);
+      });
 
       if (block.image) {
         const imgWrap = document.createElement('div');
