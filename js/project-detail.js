@@ -346,9 +346,6 @@ function loadProjectData() {
   // Atualizar título do projeto
   document.getElementById('project-title').textContent = project.title;
 
-  // Atualizar título da descrição
-  document.getElementById('project-description-title').textContent = project.descriptionTitle;
-  
   // Atualizar descrição
   document.getElementById('project-description').textContent = project.description;
   
