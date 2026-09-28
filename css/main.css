@@ -365,6 +365,28 @@ h5 {
   margin-bottom: 30px;
 }
 
+.skill-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.skill-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: var(--secondary-accent);
+}
+
+.skill-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+}
+
 .skill-title,
 .skill-percent {
   display: inline-block;
@@ -406,6 +428,22 @@ h5 {
 
 .service-card {
   max-width: 300px;
+}
+
+.service-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 20px;
+  color: var(--secondary-accent);
+}
+
+.service-card-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke-width: 2;
 }
 
 .service-card-img {

@@ -6,6 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
   AOS.init({
     once: true,
   });
+
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+
   form();
   skillbar();
 
