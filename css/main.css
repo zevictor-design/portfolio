@@ -33,7 +33,6 @@ body {
   color: var(--main-text-color);
   font-family: "Google Sans Flex", sans-serif;
   letter-spacing: -0.15px;
-  padding: 8px;
 }
 
 a{
@@ -57,6 +56,16 @@ a{
   font-weight: 600;
   text-align: center;
   margin-bottom: 54px;
+}
+
+.project-note {
+  margin: -30px auto 54px;
+  max-width: 760px;
+  font-size: clamp(0.88rem, 0.836rem + 0.088vw, 0.99rem);
+  line-height: 1.7;
+  font-weight: 400;
+  color: var(--gray600);
+  text-align: center;
 }
 
 .btn {
@@ -212,7 +221,7 @@ h5 {
 }
 
 .nav-link {
-  color: #616263;
+  color: var(--gray700);
 }
 
 .nav-link:hover,
@@ -235,6 +244,7 @@ h5 {
   padding-top: 140px;
   background-color: var(--primary-bg-color);
   border-radius: 16px;
+  margin: 8px
 }
 
 .hero-row {
@@ -725,6 +735,10 @@ h5 {
   margin-bottom: 16px;
   color: var(--primary-accent);
   text-align: left;
+}
+
+.content-heading-secondary {
+  font-size: calc(1.5rem * 0.8);
 }
 
 .project-description p {

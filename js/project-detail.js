@@ -69,6 +69,104 @@ const projectsData = {
         text: [
           "Não era possível apenas esconder a complexidade. Os analistas precisavam de profundidade e transparência para compreender por que uma avaliação havia recebido determinado nível de risco. O desafio era tornar o produto mais fácil de entender sem comprometer a riqueza das informações, a explicabilidade ou a performance necessária para operar em grande escala."
         ]
+      },
+      {
+        type: "text",
+        heading: "Solução",
+        heading2: "Avaliações mais fáceis de investigar",
+        text: [
+          "Liderei a iniciativa de redesign na principal página de avaliação de risco, com uma nova arquitetura da informação e dados mais fáceis de localizar e interpretar. Desenvolvemos novas formas de explicar os riscos: evidências mais específicas complementavam justificativas genéricas, enquanto um resumo gerado com IA traduzia avaliações complexas para uma linguagem clara e compreensível.",
+        ]
+      },
+      {
+        type: "text",
+        heading2: "Métricas do SDK no produto",
+        text: [
+          "Liderei a criação de uma nova área de analytics, desde o discovery até o lançamento. Antes, clientes dependiam de painéis externos para acessar dados do SDK, criando um gap crítico nas fases iniciais de integração.",
+          "Colaborei com Customer Success, Engenharia e Dados para definir quais métricas seriam úteis, compreender sua natureza técnica e encontrar as visualizações mais adequadas.",
+          "Após benchmarks, protótipos e testes de usabilidade, optamos por criar uma área dedicada e lançá-la progressivamente, transformando uma lacuna em um recurso estratégico para provas de valor."
+        ]
+      },
+      {
+        type: "text",
+        heading2: "Consistência em toda a plataforma",
+        text: [
+          "Ao perceber que certos problemas se repetiam, iniciei uma revisão mais ampla da interface e da biblioteca de componentes com apoio de outra designer e em parceria próxima com o time de front-end.",
+          "Revisei componentes, estabeleci novos padrões e planejei a aplicação das mudanças em diferentes releases, conectando melhoria visual a uma necessidade estrutural: tornar novas experiências consistentes e escaláveis."
+        ]
+      },
+       {
+        type: "text",
+        heading: "Processo",
+        heading2: "Pesquisa e Entendimento",
+        text: [
+          "Entrevistas com analistas, observação de workflows e análise de dados de uso para compreender os pontos de fricção reais e as necessidades de profundidade técnica."
+        ]
+      },
+      {
+        type: "text",
+        heading2: "Arquitetura e Prototipagem",
+        text: [
+          "Redesenho de fluxos, arquitetura da informação e criação de protótipos interativos para testar diferentes abordagens de apresentação de dados complexos."
+        ]
+      },
+      {
+        type: "text",
+        heading2: "Testes e Iteração",
+        text: [
+          "Testes de usabilidade com analistas reais, validação de padrões e ajustes baseados em feedback. IA foi integrada como camada de crítica e apoio investigativo."
+        ]
+      },
+      {
+        type: "text",
+        heading2: "Implementação e Design System",
+        text: [
+          "Trabalho próximo com Engenharia para garantir escalabilidade, performance e aplicação consistente dos padrões em toda a plataforma."
+        ]
+      },
+      {
+        type: "text",
+        heading2: "Rigor técnico apoiado por IA",
+        text: [
+          "Em cada fase, utilizei IA como camada de análise e crítica: Discovery (compreensão acelerada de problemas técnicos complexos), Design (avaliação de alternativas de solução e revisão de fluxos; Validação (estruturação de análises baseadas nas 10 heurísticas de Nielsen)"
+        ]
+      },
+      {
+        type: "feature-plus-text",
+        heading: "Resultados",
+        items: [
+          {
+            icon: "arrow-up",
+            title: "Percepção do produto",
+            text: "Clientes e equipes internas passaram a perceber o produto como mais claro, fácil de ler e consistente."
+          },
+          {
+            icon: "arrow-up",
+            title: "Qualidade das investigações",
+            text: "Informações que antes geravam dúvidas se tornaram mais fáceis de encontrar e avaliações complexas passaram a contar com explicações mais diretas."
+          },
+          {
+            icon: "arrow-up",
+            title: "Suporte a vendas",
+            text: "A nova área de métricas tornou-se um recurso importante para a equipe responsável pelas provas de valor, apoiando conversas com potenciais clientes."
+          },
+          {
+            icon: "arrow-up",
+            title: "Escalabilidade técnica",
+            text: "A evolução da biblioteca de componentes reduziu variações, ampliou a reutilização e criou uma base sólida para novas funcionalidades."
+          },
+          {
+            icon: "arrow-up",
+            title: "Alinhamento Design-Engenharia",
+            text: "O trabalho aproximou Design e Engenharia, permitindo que decisões de experiência considerassem desde o início os requisitos de escala e performance."
+          },
+          {
+            icon: "arrow-up",
+            title: "Transformação estrutural",
+            text: "Mais do que simplificar interfaces, o projeto mostrou como estruturar a complexidade para transformá-la em entendimento."
+          }
+        
+        ]
       }
     ]
   },
@@ -208,9 +306,6 @@ function renderProjectContent(project) {
       block.items.forEach((item, i) => {
         const card = document.createElement('div');
         card.className = 'feature-card';
-        card.setAttribute('data-aos', 'fade-up');
-        card.setAttribute('data-aos-duration', '1000');
-        card.setAttribute('data-aos-delay', (i * 150).toString());
 
         const iconName = item.icon || 'circle-help';
 
@@ -233,8 +328,6 @@ function renderProjectContent(project) {
     } else if (block.type === 'feature-plus-text') {
       const wrapper = document.createElement('div');
       wrapper.className = 'feature-plus-text';
-      wrapper.setAttribute('data-aos', 'fade-up');
-      wrapper.setAttribute('data-aos-duration', '1000');
 
       const copy = document.createElement('div');
       copy.className = 'feature-plus-text-copy';
@@ -260,9 +353,6 @@ function renderProjectContent(project) {
       block.items.forEach((item, i) => {
         const card = document.createElement('div');
         card.className = 'feature-card feature-card--icon-only';
-        card.setAttribute('data-aos', 'fade-up');
-        card.setAttribute('data-aos-duration', '1000');
-        card.setAttribute('data-aos-delay', (i * 150).toString());
 
         const iconName = item.icon || 'circle-help';
 
@@ -286,13 +376,18 @@ function renderProjectContent(project) {
     } else if (block.type === 'text') {
       const wrap = document.createElement('div');
       wrap.className = 'content-text-block';
-      wrap.setAttribute('data-aos', 'fade-up');
-      wrap.setAttribute('data-aos-duration', '1000');
 
       if (block.heading) {
         const h = document.createElement('h2');
         h.className = 'content-heading';
         h.textContent = block.heading;
+        wrap.appendChild(h);
+      }
+
+      if (block.heading2) {
+        const h = document.createElement('h2');
+        h.className = 'content-heading content-heading-secondary';
+        h.textContent = block.heading2;
         wrap.appendChild(h);
       }
 
@@ -331,10 +426,14 @@ function getUrlParameter(name) {
 // Função para carregar dados do projeto
 function loadProjectData() {
   const projectId = getUrlParameter('id');
-  
+
   if (!projectId || !projectsData[projectId]) {
-    // Projeto não encontrado, redirecionar para home
-    window.location.href = 'index.html#works';
+    window.location.href = 'project-detail.html?id=project-1';
+    return;
+  }
+
+  if (projectId !== 'project-1') {
+    window.location.href = 'project-detail.html?id=project-1';
     return;
   }
 
@@ -366,20 +465,13 @@ function loadProjectData() {
   renderProjectContent(project);
 }
 
-// Função para inicializar AOS
-function initAOS() {
-  AOS.init({
-    once: true,
-    duration: 1000,
-    easing: 'ease-in-out'
-  });
-}
-
 // Função para gerenciar menu mobile
 function initMobileMenu() {
   const nav = document.querySelector("#nav");
   const navBtn = document.querySelector("#nav-btn");
   const navBtnImg = document.querySelector("#nav-btn-img");
+
+  if (!nav || !navBtn || !navBtnImg) return;
 
   navBtn.onclick = () => {
     if (nav.classList.toggle("open")) {
@@ -392,8 +484,11 @@ function initMobileMenu() {
 
 // Função para gerenciar header sticky
 function initStickyHeader() {
+  const header = document.querySelector("#header");
+
+  if (!header) return;
+
   window.addEventListener("scroll", function () {
-    const header = document.querySelector("#header");
     const scrollY = window.scrollY;
 
     if (scrollY > 100) {
@@ -407,7 +502,6 @@ function initStickyHeader() {
 // Inicializar quando o DOM estiver carregado
 document.addEventListener("DOMContentLoaded", () => {
   loadProjectData();
-  initAOS();
   initMobileMenu();
   initStickyHeader();
 }); 

@@ -144,7 +144,7 @@
   }
 
   .nav-link {
-    color: #565a5b;
+    color: var(--gray700);
   }
 
   .nav-link.active {
