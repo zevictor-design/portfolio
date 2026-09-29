@@ -170,6 +170,36 @@ const projectsData = {
       }
     ]
   },
+  "project-laut": {
+    title: "Vila Laut",
+    descriptionTitle: "Sobre o projeto",
+    description: "Criação da identidade visual para a Vila Laut.",
+    tags: ["Identidade visual"],
+    images: ["img/works/case-laut-02.png"],
+    content: [
+      {
+        type: "text",
+        heading: "Identidade visual",
+        image: "img/works/case-laut-02.png",
+        imageAlt: "Identidade visual da Vila Laut"
+      }
+    ]
+  },
+  "project-teho": {
+    title: "Teho",
+    descriptionTitle: "Sobre o projeto",
+    description: "Criação da identidade visual para Teho.",
+    tags: ["Identidade visual"],
+    images: ["img/works/case-teho-02.png"],
+    content: [
+      {
+        type: "text",
+        heading: "Identidade visual",
+        image: "img/works/case-teho-02.png",
+        imageAlt: "Identidade visual da Teho"
+      }
+    ]
+  },
   "project-2": {
     title: "Só Joga",
     descriptionTitle: "Sobre o projeto",
@@ -428,11 +458,6 @@ function loadProjectData() {
   const projectId = getUrlParameter('id');
 
   if (!projectId || !projectsData[projectId]) {
-    window.location.href = 'project-detail.html?id=project-1';
-    return;
-  }
-
-  if (projectId !== 'project-1') {
     window.location.href = 'project-detail.html?id=project-1';
     return;
   }
