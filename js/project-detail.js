@@ -180,6 +180,7 @@ const projectsData = {
       {
         type: "text",
         heading: "Identidade visual",
+        fullWidthImage: true,
         image: "img/works/case-laut-02.png",
         imageAlt: "Identidade visual da Vila Laut"
       }
@@ -189,12 +190,13 @@ const projectsData = {
     title: "Teho",
     descriptionTitle: "Sobre o projeto",
     description: "Criação da identidade visual para Teho.",
-    tags: ["Identidade visual"],
+    tags: ["Identidade visual", "Brand Design", "Logo Design", "Typography", "Color Theory", "Print Design"],
     images: ["img/works/case-teho-02.png"],
     content: [
       {
         type: "text",
         heading: "Identidade visual",
+        fullWidthImage: true,
         image: "img/works/case-teho-02.png",
         imageAlt: "Identidade visual da Teho"
       }
@@ -431,7 +433,9 @@ function renderProjectContent(project) {
 
       if (block.image) {
         const imgWrap = document.createElement('div');
-        imgWrap.className = 'content-text-image';
+        imgWrap.className = block.fullWidthImage
+          ? 'content-text-image content-text-image--full-width'
+          : 'content-text-image';
 
         const img = document.createElement('img');
         img.src = block.image;

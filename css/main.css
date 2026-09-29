@@ -997,6 +997,12 @@ h5 {
   background: var(--gray-color);
 }
 
+.content-text-image--full-width {
+  max-width: none;
+  margin-right: 0;
+  margin-left: 0;
+}
+
 .content-text-image img {
   display: block;
   width: 100%;
