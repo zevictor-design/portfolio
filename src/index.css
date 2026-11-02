@@ -168,6 +168,7 @@
   position: relative;
   display: flex;
   min-height: 644px;
+  min-height: max(644px, 100svh);
   overflow: hidden;
   isolation: isolate;
 }
