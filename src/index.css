@@ -84,7 +84,7 @@
   --muted: #bdbebf;
   --muted-2: #9e9fa0;
   --card: #616263;
-  --about-overlay: rgba(22, 23, 24, 0.88);
+  --about-overlay: rgba(22, 23, 24, 0.8);
   --accent: #65c2ff;
   --accent-strong: #3c84fd;
   --line: rgba(255, 255, 255, 0.18);
@@ -110,7 +110,7 @@
   --muted: #616263;
   --muted-2: #757677;
   --card: #e3e4e5;
-  --about-overlay: rgba(250, 251, 252, 0.82);
+  --about-overlay: rgba(245, 246, 247, 0.74);
   --accent: #255eb4;
   --accent-strong: #3d59f7;
   --line: rgba(33, 36, 39, 0.18);
@@ -306,7 +306,7 @@
 
 .nav-links a.active {
   border-color: var(--accent);
-  color: #fff;
+  color: var(--text);
 }
 
 .theme-button,
