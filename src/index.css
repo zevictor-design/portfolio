@@ -311,6 +311,7 @@
 }
 
 .theme-button,
+.lang-button,
 .menu-button {
   display: grid;
   place-items: center;
@@ -324,8 +325,17 @@
 }
 
 .theme-button:hover,
+.lang-button:hover,
 .menu-button:hover {
   background: var(--button-hover);
+}
+
+.lang-button {
+  padding-inline: 10px;
+  font-family: 'Switzer', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .mobile-actions,

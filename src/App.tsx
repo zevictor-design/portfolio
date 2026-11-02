@@ -19,86 +19,57 @@ import {
   X,
 } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
+import { LangProvider, useLang } from "./i18n"
+import type { Lang } from "./i18n"
 
 type Theme = "dark" | "light"
 type SectionId = "inicio" | "cases" | "sobre" | "contato"
+type CategoryKey = "product" | "branding" | "creative"
 
-const navItems: { href: `#${SectionId}`; label: string }[] = [
-  { href: "#inicio", label: "Início" },
-  { href: "#cases", label: "Cases" },
-  { href: "#sobre", label: "Quem sou eu" },
-  { href: "#contato", label: "Entrar em contato" },
+const navItems: { href: `#${SectionId}`; key: SectionId }[] = [
+  { href: "#inicio", key: "inicio" },
+  { href: "#cases", key: "cases" },
+  { href: "#sobre", key: "sobre" },
+  { href: "#contato", key: "contato" },
 ]
 
-const cases = [
+const cases: {
+  company: string
+  categoryKey: CategoryKey
+  logo: string
+}[] = [
   {
     company: "Luiza Labs",
-    title: "Criação do Magalu Ads",
-    category: "Produto",
+    categoryKey: "product",
     logo: "/assets/4c94b.svg",
   },
   {
     company: "Loft",
-    title: "Consolidação do Design System",
-    category: "Produto",
+    categoryKey: "product",
     logo: "/assets/1c25f.svg",
   },
   {
     company: "Incognia",
-    title: "Transformando complexidade em decisões mais claras",
-    category: "Produto",
+    categoryKey: "product",
     logo: "/assets/111a2.svg",
   },
   {
     company: "008 Design",
-    title: "Identidades que criam conexão",
-    category: "Branding",
+    categoryKey: "branding",
     logo: "/assets/afe17.png",
   },
 ]
 
-const skills = [
-  {
-    name: "Research",
-    description: "Discovery e técnicas de pesquisa.",
-    icon: Search,
-  },
-  {
-    name: "User Experience",
-    description: "Jornada e Experiência do usuário.",
-    icon: MousePointerClick,
-  },
-  {
-    name: "User Interface",
-    description: "Do wireframe ao pixel perfect.",
-    icon: LayoutTemplate,
-  },
-  {
-    name: "Product Building com IA",
-    description: "Desenvolvimento com IA assistida.",
-    icon: Sparkles,
-  },
-  {
-    name: "Design Systems",
-    description: "Criação, manutenção e reflexo no front-end.",
-    icon: Palette,
-  },
-  {
-    name: "Validação contínua",
-    description: "Testes de usabilidade e métricas de uso.",
-    icon: CheckSquare,
-  },
-  {
-    name: "Data Visualization",
-    description: "Visualização de dados com escala.",
-    icon: BarChart3,
-  },
-  {
-    name: "Craft",
-    description: "Direção visual, branding e ilustração.",
-    icon: PencilRuler,
-  },
-]
+const skillIcons = [
+  { key: "research", icon: Search },
+  { key: "ux", icon: MousePointerClick },
+  { key: "ui", icon: LayoutTemplate },
+  { key: "aiBuilding", icon: Sparkles },
+  { key: "designSystems", icon: Palette },
+  { key: "validation", icon: CheckSquare },
+  { key: "dataViz", icon: BarChart3 },
+  { key: "craft", icon: PencilRuler },
+] as const
 
 function Logo({
   showAvatar = false,
@@ -107,11 +78,12 @@ function Logo({
   showAvatar?: boolean
   muted?: boolean
 }) {
+  const { t } = useLang()
   return (
     <a
       className={`logo${muted ? " logo-muted" : ""}`}
       href="#inicio"
-      aria-label="Victor Araújo — voltar ao início"
+      aria-label={t.aria.backToHome}
     >
       {showAvatar && (
         <span className="logo-avatar" aria-hidden="true">
@@ -137,9 +109,10 @@ function NavLinks({
   onNavigate?: () => void
   showActive?: boolean
 }) {
+  const { t } = useLang()
   return (
-    <nav className="nav-links" aria-label="Navegação principal">
-      {navItems.map(({ href, label }) => {
+    <nav className="nav-links" aria-label={t.aria.mainNav}>
+      {navItems.map(({ href, key }) => {
         const isActive = showActive && href === `#${activeSection}`
 
         return (
@@ -156,7 +129,7 @@ function NavLinks({
             }}
             key={href}
           >
-            {label}
+            {t.nav[key]}
           </a>
         )
       })}
@@ -171,14 +144,29 @@ function ThemeButton({
   theme: Theme
   onToggle: () => void
 }) {
+  const { t } = useLang()
   return (
     <button
       className="theme-button"
       type="button"
       onClick={onToggle}
-      aria-label={`Ativar tema ${theme === "dark" ? "claro" : "escuro"}`}
+      aria-label={theme === "dark" ? t.aria.activateLightTheme : t.aria.activateDarkTheme}
     >
       {theme === "dark" ? <Moon size={16} /> : <Sun size={16} />}
+    </button>
+  )
+}
+
+function LangButton() {
+  const { lang, t, toggleLang } = useLang()
+  return (
+    <button
+      className="lang-button"
+      type="button"
+      onClick={toggleLang}
+      aria-label={lang === "pt" ? t.aria.switchToEnglish : t.aria.switchToPortuguese}
+    >
+      {lang.toUpperCase()}
     </button>
   )
 }
@@ -195,20 +183,23 @@ function Header({
   onToggleTheme: () => void
 }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { t } = useLang()
 
   return (
     <header className="header shell">
       <Logo showAvatar />
       <div className="desktop-nav">
         <NavLinks activeSection={activeSection} onContact={onContact} />
+        <LangButton />
         <ThemeButton theme={theme} onToggle={onToggleTheme} />
       </div>
       <div className="mobile-actions">
+        <LangButton />
         <ThemeButton theme={theme} onToggle={onToggleTheme} />
         <button
           className="menu-button"
           type="button"
-          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+          aria-label={menuOpen ? t.aria.closeMenu : t.aria.openMenu}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((open) => !open)}
         >
@@ -239,11 +230,16 @@ function Hero({
   onContact: () => void
   onToggleTheme: () => void
 }) {
+  const { t } = useLang()
+
   return (
     <section className="hero" id="inicio">
       <div className="hero-fallback" aria-hidden="true" />
       <video
         key={theme}
+        ref={(el) => {
+          if (el) el.playbackRate = 1 / 1.5
+        }}
         className="hero-background"
         src={theme === "dark" ? "/videos/scene-dark.webm" : "/videos/scene-light.webm"}
         autoPlay
@@ -263,27 +259,25 @@ function Hero({
       <div className="hero-content shell">
         <div className="eyebrow-pill">
           <span />
-          HÁ 12 ANOS ATUANDO COMO DESIGNER DE PRODUTO
+          {t.hero.eyebrow}
         </div>
-        <h1>Design Workflow</h1>
+        <h1>{t.hero.title}</h1>
         <p className="hero-script">
-          com o poder de <em>execução</em> da IA
+          {t.hero.scriptPre}
+          <em>{t.hero.scriptEm}</em>
+          {t.hero.scriptPost}
         </p>
-        <p className="hero-description">
-          Formado em Ciência da Computação, criado no design de produto.
-          <br />
-          Desenhando produtos que simplificam problemas complexos.
-        </p>
+        <p className="hero-description">{t.hero.description}</p>
         <div className="hero-buttons">
           <a className="button button-primary" href="#cases">
-            Ver cases <ArrowDown size={16} />
+            {t.hero.ctaCases} <ArrowDown size={16} />
           </a>
           <button
             className="button button-secondary"
             type="button"
             onClick={onContact}
           >
-            Entrar em contato
+            {t.hero.ctaContact}
           </button>
         </div>
       </div>
@@ -292,7 +286,8 @@ function Hero({
 }
 
 function CasesSection() {
-  const [filter, setFilter] = useState("All")
+  const { t } = useLang()
+  const [filter, setFilter] = useState<"all" | CategoryKey>("all")
   const [carousel, setCarousel] = useState({
     progress: 0,
     canGoBack: false,
@@ -300,9 +295,9 @@ function CasesSection() {
   })
   const trackRef = useRef<HTMLDivElement>(null)
   const drag = useRef({ active: false, startX: 0, scrollLeft: 0 })
-  const categories = ["All", "Produto", "Branding", "Creative"]
+  const categories: ("all" | CategoryKey)[] = ["all", "product", "branding", "creative"]
   const visibleCases =
-    filter === "All" ? cases : cases.filter((item) => item.category === filter)
+    filter === "all" ? cases : cases.filter((item) => item.categoryKey === filter)
 
   useEffect(() => {
     const track = trackRef.current
@@ -349,9 +344,9 @@ function CasesSection() {
   return (
     <section className="cases-section" id="cases">
       <div className="shell">
-        <p className="kicker">UM PEDAÇO DA MINHA HISTÓRIA</p>
-        <h2>Cases que me dão orgulho</h2>
-        <div className="filters" aria-label="Filtrar cases">
+        <p className="kicker">{t.cases.kicker}</p>
+        <h2>{t.cases.title}</h2>
+        <div className="filters" aria-label={t.aria.filterCases}>
           {categories.map((category) => (
             <button
               type="button"
@@ -359,7 +354,7 @@ function CasesSection() {
               onClick={() => setFilter(category)}
               key={category}
             >
-              {category}
+              {t.cases.categories[category]}
             </button>
           ))}
         </div>
@@ -396,7 +391,7 @@ function CasesSection() {
           }}
         >
           {visibleCases.map((item) => (
-            <article className="case-card" key={`${item.company}-${item.title}`}>
+            <article className="case-card" key={item.company}>
               <div className="case-image" aria-hidden="true">
                 <ImageIcon size={32} strokeWidth={1.25} />
               </div>
@@ -405,11 +400,11 @@ function CasesSection() {
                   <img src={item.logo} alt="" />
                   <div>
                     <h3>{item.company}</h3>
-                    <p>{item.title}</p>
+                    <p>{t.cases.titles[item.company]}</p>
                   </div>
                 </div>
-                <span className="case-tag" data-category={item.category}>
-                  {item.category}
+                <span className="case-tag" data-category={item.categoryKey}>
+                  {t.cases.categories[item.categoryKey]}
                 </span>
               </div>
             </article>
@@ -421,12 +416,12 @@ function CasesSection() {
           className="carousel-progress"
           max="100"
           value={Math.round(carousel.progress * 100)}
-          aria-label="Progresso dos cases"
+          aria-label={t.aria.casesProgress}
         />
         <div className="carousel-arrows">
           <button
             type="button"
-            aria-label="Ver cases anteriores"
+            aria-label={t.aria.previousCases}
             disabled={!carousel.canGoBack}
             onClick={() => moveCarousel(-1)}
           >
@@ -434,7 +429,7 @@ function CasesSection() {
           </button>
           <button
             type="button"
-            aria-label="Ver próximos cases"
+            aria-label={t.aria.nextCases}
             disabled={!carousel.canGoForward}
             onClick={() => moveCarousel(1)}
           >
@@ -453,7 +448,7 @@ function SkillItem({
 }: {
   name: string
   description: string
-  icon: (props: { size?: number strokeWidth?: number }) => React.ReactNode
+  icon: (props: { size?: number; strokeWidth?: number }) => React.ReactNode
 }) {
   return (
     <li className="skill-item">
@@ -469,83 +464,58 @@ function SkillItem({
 }
 
 function AboutSection({ onContact }: { onContact: () => void }) {
+  const { t } = useLang()
   return (
     <section className="about-section" id="sobre">
       <div className="about-bg" aria-hidden="true" />
       <div className="about-overlay">
         <div className="shell">
           <div className="section-heading">
-            <p className="kicker">
-              FORMADO EM CIÊNCIA DA COMPUTAÇÃO,
-              <br className="mobile-only-break" /> CRIADO NO DESIGN DE PRODUTO
-            </p>
-            <h2>Quem sou eu</h2>
+            <p className="kicker">{t.about.kicker}</p>
+            <h2>{t.about.title}</h2>
           </div>
           <div className="about-grid">
             <div className="bio-column">
               <div className="bio-copy">
-                <p>
-                  Atuo na interseção entre design, produto, engenharia e negócio,
-                  gosto de transformar problemas complexos em soluções simples e
-                  escaláveis. Como Product Designer ou Builder, encaro o produto
-                  de ponta a ponta: da descoberta do problema à prototipação,
-                  validação e implementação assistida com IA.
-                </p>
-                <p>
-                  Agentes de IA estão presentes em todo meu processo de Design,
-                  ela é um meio para ter mais agilidade.
-                </p>
-                <p>
-                  Ao longo de mais de 12 anos, trabalhei em produtos de AdTech,
-                  prevenção a fraudes, marketplace, proptech e fintech, de
-                  startups em estruturação a empresas com operações em escala.
-                </p>
-                <p>
-                  Hoje, como Product Designer independente, conduzo projetos de
-                  ponta a ponta e utilizo IA para desenvolver as primeiras
-                  versões em front-end, facilitando a evolução junto à
-                  engenharia. Também lidero projetos de branding e identidade
-                  visual pela 008 Design, minha própria operação.
-                </p>
+                {t.about.bio.map((paragraph) => (
+                  <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+                ))}
               </div>
             </div>
             <div className="skills-column">
               <div>
-                <h3>Formação</h3>
+                <h3>{t.about.education}</h3>
                 <div className="education">
                   <span className="education-logo">
                     <img src="/assets/0e969.png" alt="" />
                   </span>
                   <span>
-                    <strong>Centro de Informática</strong>
-                    <small>Universidade Federal de Pernambuco</small>
+                    <strong>{t.about.school}</strong>
+                    <small>{t.about.university}</small>
                   </span>
                 </div>
               </div>
               <div>
-                <h3>Algumas skills</h3>
+                <h3>{t.about.skillsTitle}</h3>
                 <ul className="skills-list">
-                  {skills.map((skill) => (
-                    <SkillItem key={skill.name} {...skill} />
+                  {skillIcons.map(({ key, icon }) => (
+                    <SkillItem key={key} {...t.skills[key]} icon={icon} />
                   ))}
                 </ul>
               </div>
             </div>
             <div className="portrait">
-              <img
-                src="/assets/dff8f.png"
-                alt="Victor Araújo sorrindo, de braços cruzados"
-              />
+              <img src="/assets/dff8f.png" alt={t.about.portraitAlt} />
             </div>
           </div>
           <div className="contact-row" id="contato">
-            <strong>Curtiu? Vamos trocar ideia!</strong>
+            <strong>{t.about.contactRow}</strong>
             <button
               className="button contact-button"
               type="button"
               onClick={onContact}
             >
-              Entrar em contato <ArrowUpRight size={16} />
+              {t.about.ctaContact} <ArrowUpRight size={16} />
             </button>
           </div>
         </div>
@@ -569,6 +539,7 @@ function Footer({
         <Logo showAvatar muted />
         <div className="desktop-nav">
           <NavLinks activeSection={activeSection} showActive={false} />
+          <LangButton />
           <ThemeButton theme={theme} onToggle={onToggleTheme} />
         </div>
       </div>
@@ -577,6 +548,7 @@ function Footer({
 }
 
 function ContactModal({ onClose }: { onClose: () => void }) {
+  const { t } = useLang()
   const nameRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -612,17 +584,14 @@ function ContactModal({ onClose }: { onClose: () => void }) {
         <button
           className="modal-close"
           type="button"
-          aria-label="Fechar formulário"
+          aria-label={t.aria.closeForm}
           onClick={onClose}
         >
           <X size={20} />
         </button>
-        <p className="kicker">VAMOS CONVERSAR</p>
-        <h2 id="contact-title">Conte um pouco sobre o seu projeto</h2>
-        <p className="modal-intro">
-          Preencha os campos abaixo. Sua mensagem será preparada para envio por
-          e-mail.
-        </p>
+        <p className="kicker">{t.contact.kicker}</p>
+        <h2 id="contact-title">{t.contact.title}</h2>
+        <p className="modal-intro">{t.contact.intro}</p>
         <form
           onSubmit={(event) => {
             event.preventDefault()
@@ -630,46 +599,44 @@ function ContactModal({ onClose }: { onClose: () => void }) {
             const name = String(data.get("name"))
             const email = String(data.get("email"))
             const message = String(data.get("message"))
-            const subject = encodeURIComponent(`Contato pelo portfólio — ${name}`)
-            const body = encodeURIComponent(
-              `Nome: ${name}\nE-mail: ${email}\n\n${message}`,
-            )
+            const subject = encodeURIComponent(t.contact.mailSubject(name))
+            const body = encodeURIComponent(t.contact.mailBody(name, email, message))
             window.location.href = `mailto:contato@victoraraujo.design?subject=${subject}&body=${body}`
             onClose()
           }}
         >
           <label>
-            Nome
+            {t.contact.nameLabel}
             <input
               ref={nameRef}
               type="text"
               name="name"
               autoComplete="name"
-              placeholder="Como você se chama?"
+              placeholder={t.contact.namePlaceholder}
               required
             />
           </label>
           <label>
-            E-mail
+            {t.contact.emailLabel}
             <input
               type="email"
               name="email"
               autoComplete="email"
-              placeholder="voce@empresa.com"
+              placeholder={t.contact.emailPlaceholder}
               required
             />
           </label>
           <label>
-            Mensagem
+            {t.contact.messageLabel}
             <textarea
               name="message"
-              placeholder="Conte sobre o projeto, desafio ou oportunidade."
+              placeholder={t.contact.messagePlaceholder}
               rows={5}
               required
             />
           </label>
           <button className="button modal-submit" type="submit">
-            Preparar e-mail <Send size={16} />
+            {t.contact.submit} <Send size={16} />
           </button>
         </form>
       </section>
@@ -678,6 +645,14 @@ function ContactModal({ onClose }: { onClose: () => void }) {
 }
 
 export default function App() {
+  return (
+    <LangProvider>
+      <AppContent />
+    </LangProvider>
+  )
+}
+
+function AppContent() {
   const [activeSection, setActiveSection] = useState<SectionId>("inicio")
   const [contactOpen, setContactOpen] = useState(false)
   const [theme, setTheme] = useState<Theme>(() => {
