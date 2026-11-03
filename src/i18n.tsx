@@ -27,18 +27,12 @@ export const translations = {
       closeForm: "Fechar formulário",
     },
     hero: {
-      eyebrow: "HÁ 12 ANOS ATUANDO COMO DESIGNER DE PRODUTO",
-      title: "Design Workflow",
-      scriptPre: "com o poder de ",
-      scriptEm: "execução",
-      scriptPost: " da IA",
-      description: (
-        <>
-          Formado em Ciência da Computação, criado no design de produto.
-          <br />
-          Desenhando produtos que simplificam problemas complexos.
-        </>
-      ),
+      eyebrow: "HÁ 11 ANOS EM DESIGN DE PRODUTO",
+      title: "Design centrado no usuário",
+      scriptPre: "com o ",
+      scriptEm: "poder",
+      scriptPost: " da IA agêntica.",
+      description: <>Desenhando produtos que simplificam problemas complexos.</>,
       ctaCases: "Ver cases",
       ctaContact: "Entrar em contato",
     },
@@ -47,15 +41,17 @@ export const translations = {
       title: "Cases que me dão orgulho",
       categories: {
         all: "All",
-        product: "Produto",
+        product: "Design de Produto",
         branding: "Branding",
         creative: "Creative",
       },
       titles: {
         "Luiza Labs": "Criação do Magalu Ads",
         Loft: "Consolidação do Design System",
-        Incognia: "Transformando complexidade em decisões mais claras",
-        "008 Design": "Identidades que criam conexão",
+        Incognia: "Da complexidade à decisões mais claras",
+        Ume: "Uma nova experiência, um novo App",
+        "Vila Laut": "Onde a natureza descansa",
+        Teho: "Neurociência e Cuidado Integrado",
       } as Record<string, string>,
     },
     skills: {
@@ -141,18 +137,12 @@ export const translations = {
       closeForm: "Close form",
     },
     hero: {
-      eyebrow: "12 YEARS WORKING AS A PRODUCT DESIGNER",
-      title: "Design Workflow",
-      scriptPre: "with the power of ",
-      scriptEm: "execution",
-      scriptPost: " from AI",
-      description: (
-        <>
-          Computer Science graduate, raised on product design.
-          <br />
-          Designing products that simplify complex problems.
-        </>
-      ),
+      eyebrow: "11 YEARS IN PRODUCT DESIGN",
+      title: "User-centered design",
+      scriptPre: "with the ",
+      scriptEm: "power",
+      scriptPost: " of agentic AI.",
+      description: <>Designing products that simplify complex problems.</>,
       ctaCases: "See cases",
       ctaContact: "Get in touch",
     },
@@ -161,7 +151,7 @@ export const translations = {
       title: "Cases I'm proud of",
       categories: {
         all: "All",
-        product: "Product",
+        product: "Product Design",
         branding: "Branding",
         creative: "Creative",
       },
@@ -169,7 +159,9 @@ export const translations = {
         "Luiza Labs": "Building Magalu Ads",
         Loft: "Design System consolidation",
         Incognia: "Turning complexity into clearer decisions",
-        "008 Design": "Identities that create connection",
+        Ume: "A new experience, a new app",
+        "Vila Laut": "Where nature rests",
+        Teho: "Neuroscience and integrated care",
       } as Record<string, string>,
     },
     skills: {
@@ -245,7 +237,18 @@ const LangContext = createContext<LangContextValue | null>(null)
 export function LangProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>(() => {
     const saved = localStorage.getItem("portfolio-lang")
-    return saved === "en" || saved === "pt" ? saved : "pt"
+    if (saved === "en" || saved === "pt") return saved
+
+    const browserLanguages =
+      typeof navigator !== "undefined"
+        ? navigator.languages?.length
+          ? navigator.languages
+          : [navigator.language]
+        : []
+    const prefersPortuguese = browserLanguages.some((code) =>
+      code?.toLowerCase().startsWith("pt"),
+    )
+    return prefersPortuguese ? "pt" : "en"
   })
 
   useEffect(() => {

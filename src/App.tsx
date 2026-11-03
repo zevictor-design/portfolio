@@ -1,7 +1,5 @@
 import {
   ArrowDown,
-  ArrowLeft,
-  ArrowRight,
   ArrowUpRight,
   BarChart3,
   CheckSquare,
@@ -41,22 +39,32 @@ const cases: {
   {
     company: "Luiza Labs",
     categoryKey: "product",
-    logo: "/assets/4c94b.svg",
+    logo: "/assets/logos/logo-magalu.svg",
   },
   {
     company: "Loft",
     categoryKey: "product",
-    logo: "/assets/1c25f.svg",
+    logo: "/assets/logos/logo-loft.svg",
   },
   {
     company: "Incognia",
     categoryKey: "product",
-    logo: "/assets/111a2.svg",
+    logo: "/assets/logos/logo-incognia.svg",
   },
   {
-    company: "008 Design",
+    company: "Ume",
+    categoryKey: "product",
+    logo: "/assets/logos/logo-ume.svg",
+  },
+  {
+    company: "Vila Laut",
     categoryKey: "branding",
-    logo: "/assets/afe17.png",
+    logo: "/assets/logos/logo-laut.svg",
+  },
+  {
+    company: "Teho",
+    categoryKey: "branding",
+    logo: "/assets/logos/logo-sabia.svg",
   },
 ]
 
@@ -261,16 +269,22 @@ function Hero({
         onToggleTheme={onToggleTheme}
       />
       <div className="hero-content shell">
-        <div className="eyebrow-pill">
-          <span />
-          {t.hero.eyebrow}
-        </div>
+        <img
+          className="hero-diagram"
+          src={theme === "dark" ? "/assets/diagram/diagrama-dark.svg" : "/assets/diagram/diagrama-light.svg"}
+          alt=""
+          aria-hidden="true"
+        />
         <h1>{t.hero.title}</h1>
         <p className="hero-script">
           {t.hero.scriptPre}
           <em>{t.hero.scriptEm}</em>
           {t.hero.scriptPost}
         </p>
+        <div className="eyebrow-pill">
+          <span />
+          {t.hero.eyebrow}
+        </div>
         <p className="hero-description">{t.hero.description}</p>
         <div className="hero-buttons">
           <a className="button button-primary" href="#cases">
@@ -292,58 +306,9 @@ function Hero({
 function CasesSection() {
   const { t } = useLang()
   const [filter, setFilter] = useState<"all" | CategoryKey>("all")
-  const [carousel, setCarousel] = useState({
-    progress: 0,
-    canGoBack: false,
-    canGoForward: false,
-  })
-  const trackRef = useRef<HTMLDivElement>(null)
-  const drag = useRef({ active: false, startX: 0, scrollLeft: 0 })
   const categories: ("all" | CategoryKey)[] = ["all", "product", "branding", "creative"]
   const visibleCases =
     filter === "all" ? cases : cases.filter((item) => item.categoryKey === filter)
-
-  useEffect(() => {
-    const track = trackRef.current
-    if (!track) return
-
-    const updateCarousel = () => {
-      const maxScroll = Math.max(track.scrollWidth - track.clientWidth, 0)
-      setCarousel({
-        progress: maxScroll
-          ? (track.scrollLeft + track.clientWidth) / track.scrollWidth
-          : 1,
-        canGoBack: track.scrollLeft > 2,
-        canGoForward: track.scrollLeft < maxScroll - 2,
-      })
-    }
-
-    track.scrollTo({ left: 0 })
-    updateCarousel()
-    track.addEventListener("scroll", updateCarousel, { passive: true })
-    const resizeObserver = new ResizeObserver(updateCarousel)
-    resizeObserver.observe(track)
-
-    return () => {
-      track.removeEventListener("scroll", updateCarousel)
-      resizeObserver.disconnect()
-    }
-  }, [filter])
-
-  const moveCarousel = (direction: -1 | 1) => {
-    const track = trackRef.current
-    const card = track?.querySelector<HTMLElement>(".case-card")
-    if (!track || !card) return
-    const nextCard = card.nextElementSibling as HTMLElement | null
-    const step = nextCard
-      ? nextCard.offsetLeft - card.offsetLeft
-      : card.offsetWidth
-
-    track.scrollBy({
-      left: direction * step,
-      behavior: "smooth",
-    })
-  }
 
   return (
     <section className="cases-section" id="cases">
@@ -362,38 +327,7 @@ function CasesSection() {
             </button>
           ))}
         </div>
-      </div>
-      <div
-        className={`cases-carousel${carousel.canGoForward ? " has-next" : ""}`}
-      >
-        <div
-          className="cases-track"
-          ref={trackRef}
-          onPointerDown={(event) => {
-            if (event.pointerType === "touch") return
-            const track = trackRef.current
-            if (!track) return
-            drag.current = {
-              active: true,
-              startX: event.clientX,
-              scrollLeft: track.scrollLeft,
-            }
-            track.setPointerCapture(event.pointerId)
-          }}
-          onPointerMove={(event) => {
-            if (event.pointerType === "touch") return
-            const track = trackRef.current
-            if (!track || !drag.current.active) return
-            track.scrollLeft =
-              drag.current.scrollLeft - (event.clientX - drag.current.startX)
-          }}
-          onPointerUp={() => {
-            drag.current.active = false
-          }}
-          onPointerCancel={() => {
-            drag.current.active = false
-          }}
-        >
+        <div className="cases-grid">
           {visibleCases.map((item) => (
             <article className="case-card" key={item.company}>
               <div className="case-image" aria-hidden="true">
@@ -413,32 +347,6 @@ function CasesSection() {
               </div>
             </article>
           ))}
-        </div>
-      </div>
-      <div className="carousel-controls shell">
-        <progress
-          className="carousel-progress"
-          max="100"
-          value={Math.round(carousel.progress * 100)}
-          aria-label={t.aria.casesProgress}
-        />
-        <div className="carousel-arrows">
-          <button
-            type="button"
-            aria-label={t.aria.previousCases}
-            disabled={!carousel.canGoBack}
-            onClick={() => moveCarousel(-1)}
-          >
-            <ArrowLeft size={18} />
-          </button>
-          <button
-            type="button"
-            aria-label={t.aria.nextCases}
-            disabled={!carousel.canGoForward}
-            onClick={() => moveCarousel(1)}
-          >
-            <ArrowRight size={18} />
-          </button>
         </div>
       </div>
     </section>
