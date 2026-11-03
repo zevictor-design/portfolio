@@ -475,41 +475,43 @@ function AboutSection({ onContact }: { onContact: () => void }) {
       <div className="about-overlay">
         <div className="shell">
           <div className="section-heading">
-            <p className="kicker">{t.about.kicker}</p>
+            <p className="kicker about-kicker">{t.about.kicker}</p>
             <h2>{t.about.title}</h2>
           </div>
           <div className="about-grid">
-            <div className="bio-column">
+            <div className="about-left">
               <div className="bio-copy">
                 {t.about.bio.map((paragraph) => (
                   <p key={paragraph.slice(0, 24)}>{paragraph}</p>
                 ))}
               </div>
-            </div>
-            <div className="skills-column">
-              <div>
-                <h3>{t.about.education}</h3>
-                <div className="education">
-                  <span className="education-logo">
-                    <img src="/assets/0e969.png" alt="" />
-                  </span>
-                  <span>
-                    <strong>{t.about.school}</strong>
-                    <small>{t.about.university}</small>
-                  </span>
+              <div className="about-columns">
+                <div className="about-column">
+                  <h3>{t.about.education}</h3>
+                  <div className="education">
+                    <span className="education-logo">
+                      <img src="/assets/0e969.png" alt="" />
+                    </span>
+                    <span>
+                      <strong>{t.about.school}</strong>
+                      <small>{t.about.university}</small>
+                    </span>
+                  </div>
+                </div>
+                <div className="about-column">
+                  <h3>{t.about.skillsTitle}</h3>
+                  <ul className="skills-list">
+                    {skillIcons.map(({ key, icon }) => (
+                      <SkillItem key={key} {...t.skills[key]} icon={icon} />
+                    ))}
+                  </ul>
                 </div>
               </div>
-              <div>
-                <h3>{t.about.skillsTitle}</h3>
-                <ul className="skills-list">
-                  {skillIcons.map(({ key, icon }) => (
-                    <SkillItem key={key} {...t.skills[key]} icon={icon} />
-                  ))}
-                </ul>
-              </div>
             </div>
-            <div className="portrait">
-              <img src="/assets/dff8f.png" alt={t.about.portraitAlt} />
+            <div className="about-portrait">
+              <div className="portrait">
+                <img src="/assets/dff8f.png" alt={t.about.portraitAlt} />
+              </div>
             </div>
           </div>
           <div className="contact-row" id="contato">

@@ -3,16 +3,18 @@
 
 @font-face {
   font-family: 'Bricolage Grotesque:96pt ExtraBold';
-  src: url('https://static.figma.com/font/BricolageGrotesque_opsz_wdth_wght__1') format('woff2');
+  src: url('/fonts/bricolage/BricolageGrotesque_72pt-ExtraBold.ttf') format('truetype');
   font-style: normal;
   font-weight: 800;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Bricolage Grotesque:Bold';
-  src: url('https://static.figma.com/font/BricolageGrotesque_opsz_wdth_wght__1') format('woff2');
+  src: url('/fonts/bricolage/BricolageGrotesque-Bold.ttf') format('truetype');
   font-style: normal;
   font-weight: 700;
+  font-display: swap;
 }
 
 @font-face {
@@ -45,9 +47,25 @@
 
 @font-face {
   font-family: 'Switzer';
+  src: url('/fonts/Switzer-Regular.otf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Switzer';
   src: url('/fonts/Switzer-Medium.otf') format('opentype');
   font-style: normal;
   font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Semibold.otf') format('opentype');
+  font-style: normal;
+  font-weight: 600;
   font-display: swap;
 }
 
@@ -84,7 +102,8 @@
   --muted: #bdbebf;
   --muted-2: #9e9fa0;
   --card: #616263;
-  --about-overlay: rgba(22, 23, 24, 0.8);
+  --about-overlay: rgba(22, 23, 24, 0.88);
+  --about-caption: #d7d8d9;
   --accent: #65c2ff;
   --accent-strong: #3c84fd;
   --line: rgba(255, 255, 255, 0.18);
@@ -110,7 +129,8 @@
   --muted: #616263;
   --muted-2: #757677;
   --card: #e3e4e5;
-  --about-overlay: rgba(245, 246, 247, 0.74);
+  --about-overlay: rgba(245, 246, 247, 0.64);
+  --about-caption: #3d3e3f;
   --accent: #255eb4;
   --accent-strong: #3d59f7;
   --line: rgba(33, 36, 39, 0.18);
@@ -496,11 +516,21 @@
 .cases-section h2,
 .section-heading h2 {
   margin-top: 8px;
-  font-family: 'Switzer', Arial, sans-serif;
   font-size: clamp(38px, 3.33vw, 48px);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.05;
+}
+
+.cases-section h2 {
+  font-family: 'Switzer', Arial, sans-serif;
+}
+
+.section-heading h2 {
+  font-family: 'Bricolage Grotesque:Bold', Arial, sans-serif;
+  font-variation-settings:
+    'opsz' 14,
+    'wdth' 100;
 }
 
 .filters {
@@ -761,18 +791,48 @@
   background: var(--about-overlay);
 }
 
+.kicker.about-kicker {
+  font-family: 'Switzer', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0.06em;
+}
+
+:root[data-theme='light'] .kicker.about-kicker {
+  font-weight: 500;
+}
+
 .section-heading {
   margin-bottom: 40px;
 }
 
 .about-grid {
-  display: grid;
-  grid-template-columns: minmax(280px, 350px) minmax(280px, 350px) minmax(360px, 1fr);
-  align-items: end;
+  display: flex;
+  align-items: flex-end;
   gap: 40px;
 }
 
-.about-grid h3 {
+.about-left {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  gap: 32px;
+  padding-bottom: 40px;
+}
+
+.about-columns {
+  display: flex;
+  gap: 32px;
+}
+
+.about-column {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.about-column h3 {
   margin-bottom: 24px;
   font-family: 'Bricolage Grotesque:Bold', Arial, sans-serif;
   font-size: 28px;
@@ -793,16 +853,12 @@
   line-height: 22px;
 }
 
-.bio-column,
-.skills-column {
-  align-self: start;
-  padding-bottom: 48px;
-}
-
-.skills-column {
+.about-portrait {
   display: flex;
+  flex: 1 1 0;
+  min-width: 0;
   flex-direction: column;
-  gap: 32px;
+  align-items: center;
 }
 
 .education,
@@ -850,7 +906,7 @@
 .education small,
 .skill-item small {
   display: block;
-  color: color-mix(in srgb, var(--text) 72%, transparent);
+  color: var(--about-caption);
   font-size: 12px;
   line-height: 16px;
 }
@@ -863,16 +919,16 @@
 }
 
 .portrait {
-  align-self: end;
   overflow: hidden;
-  max-height: 684px;
+  width: min(100%, 618px);
+  aspect-ratio: 617.584 / 728.017;
   border-radius: 290px 290px 0 0;
 }
 
 .portrait img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -880,7 +936,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 0;
+  margin-top: 56px;
   padding-top: 48px;
   border-top: 1px solid var(--line);
 }
@@ -892,6 +948,11 @@
     'opsz' 96,
     'wdth' 100;
   font-weight: 800;
+  color: #f5f6f7;
+}
+
+:root[data-theme='light'] .contact-row > strong {
+  color: var(--text);
 }
 
 .contact-button {
@@ -903,6 +964,11 @@
 .contact-button:hover {
   border-color: var(--accent);
   background: var(--accent-hover);
+}
+
+:root[data-theme='light'] .contact-button {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 72%, transparent);
 }
 
 .footer {
@@ -1121,13 +1187,20 @@
   }
 
   .about-grid {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 40px;
+  }
+
+  .about-left {
+    padding-bottom: 0;
+  }
+
+  .about-portrait {
+    align-items: center;
   }
 
   .portrait {
-    grid-column: 1 / -1;
-    justify-self: center;
     width: min(580px, 78vw);
   }
 
@@ -1290,26 +1363,31 @@
   }
 
   .about-grid {
-    display: flex;
     flex-direction: column;
     gap: 0;
   }
 
-  .bio-column,
-  .skills-column,
+  .about-left,
+  .about-portrait,
   .portrait {
     width: 100%;
   }
 
-  .portrait {
-    order: -1;
-    width: 100%;
-    margin-bottom: 40px;
-  }
-
-  .bio-column {
-    margin-bottom: 32px;
+  .about-left {
+    order: 2;
+    margin-bottom: 0;
     padding-bottom: 0;
+    gap: 32px;
+  }
+
+  .about-columns {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .about-portrait {
+    order: 1;
+    margin-bottom: 40px;
   }
 
   .contact-row {
