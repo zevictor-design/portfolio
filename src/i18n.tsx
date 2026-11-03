@@ -27,7 +27,8 @@ export const translations = {
       closeForm: "Fechar formulário",
     },
     hero: {
-      eyebrow: "HÁ 11 ANOS EM DESIGN DE PRODUTO",
+      proofStrong: "+ 11 ANOS",
+      proofRest: "atuando em design de produto",
       title: "Design centrado no usuário",
       scriptPre: "com o ",
       scriptEm: "poder",
@@ -48,7 +49,7 @@ export const translations = {
       titles: {
         "Luiza Labs": "Criação do Magalu Ads",
         Loft: "Consolidação do Design System",
-        Incognia: "Da complexidade à decisões mais claras",
+        Incognia: "Complexidade exige clareza",
         Ume: "Uma nova experiência, um novo App",
         "Vila Laut": "Onde a natureza descansa",
         Teho: "Neurociência e Cuidado Integrado",
@@ -137,7 +138,8 @@ export const translations = {
       closeForm: "Close form",
     },
     hero: {
-      eyebrow: "11 YEARS IN PRODUCT DESIGN",
+      proofStrong: "+ 11 YEARS",
+      proofRest: "in product design",
       title: "User-centered design",
       scriptPre: "with the ",
       scriptEm: "power",
@@ -158,7 +160,7 @@ export const translations = {
       titles: {
         "Luiza Labs": "Building Magalu Ads",
         Loft: "Design System consolidation",
-        Incognia: "Turning complexity into clearer decisions",
+        Incognia: "Complexity demands clarity",
         Ume: "A new experience, a new app",
         "Vila Laut": "Where nature rests",
         Teho: "Neuroscience and integrated care",

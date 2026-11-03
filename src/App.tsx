@@ -3,6 +3,7 @@ import {
   ArrowUpRight,
   BarChart3,
   CheckSquare,
+  Globe,
   Image as ImageIcon,
   LayoutTemplate,
   Menu,
@@ -174,6 +175,7 @@ function LangButton() {
       onClick={toggleLang}
       aria-label={lang === "pt" ? t.aria.switchToEnglish : t.aria.switchToPortuguese}
     >
+      <Globe size={16} />
       {lang.toUpperCase()}
     </button>
   )
@@ -281,9 +283,17 @@ function Hero({
           <em>{t.hero.scriptEm}</em>
           {t.hero.scriptPost}
         </p>
-        <div className="eyebrow-pill">
-          <span />
-          {t.hero.eyebrow}
+        <div className="hero-proof">
+          <div className="hero-proof-avatars" aria-hidden="true">
+            <img src="/assets/0e969.png" alt="" />
+            <img src="/assets/logos/logo-ume.svg" alt="" />
+            <img src="/assets/logos/logo-incognia.svg" alt="" />
+            <img src="/assets/logos/logo-loft.svg" alt="" />
+            <img src="/assets/logos/logo-magalu.svg" alt="" />
+          </div>
+          <p className="hero-proof-text">
+            <strong>{t.hero.proofStrong}</strong> {t.hero.proofRest}
+          </p>
         </div>
         <p className="hero-description">{t.hero.description}</p>
         <div className="hero-buttons">
@@ -393,27 +403,25 @@ function AboutSection({ onContact }: { onContact: () => void }) {
                   <p key={paragraph.slice(0, 24)}>{paragraph}</p>
                 ))}
               </div>
-              <div className="about-columns">
-                <div className="about-column">
-                  <h3>{t.about.education}</h3>
-                  <div className="education">
-                    <span className="education-logo">
-                      <img src="/assets/0e969.png" alt="" />
-                    </span>
-                    <span>
-                      <strong>{t.about.school}</strong>
-                      <small>{t.about.university}</small>
-                    </span>
-                  </div>
+              <div className="about-formation">
+                <h3>{t.about.education}</h3>
+                <div className="education">
+                  <span className="education-logo">
+                    <img src="/assets/0e969.png" alt="" />
+                  </span>
+                  <span>
+                    <strong>{t.about.school}</strong>
+                    <small>{t.about.university}</small>
+                  </span>
                 </div>
-                <div className="about-column">
-                  <h3>{t.about.skillsTitle}</h3>
-                  <ul className="skills-list">
-                    {skillIcons.map(({ key, icon }) => (
-                      <SkillItem key={key} {...t.skills[key]} icon={icon} />
-                    ))}
-                  </ul>
-                </div>
+              </div>
+              <div className="about-skills">
+                <h3>{t.about.skillsTitle}</h3>
+                <ul className="skills-list">
+                  {skillIcons.map(({ key, icon }) => (
+                    <SkillItem key={key} {...t.skills[key]} icon={icon} />
+                  ))}
+                </ul>
               </div>
             </div>
             <div className="about-portrait">

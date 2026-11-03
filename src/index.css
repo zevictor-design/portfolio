@@ -107,8 +107,8 @@
   --accent: #65c2ff;
   --accent-strong: #3c84fd;
   --line: rgba(255, 255, 255, 0.18);
-  --button-solid: color-mix(in srgb, var(--text) 72%, transparent);
-  --button-hover: color-mix(in srgb, var(--text) 52%, transparent);
+  --button-solid: color-mix(in srgb, var(--text) 82%, transparent);
+  --button-hover: color-mix(in srgb, var(--text) 56%, transparent);
   --button-soft-hover: color-mix(in srgb, var(--text) 24%, transparent);
   --accent-hover: color-mix(in srgb, var(--accent) 88%, transparent);
   --case-tag-background: rgba(7, 7, 8, 0.76);
@@ -134,7 +134,7 @@
   --accent: #255eb4;
   --accent-strong: #3d59f7;
   --line: rgba(33, 36, 39, 0.18);
-  --button-solid: color-mix(in srgb, var(--text) 78%, transparent);
+  --button-solid: color-mix(in srgb, var(--text) 93%, transparent);
   --button-hover: color-mix(in srgb, var(--text) 100%, transparent);
   --button-soft-hover: color-mix(in srgb, var(--text) 28%, transparent);
   --accent-hover: color-mix(in srgb, var(--accent) 100%, transparent);
@@ -357,6 +357,7 @@
 }
 
 .lang-button {
+  gap: 6px;
   padding-inline: 10px;
   font-family: 'Switzer', Arial, sans-serif;
   font-size: 12px;
@@ -386,34 +387,56 @@
   margin-bottom: 16px;
 }
 
-.eyebrow-pill {
+.hero-proof {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
   margin-top: 24px;
-  padding: 4px 12px;
-  border: 1px solid color-mix(in srgb, var(--muted) 50%, transparent);
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--page) 50%, transparent);
-  color: var(--muted);
-  font-family: 'Geist Mono:Regular', monospace;
-  font-size: 12px;
-  line-height: 16px;
 }
 
-.eyebrow-pill span {
-  width: 5px;
-  height: 5px;
+.hero-proof-avatars {
+  display: flex;
+  align-items: center;
+}
+
+.hero-proof-avatars img {
+  width: 40px;
+  height: 40px;
+  margin-left: -8px;
+  border: 2px solid var(--page);
   border-radius: 50%;
-  background: var(--accent);
+  object-fit: cover;
+}
+
+.hero-proof-avatars img:first-child {
+  box-sizing: border-box;
+  margin-left: 0;
+  padding: 7px;
+  background: #a32339;
+  object-fit: contain;
+}
+
+.hero-proof-text {
+  color: var(--muted-2);
+  font-family: 'Bricolage Grotesque:Bold', Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  line-height: 24px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.hero-proof-text strong {
+  color: var(--text-soft);
+  font-weight: 700;
 }
 
 .hero h1 {
   margin-top: 24px;
-  font-family: 'Switzer', Arial, sans-serif;
-  font-size: clamp(56px, 6.74vw, 97px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-family: 'Bricolage Grotesque:Bold', Arial, sans-serif;
+  font-size: clamp(42px, 5.3vw, 76px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
   line-height: 1.05;
 }
 
@@ -421,7 +444,7 @@
   margin-top: -8px;
   color: var(--muted);
   font-family: 'Fraunces', 'Fraunces:Regular', Georgia, serif;
-  font-size: clamp(30px, 3.96vw, 57px);
+  font-size: clamp(28px, 4.72vw, 68px);
   font-style: italic;
   font-weight: 200;
   font-variation-settings:
@@ -719,18 +742,15 @@
   padding-bottom: 40px;
 }
 
-.about-columns {
+.about-formation,
+.about-skills {
   display: flex;
-  gap: 32px;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.about-column {
-  flex: 1 1 0;
-  min-width: 0;
-}
-
-.about-column h3 {
-  margin-bottom: 24px;
+.about-formation h3,
+.about-skills h3 {
   font-family: 'Bricolage Grotesque:Bold', Arial, sans-serif;
   font-size: 28px;
   font-variation-settings:
@@ -809,9 +829,11 @@
 }
 
 .skills-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 40px;
+  row-gap: 16px;
+  max-width: 660px;
   list-style: none;
 }
 
@@ -1164,10 +1186,18 @@
     padding-top: 108px;
   }
 
-  .eyebrow-pill {
+  .hero-proof {
     max-width: 100%;
-    font-size: 9px;
-    white-space: nowrap;
+  }
+
+  .hero-proof-avatars img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .hero-proof-text {
+    font-size: 11px;
+    line-height: 18px;
   }
 
   .hero h1 {
@@ -1270,9 +1300,8 @@
     gap: 32px;
   }
 
-  .about-columns {
-    flex-direction: column;
-    gap: 32px;
+  .skills-list {
+    grid-template-columns: 1fr;
   }
 
   .about-portrait {
