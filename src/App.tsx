@@ -190,12 +190,16 @@ function Header({
       <Logo showAvatar />
       <div className="desktop-nav">
         <NavLinks activeSection={activeSection} onContact={onContact} />
-        <LangButton />
-        <ThemeButton theme={theme} onToggle={onToggleTheme} />
+        <div className="lang-theme-group">
+          <LangButton />
+          <ThemeButton theme={theme} onToggle={onToggleTheme} />
+        </div>
       </div>
       <div className="mobile-actions">
-        <LangButton />
-        <ThemeButton theme={theme} onToggle={onToggleTheme} />
+        <div className="lang-theme-group">
+          <LangButton />
+          <ThemeButton theme={theme} onToggle={onToggleTheme} />
+        </div>
         <button
           className="menu-button"
           type="button"
@@ -539,8 +543,10 @@ function Footer({
         <Logo showAvatar muted />
         <div className="desktop-nav">
           <NavLinks activeSection={activeSection} showActive={false} />
-          <LangButton />
-          <ThemeButton theme={theme} onToggle={onToggleTheme} />
+          <div className="lang-theme-group">
+            <LangButton />
+            <ThemeButton theme={theme} onToggle={onToggleTheme} />
+          </div>
         </div>
       </div>
     </footer>

@@ -310,6 +310,12 @@
   color: var(--text);
 }
 
+.lang-theme-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .theme-button,
 .lang-button,
 .menu-button {
