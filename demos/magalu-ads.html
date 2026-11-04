@@ -1,0 +1,1891 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        font-family: "Google Sans Flex", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        background: #f6f7f8;
+        color: #374151;
+        overflow: hidden;
+      }
+
+      button {
+        font-family: inherit;
+        cursor: pointer;
+      }
+
+      .screen {
+        display: none;
+        flex-direction: column;
+        height: 100%;
+        min-height: 0;
+      }
+
+      .screen.active {
+        display: flex;
+      }
+
+      /* ---------- Empty state ---------- */
+
+      .topbar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex: 0 0 auto;
+        padding: 20px 20px 16px;
+      }
+
+      .list-topbar {
+        margin: 0 16px;
+        padding: 20px 0 16px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .logo img {
+        display: block;
+        width: 126px;
+        height: auto;
+      }
+
+      .menu-icon {
+        display: grid;
+        place-items: center;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        border: none;
+        background: none;
+        color: #737b87;
+      }
+
+      .list-menu {
+        position: absolute;
+        z-index: 2;
+        top: calc(100% - 8px);
+        right: 0;
+        min-width: 150px;
+        padding: 4px;
+        border: 1px solid #ebedf0;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 6px 18px rgba(21, 25, 30, 0.12);
+      }
+
+      .list-menu button {
+        width: 100%;
+        padding: 9px 10px;
+        border: 0;
+        border-radius: 7px;
+        background: transparent;
+        color: #374151;
+        font-size: 12px;
+        text-align: left;
+      }
+
+      .list-menu button:hover,
+      .list-menu button:focus-visible {
+        outline: none;
+        background: #f3f7fb;
+      }
+
+      .empty-main {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        padding: 24px 32px 64px;
+        text-align: center;
+      }
+
+      .rocket img {
+        display: block;
+        width: 72px;
+        height: 72px;
+      }
+
+      .empty-text {
+        max-width: 260px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.15;
+        color: #4b5563;
+      }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 12px;
+        background: #0086ff;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .cta:active {
+        background: #0070d6;
+      }
+
+      /* ---------- Shared: step header ---------- */
+
+      .step-header {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 16px;
+        border-bottom: 1px solid #ebedf0;
+      }
+
+      .icon-btn {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border: none;
+        background: none;
+        color: #6b7280;
+        font-size: 18px;
+        line-height: 1;
+      }
+
+      .icon-btn[aria-label="Voltar"] {
+        color: #4b5563;
+      }
+
+      .step-header h1 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 600;
+        color: #15191e;
+      }
+
+      .preview-header {
+        position: relative;
+        justify-content: flex-start;
+      }
+
+      .preview-header h1 {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+      }
+
+      /* ---------- Shared: step indicator ---------- */
+
+      .step-indicator {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 16px;
+      }
+
+      .step-indicator .track {
+        flex: 1 1 auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .step-pill {
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #d7d8d9;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .step-pill.on {
+        background: #0086ff;
+      }
+
+      .step-pill.done {
+        background: #0086ff;
+      }
+
+      .step-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #9ca3af;
+      }
+
+      .step-label.on {
+        color: #15191e;
+      }
+
+      .step-sep {
+        flex: 1 1 auto;
+        height: 1px;
+        background: #e5e7eb;
+        margin: 0 2px;
+      }
+
+      /* ---------- Shared: scroll body + footer helper ---------- */
+
+      .step-body {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 0 16px 16px;
+      }
+
+      .footer-helper {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        border-top: 1px solid #ebedf0;
+        color: #6b7280;
+        font-size: 11.5px;
+      }
+
+      .footer-helper .label {
+        flex: 1 1 auto;
+      }
+
+      .footer-helper .ring {
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        width: 16px;
+        height: 16px;
+        border: 1px solid #9ca3af;
+        border-radius: 50%;
+        font-size: 10px;
+        font-style: italic;
+        font-weight: 700;
+      }
+
+      .footer-helper .chev {
+        flex: 0 0 auto;
+        font-size: 10px;
+        color: #9ca3af;
+      }
+
+      /* ---------- Step 1: select products ---------- */
+
+      .search-field {
+        position: relative;
+        margin: 12px 0;
+      }
+
+      .search-field input {
+        width: 100%;
+        padding: 10px 36px 10px 12px;
+        border: 1px solid #d7d8d9;
+        border-radius: 10px;
+        font-size: 13px;
+        color: #374151;
+      }
+
+      .search-field .search-icon {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        display: grid;
+        place-items: center;
+        transform: translateY(-50%);
+        color: #d7d8d9;
+      }
+
+      .search-icon svg,
+      .preview-search svg,
+      .audience-item .lbl svg {
+        display: block;
+        flex: 0 0 auto;
+      }
+
+      .select-summary {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 4px 0 12px;
+        font-size: 12.5px;
+        color: #374151;
+      }
+
+      .select-summary .count {
+        flex: 1 1 auto;
+        font-weight: 600;
+      }
+
+      .select-summary .results {
+        color: #9ca3af;
+      }
+
+      .check {
+        flex: 0 0 auto;
+        width: 18px;
+        height: 18px;
+        border: 1.5px solid #c6c8cb;
+        border-radius: 5px;
+        display: grid;
+        place-items: center;
+        background: #fff;
+      }
+
+      .product-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid #f1f2f4;
+      }
+
+      .product-row.selected .check {
+        border-color: #0086ff;
+        background: #0086ff;
+      }
+
+      .product-row.selected .check::after {
+        content: "";
+        width: 8px;
+        height: 5px;
+        border-left: 2px solid #fff;
+        border-bottom: 2px solid #fff;
+        transform: rotate(-45deg) translateY(-1px);
+      }
+
+      .thumb {
+        flex: 0 0 auto;
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        background: #eef1f4;
+        display: grid;
+        place-items: center;
+      }
+
+      .thumb img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 3px;
+        object-fit: contain;
+      }
+
+      .product-info {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+
+      .product-info .name {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #0086ff;
+      }
+
+      .product-info .rating {
+        display: block;
+        margin-top: 2px;
+        font-size: 10.5px;
+        color: #9ca3af;
+        letter-spacing: 1px;
+      }
+
+      .product-info .rating .stars {
+        color: #f5a623;
+        letter-spacing: 0px;
+      }
+
+      .product-info .price {
+        display: block;
+        margin-top: 2px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #15191e;
+      }
+
+      .product-info .price .was {
+        margin-left: 4px;
+        font-size: 10.5px;
+        font-weight: 500;
+        color: #9ca3af;
+        text-decoration: line-through;
+      }
+
+      .primary-row {
+        flex: 0 0 auto;
+        padding: 12px 16px;
+      }
+
+      .primary-row .cta {
+        width: 100%;
+        padding: 10px 0;
+      }
+
+      .primary-row .cta:disabled {
+        background: #c6c8cb;
+      }
+
+      /* ---------- Step 2: duration + budget ---------- */
+
+      .field-label {
+        margin: 16px 0 8px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #6b7280;
+      }
+
+      .name-field input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #d7d8d9;
+        border-radius: 10px;
+        font-size: 13px;
+        color: #15191e;
+        font-weight: 600;
+      }
+
+      .slider-value {
+        font-size: 14px;
+        font-weight: 700;
+        color: #15191e;
+      }
+
+      .slider-total {
+        margin-top: 2px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #0086ff;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        margin-top: 10px;
+        -webkit-appearance: none;
+        height: 4px;
+        border-radius: 2px;
+        background: linear-gradient(to right, #0086ff var(--fill, 50%), #e5e7eb var(--fill, 50%));
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #0086ff;
+        border: 3px solid #fff;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        margin-top: -1px;
+      }
+
+      .audience-box {
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid #ebedf0;
+      }
+
+      .audience-grid {
+        display: flex;
+        gap: 24px;
+        margin-top: 10px;
+      }
+
+      .audience-item {
+        flex: 1 1 0;
+      }
+
+      .audience-item .lbl {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        color: #9ca3af;
+      }
+
+      .audience-item .val {
+        margin-top: 4px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #0086ff;
+      }
+
+      /* ---------- Preview ---------- */
+
+      .preview-title {
+        margin: 12px 0 16px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #15191e;
+      }
+
+      .preview-frame {
+        position: relative;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 240px;
+        border: 1px solid #e5e7eb;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .preview-app-bar {
+        padding: 10px 12px 8px;
+        background: #0086ff;
+        color: #fff;
+      }
+
+      .preview-search {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 10px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.18);
+        font-size: 10.5px;
+      }
+
+      .preview-loc {
+        margin-top: 6px;
+        font-size: 9.5px;
+        opacity: 0.9;
+      }
+
+      .preview-products {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 12px;
+        background: #fff;
+      }
+
+      .preview-card {
+        border-radius: 10px;
+        border: 1px solid #f1f2f4;
+        overflow: hidden;
+      }
+
+      .preview-card .thumb-lg {
+        position: relative;
+        width: 100%;
+        height: 64px;
+        padding: 4px;
+        background: #f8f9fa;
+        display: grid;
+        place-items: center;
+      }
+
+      .preview-card .thumb-lg img {
+        display: block;
+        max-width: 52px;
+        max-height: 52px;
+        object-fit: contain;
+      }
+
+      .preview-products.search-results {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .preview-products.search-results .preview-card {
+        display: flex;
+        align-items: center;
+        padding: 6px;
+      }
+
+      .preview-products.search-results .thumb-lg {
+        flex: 0 0 60px;
+        width: 60px;
+        height: 60px;
+        border-radius: 7px;
+      }
+
+      .preview-products.search-results .thumb-lg img {
+        max-width: 48px;
+        max-height: 48px;
+      }
+
+      .preview-products.search-results .info {
+        min-width: 0;
+        flex: 1;
+      }
+
+      .preview-card .sponsored {
+        position: absolute;
+        left: 6px;
+        bottom: 6px;
+        padding: 2px 6px;
+        border-radius: 999px;
+        background: rgba(21, 25, 30, 0.72);
+        color: #fff;
+        font-size: 7.5px;
+        font-weight: 700;
+      }
+
+      .preview-card .info {
+        padding: 6px 8px 8px;
+      }
+
+      .preview-card .pname {
+        font-size: 9.5px;
+        color: #374151;
+        line-height: 1.3;
+      }
+
+      .preview-card .pprice {
+        margin-top: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #15191e;
+      }
+
+      .preview-carousel-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding: 10px 0 2px;
+      }
+
+      .preview-nav-btn {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        border: 1px solid #e5e7eb;
+        border-radius: 50%;
+        background: #fff;
+        color: #5a6273;
+      }
+
+      .preview-nav-btn:focus-visible,
+      .preview-dot:focus-visible {
+        outline: 2px solid #0086ff;
+        outline-offset: 2px;
+      }
+
+      .preview-dot {
+        width: 8px;
+        height: 8px;
+        padding: 0;
+        border: none;
+        border-radius: 50%;
+        background: #d7d8d9;
+      }
+
+      .preview-dot.on {
+        background: #0086ff;
+      }
+
+      .preview-caption {
+        text-align: center;
+        margin: 2px 0 0;
+        font-size: 11px;
+        font-weight: 600;
+        color: #6b7280;
+      }
+
+      /* ---------- Success ---------- */
+
+      .success-main {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 36px 20px 24px;
+        text-align: center;
+      }
+
+      .trophy-wrap {
+        width: 130px;
+        height: 104px;
+        margin-bottom: 0px;
+      }
+
+      .trophy-wrap img {
+        display: block;
+        width: 88px;
+        height: auto;
+        margin: 0 auto;
+        object-fit: contain;
+      }
+
+      .success-title {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 700;
+        color: #15191e;
+      }
+
+      .success-sub {
+        max-width: 260px;
+        margin: 8px 0 20px;
+        font-size: 12.5px;
+        line-height: 1.5;
+        color: #6b7280;
+      }
+
+      .summary-card {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #ebedf0;
+        border-radius: 14px;
+        background: #fff;
+        text-align: left;
+      }
+
+      .summary-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 8px 0;
+      }
+
+      .summary-row + .summary-row {
+        border-top: 1px solid #f4f5f6;
+      }
+
+      .summary-row svg {
+        flex: 0 0 auto;
+        margin-top: 1px;
+      }
+
+      .summary-row .lbl {
+        display: block;
+        font-size: 10.5px;
+        color: #9ca3af;
+      }
+
+      .summary-row .val {
+        display: block;
+        margin-top: 2px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #15191e;
+      }
+
+      .success-main .cta {
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      /* ---------- Campaigns list ---------- */
+
+      .list-header {
+        flex: 0 0 auto;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        column-gap: 10px;
+        row-gap: 6px;
+        padding: 20px 16px 10px;
+      }
+
+      .list-header h1 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 700;
+        color: #4b5563;
+      }
+
+      .list-results {
+        grid-column: 1 / -1;
+        color: #4b5563;
+        font-size: 11px;
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      .list-create-button {
+        justify-self: end;
+        padding: 7px 12px;
+        border: 0;
+        border-radius: 999px;
+        background: #0086ff;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .list-body {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: auto;
+        padding: 4px 16px 16px;
+        scrollbar-width: thin;
+      }
+
+      .campaign-table-wrap {
+        overflow: auto hidden;
+        border: 1px solid #ebedf0;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(21, 25, 30, 0.06);
+        scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .dashboard-card {
+        overflow: hidden;
+        border: 1px solid #ebedf0;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 2px 6px rgba(21, 25, 30, 0.04);
+      }
+
+      .campaign-table {
+        width: 100%;
+        min-width: 500px;
+        border-collapse: collapse;
+        table-layout: fixed;
+        text-align: left;
+      }
+
+      .campaign-table th,
+      .campaign-table td {
+        padding: 7px 6px;
+        border-bottom: 1px solid #f1f2f4;
+        font-size: 9.5px;
+        color: #4b5563;
+      }
+
+      .campaign-table th {
+        height: 48px;
+        color: #374151;
+        font-weight: 600;
+      }
+
+      .campaign-table th:first-child,
+      .campaign-table td:first-child {
+        width: 58px;
+        padding-left: 16px;
+      }
+
+      .campaign-table th:nth-child(2),
+      .campaign-table td:nth-child(2) {
+        width: 72px;
+      }
+
+      .campaign-table th:nth-child(3),
+      .campaign-table td:nth-child(3) {
+        width: 145px;
+      }
+
+      .campaign-table th:nth-child(4),
+      .campaign-table td:nth-child(4),
+      .campaign-table th:nth-child(5),
+      .campaign-table td:nth-child(5) {
+        width: 100px;
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: #e6f7ec;
+        color: #1a8a4a;
+        font-size: 9px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .status-pill.paused {
+        background: #fff0dc;
+        color: #a85b00;
+      }
+
+      .campaign-row {
+        cursor: pointer;
+        transition: background 120ms ease;
+      }
+
+      .campaign-row:hover,
+      .campaign-row:focus-visible {
+        background: #f7faff;
+        outline: none;
+      }
+
+      .campaign-row:last-child td {
+        border-bottom: none;
+      }
+
+      .campaign-row td {
+        height: 44px;
+      }
+
+      .campaign-row .campaign-name {
+        overflow: hidden;
+        color: #15191e;
+        font-weight: 600;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .campaign-row .money {
+        color: #374151;
+        white-space: nowrap;
+      }
+
+      .campaign-switch {
+        position: relative;
+        display: block;
+        width: 32px;
+        height: 17px;
+        padding: 0;
+        border: 0;
+        border-radius: 999px;
+        background: #d7d8d9;
+        cursor: pointer;
+      }
+
+      .campaign-switch::after {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #fff;
+        content: "";
+        transition: transform 120ms ease;
+      }
+
+      .campaign-switch[aria-checked="true"] {
+        background: #0086ff;
+      }
+
+      .campaign-switch[aria-checked="true"]::after {
+        transform: translateX(15px);
+      }
+
+      .dashboard-header {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 16px;
+        border-bottom: 1px solid #ebedf0;
+      }
+
+      .dashboard-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: #4b5563;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .dashboard-body {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 14px 16px 20px;
+      }
+
+      .dashboard-title-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .dashboard-title-row h1 {
+        min-width: 0;
+        margin: 0;
+        overflow-wrap: anywhere;
+        color: #15191e;
+        font-size: 16px;
+        line-height: 1.3;
+      }
+
+      .dashboard-status {
+        flex: 0 0 auto;
+        padding: 5px 9px;
+        border: 0;
+        border-radius: 999px;
+        background: #e6f7ec;
+        color: #1a8a4a;
+        font-size: 10px;
+        font-weight: 700;
+      }
+
+      .dashboard-status.paused {
+        background: #fff0dc;
+        color: #a85b00;
+      }
+
+      .dashboard-filter {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        margin: 12px 0;
+        padding: 7px 10px;
+        border: 1px solid #e5e7eb;
+        border-radius: 999px;
+        color: #5a6273;
+        font-size: 10px;
+      }
+
+      .dashboard-chart {
+        padding: 12px 12px 8px;
+      }
+
+      .dashboard-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        color: #5a6273;
+        font-size: 9px;
+      }
+
+      .dashboard-legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .legend-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #c6c8cb;
+      }
+
+      .legend-dot.sponsored {
+        background: #0086ff;
+      }
+
+      .chart-bars {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-around;
+        gap: 8px;
+        height: 100px;
+        margin-top: 10px;
+        padding: 0 2px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .chart-bar {
+        display: flex;
+        flex: 1 1 0;
+        flex-direction: column;
+        justify-content: flex-end;
+        max-width: 18px;
+        height: 100%;
+      }
+
+      .chart-bar .organic,
+      .chart-bar .sponsored {
+        display: block;
+        width: 100%;
+      }
+
+      .chart-bar .organic {
+        background: #d7d8d9;
+      }
+
+      .chart-bar .sponsored {
+        background: #0086ff;
+      }
+
+      .chart-dates {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 6px;
+        color: #9ca3af;
+        font-size: 8px;
+      }
+
+      .dashboard-metrics {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .metric-card {
+        min-width: 0;
+        padding: 12px 10px;
+      }
+
+      .metric-card strong {
+        display: block;
+        overflow: hidden;
+        color: #0086ff;
+        font-size: 14px;
+        font-weight: 600;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .metric-card span {
+        display: block;
+        margin-top: 4px;
+        color: #8b929e;
+        font-size: 9px;
+        line-height: 1.35;
+      }
+
+      .dashboard-section-title {
+        margin: 18px 0 9px;
+        color: #374151;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .dashboard-products {
+        padding: 0 10px;
+      }
+
+      .dashboard-product {
+        display: grid;
+        grid-template-columns: 36px minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 8px;
+        min-height: 52px;
+        border-bottom: 1px solid #f1f2f4;
+        color: #4b5563;
+        font-size: 9px;
+      }
+
+      .dashboard-product:last-child {
+        border-bottom: none;
+      }
+
+      .dashboard-product img {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+      }
+
+      .dashboard-product-name {
+        overflow: hidden;
+        color: #374151;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .dashboard-product-revenue {
+        color: #15191e;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .empty-list {
+        margin-top: 60px;
+        text-align: center;
+        font-size: 12px;
+        color: #9ca3af;
+      }
+
+      @media (max-width: 480px) {
+        .list-body {
+          padding-right: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Empty state -->
+    <section class="screen active" id="screen-empty">
+      <header class="topbar">
+        <span class="logo"><img src="logo-magalu.svg" alt="Magalu Ads" /></span>
+        <button class="menu-icon" type="button" aria-hidden="true" tabindex="-1">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12h16M4 18h16M4 6h16" />
+          </svg>
+        </button>
+      </header>
+      <div class="empty-main">
+        <span class="rocket"><img src="rocket.svg" alt="" /></span>
+        <p class="empty-text">Crie sua primeira campanha agora e comece a vender mais!</p>
+        <button class="cta" type="button" onclick="goTo('screen-select')">Criar campanha</button>
+      </div>
+    </section>
+
+    <!-- Step 1: select products -->
+    <section class="screen" id="screen-select">
+      <header class="step-header">
+        <button class="icon-btn" type="button" onclick="goTo('screen-empty')" aria-label="Voltar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 19-7-7 7-7M19 12H5" />
+          </svg>
+        </button>
+        <h1>Nova campanha</h1>
+        <button class="icon-btn" type="button" onclick="goTo('base')" aria-label="Fechar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m18 6-12 12M6 6l12 12" />
+          </svg>
+        </button>
+      </header>
+      <div class="step-indicator">
+        <div class="track">
+          <span class="step-pill on">1</span>
+          <span class="step-label on">Selecionar produtos</span>
+        </div>
+        <span class="step-sep"></span>
+        <span class="step-pill">2</span>
+      </div>
+      <div class="step-body">
+        <div class="search-field">
+          <input type="text" placeholder="Buscar produto" />
+          <span class="search-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
+          </span>
+        </div>
+        <div class="select-summary">
+          <span class="count"><span id="selected-count">0</span> selecionados</span>
+          <span class="results" id="results-count">4 resultados</span>
+        </div>
+        <div id="product-list"></div>
+      </div>
+      <div class="primary-row">
+        <button class="cta" type="button" id="advance-btn" disabled onclick="updateBudgetScreen(); goTo('screen-budget')">
+          Avançar
+        </button>
+      </div>
+    </section>
+
+    <!-- Step 2: duration + budget -->
+    <section class="screen" id="screen-budget">
+      <header class="step-header">
+        <button class="icon-btn" type="button" onclick="goTo('screen-select')" aria-label="Voltar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 19-7-7 7-7M19 12H5" />
+          </svg>
+        </button>
+        <h1>Nova campanha</h1>
+        <button class="icon-btn" type="button" onclick="goTo('base')" aria-label="Fechar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m18 6-12 12M6 6l12 12" />
+          </svg>
+        </button>
+      </header>
+      <div class="step-indicator">
+        <div class="track" style="flex: 0 0 auto">
+          <span class="step-pill done">&#10003;</span>
+        </div>
+        <span class="step-sep"></span>
+        <div class="track" style="flex: 0 0 auto">
+          <span class="step-pill on">2</span>
+          <span class="step-label on">Duração e orçamento</span>
+        </div>
+      </div>
+      <div class="step-body">
+        <p class="field-label" style="margin-top: 4px">Nome da campanha</p>
+        <div class="name-field">
+          <input type="text" id="campaign-name" />
+        </div>
+
+        <p class="field-label">Duração</p>
+        <p class="slider-value"><span id="duration-value">5</span> dias</p>
+        <input type="range" id="duration-range" min="1" max="30" value="5" />
+
+        <p class="field-label">Orçamento</p>
+        <p class="slider-value">R$ <span id="budget-value">20,00</span> /dia</p>
+        <input type="range" id="budget-range" min="10" max="200" step="5" value="20" />
+        <p class="slider-total">R$ <span id="budget-total">100,00</span> (total)</p>
+
+        <div class="audience-box">
+          <p class="field-label" style="margin-top: 0">Audiência estimada</p>
+          <div class="audience-grid">
+            <div class="audience-item">
+              <span class="lbl">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5a6273" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                Visualizações
+              </span>
+              <span class="val" id="views-value">400.000 a 600.000</span>
+            </div>
+            <div class="audience-item">
+              <span class="lbl">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5a6273" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m5 3 14 11-7 1-3 6L5 3Z" />
+                </svg>
+                Cliques
+              </span>
+              <span class="val" id="clicks-value">40.000 a 60.000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="primary-row">
+        <button class="cta" type="button" onclick="startPreview()">Criar campanha</button>
+      </div>
+    </section>
+
+    <!-- Preview -->
+    <section class="screen" id="screen-preview">
+      <header class="step-header preview-header">
+        <button class="icon-btn" type="button" onclick="goTo('screen-budget')" aria-label="Voltar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 19-7-7 7-7M19 12H5" />
+          </svg>
+        </button>
+        <h1>Pré-visualização</h1>
+      </header>
+      <div class="step-body">
+        <p class="preview-title">Como seus produtos irão aparecer:</p>
+        <div class="preview-frame">
+          <div class="preview-app-bar">
+            <div class="preview-search">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d7d8d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+              </svg>
+              <span id="preview-search-label">Procurar no Magalu</span>
+            </div>
+            <div class="preview-loc" id="preview-location">Ofertas para você</div>
+          </div>
+          <div class="preview-products" id="preview-products"></div>
+        </div>
+        <div class="preview-carousel-nav" aria-label="Posicionamento do anúncio">
+          <button class="preview-nav-btn" type="button" onclick="changePreviewPage(-1)" aria-label="Posicionamento anterior">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+          </button>
+          <button class="preview-dot on" type="button" onclick="setPreviewPage(0)" aria-label="Mostrar Home" aria-current="true"></button>
+          <button class="preview-dot" type="button" onclick="setPreviewPage(1)" aria-label="Mostrar Busca" aria-current="false"></button>
+          <button class="preview-nav-btn" type="button" onclick="changePreviewPage(1)" aria-label="Próximo posicionamento">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+        <p class="preview-caption" id="preview-caption" aria-live="polite">Home</p>
+      </div>
+      <div class="primary-row">
+        <button class="cta" type="button" onclick="createCampaign()">Confirmar e criar campanha</button>
+      </div>
+    </section>
+
+    <!-- Success -->
+    <section class="screen" id="screen-success">
+      <div class="success-main">
+        <div class="trophy-wrap">
+          <img src="../assets/cases/magalu/confete.png" alt="" />
+        </div>
+        <h1 class="success-title">Campanha criada com sucesso!</h1>
+        <p class="success-sub">Sua campanha já está ativa e começará a veicular anúncio em breve.</p>
+        <div class="summary-card">
+          <div class="summary-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a6273" stroke-width="2">
+              <path d="M4 7h16M4 12h16M4 17h10" stroke-linecap="round" />
+            </svg>
+            <span><span class="lbl">Nome da campanha</span><span class="val" id="summary-name"></span></span>
+          </div>
+          <div class="summary-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a6273" stroke-width="2">
+              <rect x="3" y="5" width="18" height="16" rx="2" />
+              <path d="M3 10h18M8 3v4M16 3v4" stroke-linecap="round" />
+            </svg>
+            <span><span class="lbl">Duração</span><span class="val" id="summary-duration"></span></span>
+          </div>
+          <div class="summary-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a6273" stroke-width="2">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 7v10M9.5 9.5c0-1.2 1.1-2 2.5-2s2.5.8 2.5 2-1.1 1.6-2.5 2-2.5.8-2.5 2 1.1 2 2.5 2 2.5-.8 2.5-2" />
+            </svg>
+            <span><span class="lbl">Orçamento diário</span><span class="val" id="summary-budget"></span></span>
+          </div>
+          <div class="summary-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a6273" stroke-width="2">
+              <path d="M4 8l8-4 8 4-8 4-8-4Z" />
+              <path d="M4 12l8 4 8-4M4 16l8 4 8-4" />
+            </svg>
+            <span><span class="lbl">Produtos a serem anunciados</span><span class="val" id="summary-products"></span></span>
+          </div>
+        </div>
+        <button class="cta" type="button" onclick="goTo('screen-list')">Ver minhas campanhas</button>
+      </div>
+    </section>
+
+    <!-- Campaigns list -->
+    <section class="screen" id="screen-list">
+      <header class="topbar list-topbar">
+        <span class="logo"><img src="logo-magalu.svg" alt="Magalu Ads" /></span>
+        <button class="menu-icon" type="button" onclick="toggleListMenu()" aria-label="Abrir menu" aria-expanded="false" aria-controls="list-menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 12h16M4 18h16M4 6h16" />
+          </svg>
+        </button>
+        <div class="list-menu" id="list-menu" hidden>
+          <button type="button" onclick="restartFlow()">Nova campanha</button>
+        </div>
+      </header>
+      <header class="list-header">
+        <h1>Minhas campanhas</h1>
+        <button class="list-create-button" type="button" onclick="restartFlow()">Criar campanha</button>
+        <span class="list-results" id="campaign-results"></span>
+      </header>
+      <div class="list-body" id="list-body">
+        <p class="empty-list">Você ainda não tem campanhas.</p>
+      </div>
+    </section>
+
+    <!-- Campaign dashboard -->
+    <section class="screen" id="screen-dashboard">
+      <header class="dashboard-header">
+        <button class="dashboard-back" type="button" onclick="goTo('screen-list')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+          Voltar para campanhas
+        </button>
+      </header>
+      <div class="dashboard-body">
+        <div class="dashboard-title-row">
+          <h1 id="dashboard-campaign-name"></h1>
+          <button class="dashboard-status" id="dashboard-status" type="button" onclick="toggleCampaignStatus()"></button>
+        </div>
+        <div class="dashboard-filter">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 5h16M7 12h10m-7 7h4" />
+          </svg>
+          Últimos 30 dias
+        </div>
+        <div class="dashboard-card dashboard-chart">
+          <div class="dashboard-legend">
+            <span><i class="legend-dot"></i>Faturamento orgânico</span>
+            <span><i class="legend-dot sponsored"></i>Faturamento patrocinado</span>
+          </div>
+          <div class="chart-bars" id="dashboard-chart" aria-label="Gráfico de faturamento dos últimos dias"></div>
+          <div class="chart-dates"><span>01/nov</span><span>05/nov</span><span>09/nov</span><span>12/nov</span></div>
+        </div>
+        <div class="dashboard-metrics" id="dashboard-metrics"></div>
+        <h2 class="dashboard-section-title">Anúncios da campanha</h2>
+        <div class="dashboard-card dashboard-products" id="dashboard-products"></div>
+      </div>
+    </section>
+
+    <script>
+      var products = [
+        { id: 1, name: "Camiseta Haku", price: "59,90", was: null, rating: 4, reviews: 432, image: "/assets/Produtos%20Ads/Feminina%20Gola%20Careca%20Branca.png" },
+        { id: 2, name: "Camiseta Haku Feminina", price: "59,90", was: "78,99", rating: 4, reviews: 521, image: "/assets/Produtos%20Ads/Feminina%20Gola%20Careca%20Verde.png" },
+        { id: 3, name: "Cadeira infantil para auto", price: "314,10", was: "599,00", rating: 5, reviews: 91, image: "/assets/Produtos%20Ads/Captura%20de%20Tela%202020-10-21%20a%CC%80s%2000.04%201.png" },
+        { id: 4, name: "Cadeirinha infantil modelo", price: "692,10", was: "899,00", rating: 4, reviews: 1291, image: "/assets/Produtos%20Ads/Captura%20de%20Tela%202020-10-20%20a%CC%80s%2023.22%202.png" },
+      ];
+
+      var state = {
+        selected: new Set(),
+        duration: 5,
+        budgetPerDay: 20,
+        campaigns: [],
+      };
+
+      var baseScreen = "screen-empty";
+      var previewPage = 0;
+      var selectedCampaignId = null;
+
+      function goTo(id) {
+        if (id === "base") id = baseScreen;
+        document.querySelectorAll(".screen").forEach(function (el) {
+          el.classList.remove("active");
+        });
+        document.getElementById(id).classList.add("active");
+      }
+
+      function stars(rating) {
+        var full = "★".repeat(rating);
+        var empty = "☆".repeat(5 - rating);
+        return full + empty;
+      }
+
+      function renderProductList() {
+        var list = document.getElementById("product-list");
+        list.innerHTML = "";
+        products.forEach(function (p) {
+          var row = document.createElement("div");
+          row.className = "product-row" + (state.selected.has(p.id) ? " selected" : "");
+          row.onclick = function () {
+            toggleProduct(p.id);
+          };
+          row.innerHTML =
+            '<span class="check"></span>' +
+            '<span class="thumb"><img src="' + p.image + '" alt="" /></span>' +
+            '<div class="product-info">' +
+            '<span class="name">' + p.name + "</span>" +
+            '<span class="rating"><span class="stars">' + stars(p.rating) + "</span> (" + p.reviews + ")</span>" +
+            '<span class="price">R$ ' + p.price + (p.was ? '<span class="was">de R$ ' + p.was + "</span>" : "") + "</span>" +
+            "</div>";
+          list.appendChild(row);
+        });
+      }
+
+      function toggleProduct(id) {
+        if (state.selected.has(id)) {
+          state.selected.delete(id);
+        } else {
+          state.selected.add(id);
+        }
+        renderProductList();
+        updateSelectionSummary();
+      }
+
+      function updateSelectionSummary() {
+        var n = state.selected.size;
+        document.getElementById("selected-count").textContent = n;
+        document.getElementById("results-count").textContent = products.length + " resultados";
+        document.getElementById("advance-btn").disabled = n === 0;
+      }
+
+      function formatBRL(value) {
+        return value.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+
+      function formatInt(value) {
+        return Math.round(value).toLocaleString("pt-BR");
+      }
+
+      function updateBudgetScreen() {
+        var duration = Number(document.getElementById("duration-range").value);
+        var budgetPerDay = Number(document.getElementById("budget-range").value);
+        state.duration = duration;
+        state.budgetPerDay = budgetPerDay;
+        var total = duration * budgetPerDay;
+
+        document.getElementById("duration-value").textContent = duration;
+        document.getElementById("budget-value").textContent = formatBRL(budgetPerDay);
+        document.getElementById("budget-total").textContent = formatBRL(total);
+
+        var durationRange = document.getElementById("duration-range");
+        var budgetRange = document.getElementById("budget-range");
+        durationRange.style.setProperty(
+          "--fill",
+          ((duration - durationRange.min) / (durationRange.max - durationRange.min)) * 100 + "%",
+        );
+        budgetRange.style.setProperty(
+          "--fill",
+          ((budgetPerDay - budgetRange.min) / (budgetRange.max - budgetRange.min)) * 100 + "%",
+        );
+
+        var viewsLow = total * 4000;
+        var viewsHigh = total * 6000;
+        var clicksLow = viewsLow / 10;
+        var clicksHigh = viewsHigh / 10;
+        document.getElementById("views-value").textContent = formatInt(viewsLow) + " a " + formatInt(viewsHigh);
+        document.getElementById("clicks-value").textContent = formatInt(clicksLow) + " a " + formatInt(clicksHigh);
+
+        if (!document.getElementById("campaign-name").dataset.touched) {
+          document.getElementById("campaign-name").value =
+            "Campanha #0" + (state.campaigns.length + 1) + " - " + state.selected.size + " produto" + (state.selected.size === 1 ? "" : "s");
+        }
+      }
+
+      function startPreview() {
+        previewPage = 0;
+        renderPreview();
+        goTo("screen-preview");
+      }
+
+      function changePreviewPage(direction) {
+        setPreviewPage((previewPage + direction + 2) % 2);
+      }
+
+      function setPreviewPage(page) {
+        previewPage = page;
+        renderPreview();
+      }
+
+      function renderPreview() {
+        var wrap = document.getElementById("preview-products");
+        wrap.innerHTML = "";
+        var isSearch = previewPage === 1;
+        wrap.classList.toggle("search-results", isSearch);
+        document.getElementById("preview-search-label").textContent = isSearch ? "Camiseta Haku" : "Procurar no Magalu";
+        document.getElementById("preview-location").textContent = isSearch ? "Resultados patrocinados" : "Ofertas para você";
+        document.getElementById("preview-caption").textContent = isSearch ? "Busca" : "Home";
+        document.querySelectorAll(".preview-dot").forEach(function (dot, index) {
+          var isActive = index === previewPage;
+          dot.classList.toggle("on", isActive);
+          dot.setAttribute("aria-current", isActive ? "true" : "false");
+        });
+        var chosen = products.filter(function (p) {
+          return state.selected.has(p.id);
+        });
+        if (chosen.length === 0) chosen = products;
+        chosen.slice(0, 2).forEach(function (p) {
+          var card = document.createElement("div");
+          card.className = "preview-card";
+          card.innerHTML =
+            '<div class="thumb-lg">' +
+            '<img src="' + p.image + '" alt="" />' +
+            '<span class="sponsored">Patrocinado</span></div>' +
+            '<div class="info"><p class="pname">' + p.name + "</p>" +
+            '<p class="pprice">R$ ' + p.price + "</p></div>";
+          wrap.appendChild(card);
+        });
+      }
+
+      function createCampaign() {
+        var total = state.duration * state.budgetPerDay;
+        var name = document.getElementById("campaign-name").value || "Campanha #0" + (state.campaigns.length + 1);
+        var campaign = {
+          id: Date.now(),
+          name: name,
+          duration: state.duration,
+          budgetPerDay: state.budgetPerDay,
+          total: total,
+          products: state.selected.size || products.length,
+          productIds: Array.from(state.selected),
+          spent: total * 0.42,
+          revenue: total * 0.42 * 4.5,
+          active: true,
+        };
+        state.campaigns.push(campaign);
+
+        document.getElementById("summary-name").textContent = campaign.name;
+        document.getElementById("summary-duration").textContent = campaign.duration + " dias";
+        document.getElementById("summary-budget").textContent =
+          "R$ " + formatBRL(campaign.budgetPerDay) + " | R$ " + formatBRL(campaign.total) + " (total)";
+        document.getElementById("summary-products").textContent = campaign.products;
+
+        renderCampaignList();
+        baseScreen = "screen-list";
+        goTo("screen-success");
+      }
+
+      function renderCampaignList() {
+        var body = document.getElementById("list-body");
+        var resultCount = state.campaigns.length;
+        document.getElementById("campaign-results").textContent =
+          "1-" + resultCount + " de " + resultCount;
+        if (state.campaigns.length === 0) {
+          body.innerHTML = '<p class="empty-list">Você ainda não tem campanhas.</p>';
+          return;
+        }
+        var wrap = document.createElement("div");
+        wrap.className = "campaign-table-wrap";
+        var table = document.createElement("table");
+        table.className = "campaign-table";
+        table.innerHTML =
+          '<thead><tr><th aria-label="Ativar ou pausar"></th><th>Status</th><th>Nome</th><th>Valor gasto</th><th>Faturamento</th></tr></thead><tbody></tbody>';
+        var tableBody = table.querySelector("tbody");
+        state.campaigns.slice().reverse().forEach(function (c) {
+          var row = document.createElement("tr");
+          row.className = "campaign-row";
+          row.tabIndex = 0;
+          row.setAttribute("role", "button");
+          row.setAttribute("aria-label", "Abrir campanha " + c.name);
+          row.onclick = function () {
+            openCampaign(c.id);
+          };
+          row.onkeydown = function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              openCampaign(c.id);
+            }
+          };
+          var toggleCell = document.createElement("td");
+          var toggle = document.createElement("button");
+          toggle.className = "campaign-switch";
+          toggle.type = "button";
+          toggle.setAttribute("role", "switch");
+          toggle.setAttribute("aria-checked", String(c.active));
+          toggle.setAttribute("aria-label", (c.active ? "Pausar" : "Ativar") + " campanha " + c.name);
+          toggle.onclick = function (event) {
+            event.stopPropagation();
+            c.active = !c.active;
+            renderCampaignList();
+          };
+          toggleCell.appendChild(toggle);
+          var statusCell = document.createElement("td");
+          var status = document.createElement("span");
+          status.className = "status-pill" + (c.active ? "" : " paused");
+          status.textContent = c.active ? "Ativa" : "Pausada";
+          statusCell.appendChild(status);
+          var nameCell = document.createElement("td");
+          nameCell.className = "campaign-name";
+          nameCell.textContent = c.name;
+          var spentCell = document.createElement("td");
+          spentCell.className = "money";
+          spentCell.textContent = "R$ " + formatBRL(c.spent);
+          var revenueCell = document.createElement("td");
+          revenueCell.className = "money";
+          revenueCell.textContent = "R$ " + formatBRL(c.revenue);
+          row.append(toggleCell, statusCell, nameCell, spentCell, revenueCell);
+          tableBody.appendChild(row);
+        });
+        wrap.appendChild(table);
+        body.replaceChildren(wrap);
+      }
+
+      function toggleListMenu() {
+        var menu = document.getElementById("list-menu");
+        var button = document.querySelector(".list-topbar .menu-icon");
+        var isOpen = menu.hidden;
+        menu.hidden = !isOpen;
+        button.setAttribute("aria-expanded", String(isOpen));
+      }
+
+      function openCampaign(id) {
+        selectedCampaignId = id;
+        renderCampaignDashboard();
+        goTo("screen-dashboard");
+      }
+
+      function toggleCampaignStatus() {
+        var campaign = state.campaigns.find(function (item) {
+          return item.id === selectedCampaignId;
+        });
+        if (!campaign) return;
+        campaign.active = !campaign.active;
+        renderCampaignDashboard();
+        renderCampaignList();
+      }
+
+      function renderCampaignDashboard() {
+        var campaign = state.campaigns.find(function (item) {
+          return item.id === selectedCampaignId;
+        });
+        if (!campaign) return;
+        document.getElementById("dashboard-campaign-name").textContent = campaign.name;
+        var status = document.getElementById("dashboard-status");
+        status.textContent = campaign.active ? "Ativa" : "Pausada";
+        status.classList.toggle("paused", !campaign.active);
+        status.setAttribute("aria-label", campaign.active ? "Pausar campanha" : "Ativar campanha");
+
+        var sponsoredRevenue = campaign.revenue;
+        var organicRevenue = sponsoredRevenue * 0.9;
+        var impressions = Math.round(campaign.spent * 126);
+        var views = Math.round(impressions * 2.2);
+        var clicks = Math.max(1, Math.round(impressions * 0.04));
+        var sponsoredSales = Math.max(1, Math.round(sponsoredRevenue / 45));
+        var metrics = [
+          ["4,5x", "Retorno sobre investimento"],
+          ["R$ " + formatBRL(sponsoredRevenue), "Faturamento patrocinado"],
+          ["R$ " + formatBRL(organicRevenue), "Faturamento orgânico"],
+          ["R$ " + formatBRL(campaign.spent), "Valor gasto"],
+          [formatInt(sponsoredSales), "Vendas patrocinadas"],
+          [formatInt(views), "Visualizações"],
+          [formatInt(impressions), "Impressões"],
+          [formatInt(clicks), "Cliques"],
+          ["R$ " + formatBRL(campaign.spent / clicks), "Custo por clique"],
+        ];
+        var metricsWrap = document.getElementById("dashboard-metrics");
+        metricsWrap.replaceChildren();
+        metrics.forEach(function (metric) {
+          var card = document.createElement("div");
+          card.className = "dashboard-card metric-card";
+          var value = document.createElement("strong");
+          value.textContent = metric[0];
+          var label = document.createElement("span");
+          label.textContent = metric[1];
+          card.append(value, label);
+          metricsWrap.appendChild(card);
+        });
+
+        var chart = document.getElementById("dashboard-chart");
+        chart.replaceChildren();
+        [32, 28, 44, 46, 52, 48, 62, 66, 65, 74, 62, 56].forEach(function (height, index) {
+          var bar = document.createElement("div");
+          bar.className = "chart-bar";
+          var organic = document.createElement("span");
+          organic.className = "organic";
+          organic.style.height = Math.round(height * 0.48) + "%";
+          var sponsored = document.createElement("span");
+          sponsored.className = "sponsored";
+          sponsored.style.height = Math.round(height * 0.52) + "%";
+          bar.setAttribute("aria-label", "Dia " + (index + 1));
+          bar.append(organic, sponsored);
+          chart.appendChild(bar);
+        });
+
+        var campaignProducts = products.filter(function (product) {
+          return campaign.productIds.indexOf(product.id) !== -1;
+        });
+        if (campaignProducts.length === 0) campaignProducts = products.slice(0, 2);
+        var productWrap = document.getElementById("dashboard-products");
+        productWrap.replaceChildren();
+        campaignProducts.forEach(function (product, index) {
+          var row = document.createElement("div");
+          row.className = "dashboard-product";
+          var image = document.createElement("img");
+          image.src = product.image;
+          image.alt = "";
+          var name = document.createElement("span");
+          name.className = "dashboard-product-name";
+          name.textContent = product.name;
+          var revenue = document.createElement("span");
+          revenue.className = "dashboard-product-revenue";
+          revenue.textContent = "R$ " + formatBRL(sponsoredRevenue / campaignProducts.length * (index === 0 ? 0.55 : 0.45));
+          row.append(image, name, revenue);
+          productWrap.appendChild(row);
+        });
+      }
+
+      function restartFlow() {
+        var menu = document.getElementById("list-menu");
+        if (menu) menu.hidden = true;
+        var menuButton = document.querySelector(".list-topbar .menu-icon");
+        if (menuButton) menuButton.setAttribute("aria-expanded", "false");
+        state.selected = new Set();
+        document.getElementById("campaign-name").value = "";
+        delete document.getElementById("campaign-name").dataset.touched;
+        renderProductList();
+        updateSelectionSummary();
+        updateBudgetScreen();
+        goTo("screen-select");
+      }
+
+      document.getElementById("campaign-name").addEventListener("input", function () {
+        this.dataset.touched = "1";
+      });
+      document.getElementById("duration-range").addEventListener("input", updateBudgetScreen);
+      document.getElementById("budget-range").addEventListener("input", updateBudgetScreen);
+
+      var selectScreenObserver = document.getElementById("screen-preview");
+      document.querySelectorAll('[onclick="goTo(\'screen-preview\')"]').forEach(function (btn) {
+        btn.addEventListener("click", renderPreview);
+      });
+
+      renderProductList();
+      updateSelectionSummary();
+      updateBudgetScreen();
+    </script>
+  </body>
+</html>
