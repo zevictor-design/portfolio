@@ -24,9 +24,15 @@
         display: flex;
         flex-direction: column;
         font-family: "Google Sans Flex", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-        background: #f6f7f8;
+        background: #fff;
         color: #374151;
         overflow: hidden;
+      }
+
+      #screen-empty,
+      #screen-list,
+      #screen-dashboard {
+        background: #f5f6f7;
       }
 
       button {
@@ -37,12 +43,28 @@
       .screen {
         display: none;
         flex-direction: column;
-        height: 100%;
+        flex: 1 1 auto;
         min-height: 0;
       }
 
       .screen.active {
         display: flex;
+      }
+
+      .status-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex: 0 0 auto;
+        height: 32px;
+        padding: 0 17px;
+        background: #fff;
+        opacity: 0.7;
+      }
+
+      .status-bar img {
+        height: 9px;
+        width: auto;
       }
 
       /* ---------- Empty state ---------- */
@@ -54,11 +76,11 @@
         justify-content: space-between;
         flex: 0 0 auto;
         padding: 20px 20px 16px;
+        background: #fff;
       }
 
       .list-topbar {
-        margin: 0 16px;
-        padding: 20px 0 16px;
+        padding: 20px 20px 16px;
         border-bottom: 1px solid #e5e7eb;
       }
 
@@ -75,8 +97,15 @@
         height: 20px;
         padding: 0;
         border: none;
+        border-radius: 50%;
         background: none;
         color: #737b87;
+        transition: background 120ms ease, color 120ms ease;
+      }
+
+      .menu-icon:hover {
+        background: #f1f2f4;
+        color: #374151;
       }
 
       .list-menu {
@@ -145,10 +174,51 @@
         color: #fff;
         font-size: 14px;
         font-weight: 500;
+        transition: background 140ms ease;
+      }
+
+      .cta:hover {
+        background: #0078e6;
       }
 
       .cta:active {
         background: #0070d6;
+      }
+
+      /* ---------- Loading spinner ---------- */
+
+      .spinner {
+        width: 24px;
+        height: 24px;
+        border: 3px solid #d6e9ff;
+        border-top-color: #0086ff;
+        border-radius: 50%;
+        animation: spin 700ms linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .spinner-lg {
+        width: 40px;
+        height: 40px;
+        border-width: 4px;
+      }
+
+      .list-loading {
+        display: flex;
+        justify-content: center;
+        padding: 24px 0 8px;
+      }
+
+      .loading-center {
+        flex: 1 1 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       /* ---------- Shared: step header ---------- */
@@ -168,10 +238,17 @@
         width: 28px;
         height: 28px;
         border: none;
+        border-radius: 50%;
         background: none;
         color: #6b7280;
         font-size: 18px;
         line-height: 1;
+        transition: background 120ms ease, color 120ms ease;
+      }
+
+      .icon-btn:hover {
+        background: #f1f2f4;
+        color: #15191e;
       }
 
       .icon-btn[aria-label="Voltar"] {
@@ -180,7 +257,7 @@
 
       .step-header h1 {
         margin: 0;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 600;
         color: #15191e;
       }
@@ -235,7 +312,7 @@
       }
 
       .step-label {
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 600;
         color: #9ca3af;
       }
@@ -260,38 +337,71 @@
         padding: 0 16px 16px;
       }
 
-      .footer-helper {
+      .helper {
         flex: 0 0 auto;
+        border-top: 1px solid #ebedf0;
+        background: #fff;
+      }
+
+      .footer-helper {
+        width: 100%;
         display: flex;
         align-items: center;
         gap: 10px;
         padding: 12px 16px;
-        border-top: 1px solid #ebedf0;
+        border: none;
+        background: none;
         color: #6b7280;
         font-size: 11.5px;
+        text-align: left;
       }
 
       .footer-helper .label {
         flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        font-size: 10.5px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
 
-      .footer-helper .ring {
+      .footer-helper .helper-icon {
         flex: 0 0 auto;
-        display: grid;
-        place-items: center;
-        width: 16px;
-        height: 16px;
-        border: 1px solid #9ca3af;
-        border-radius: 50%;
-        font-size: 10px;
-        font-style: italic;
-        font-weight: 700;
+        display: block;
+        color: #9ca3af;
       }
 
       .footer-helper .chev {
         flex: 0 0 auto;
-        font-size: 10px;
+        display: block;
         color: #9ca3af;
+        transition: transform 180ms ease;
+      }
+
+      .helper.open .footer-helper .chev {
+        transform: rotate(180deg);
+      }
+
+      .helper-panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 220ms ease;
+      }
+
+      .helper-panel-inner {
+        overflow: hidden;
+      }
+
+      .helper.open .helper-panel {
+        grid-template-rows: 1fr;
+      }
+
+      .helper-text {
+        margin: 0;
+        padding: 0 16px 14px 40px;
+        font-size: 11.5px;
+        line-height: 1.5;
+        color: #4b5563;
       }
 
       /* ---------- Step 1: select products ---------- */
@@ -684,6 +794,12 @@
         border-radius: 50%;
         background: #fff;
         color: #5a6273;
+        transition: background 120ms ease, border-color 120ms ease;
+      }
+
+      .preview-nav-btn:hover {
+        background: #f3f7fb;
+        border-color: #d7d8d9;
       }
 
       .preview-nav-btn:focus-visible,
@@ -699,6 +815,11 @@
         border: none;
         border-radius: 50%;
         background: #d7d8d9;
+        transition: background 120ms ease;
+      }
+
+      .preview-dot:hover {
+        background: #b9bbbd;
       }
 
       .preview-dot.on {
@@ -807,13 +928,13 @@
         grid-template-columns: minmax(0, 1fr) auto;
         align-items: center;
         column-gap: 10px;
-        row-gap: 6px;
-        padding: 20px 16px 10px;
+        row-gap: 16px;
+        padding: 20px 16px 8px;
       }
 
       .list-header h1 {
         margin: 0;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 700;
         color: #4b5563;
       }
@@ -836,13 +957,18 @@
         font-size: 11px;
         font-weight: 700;
         white-space: nowrap;
+        transition: background 120ms ease;
+      }
+
+      .list-create-button:hover {
+        background: #0078e6;
       }
 
       .list-body {
         flex: 1 1 auto;
         min-height: 0;
         overflow: auto;
-        padding: 4px 16px 16px;
+        padding: 0 16px 16px;
         scrollbar-width: thin;
       }
 
@@ -945,6 +1071,21 @@
         height: 44px;
       }
 
+      @keyframes campaignRowEnter {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .campaign-row-enter {
+        animation: campaignRowEnter 420ms cubic-bezier(0.22, 0.9, 0.3, 1) both;
+      }
+
       .campaign-row .campaign-name {
         overflow: hidden;
         color: #15191e;
@@ -968,6 +1109,15 @@
         border-radius: 999px;
         background: #d7d8d9;
         cursor: pointer;
+        transition: background 120ms ease;
+      }
+
+      .campaign-switch:hover {
+        background: #c6c8cb;
+      }
+
+      .campaign-switch[aria-checked="true"]:hover {
+        background: #0078e6;
       }
 
       .campaign-switch::after {
@@ -1010,6 +1160,11 @@
         font-size: 11px;
         font-weight: 600;
         white-space: nowrap;
+        transition: color 120ms ease;
+      }
+
+      .dashboard-back:hover {
+        color: #15191e;
       }
 
       .dashboard-body {
@@ -1044,6 +1199,12 @@
         color: #1a8a4a;
         font-size: 10px;
         font-weight: 700;
+        cursor: pointer;
+        transition: filter 120ms ease;
+      }
+
+      .dashboard-status:hover {
+        filter: brightness(0.96);
       }
 
       .dashboard-status.paused {
@@ -1224,20 +1385,43 @@
     </style>
   </head>
   <body>
+    <!-- status bar -->
+    <div class="status-bar">
+      <img src="status-time.svg" alt="19:02" />
+      <img src="status-sinais.svg" alt="Sinal, Wi-Fi e bateria" />
+    </div>
+
     <!-- Empty state -->
     <section class="screen active" id="screen-empty">
-      <header class="topbar">
+      <header class="topbar list-topbar">
         <span class="logo"><img src="logo-magalu.svg" alt="Magalu Ads" /></span>
-        <button class="menu-icon" type="button" aria-hidden="true" tabindex="-1">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <button class="menu-icon" type="button" onclick="toggleListMenu(this)" aria-label="Abrir menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M4 12h16M4 18h16M4 6h16" />
           </svg>
         </button>
+        <div class="list-menu" hidden>
+          <button type="button" onclick="restartFlow()">Nova campanha</button>
+          <button type="button" onclick="resetFlow()">Início</button>
+          <button type="button" onclick="resetFlow()">Sair</button>
+        </div>
       </header>
       <div class="empty-main">
         <span class="rocket"><img src="rocket.svg" alt="" /></span>
         <p class="empty-text">Crie sua primeira campanha agora e comece a vender mais!</p>
         <button class="cta" type="button" onclick="goTo('screen-select')">Criar campanha</button>
+      </div>
+      <div class="helper">
+        <button type="button" class="footer-helper" onclick="toggleHelper(this)" aria-expanded="false">
+          <svg class="helper-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <span class="label">Sobre sua lista de campanhas</span>
+          <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="helper-panel">
+          <div class="helper-panel-inner">
+            <p class="helper-text">É aqui que você acompanha suas campanhas depois de criadas: resultados, status e o que está sendo anunciado, tudo em um só lugar.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1284,6 +1468,18 @@
         <button class="cta" type="button" id="advance-btn" disabled onclick="updateBudgetScreen(); goTo('screen-budget')">
           Avançar
         </button>
+      </div>
+      <div class="helper">
+        <button type="button" class="footer-helper" onclick="toggleHelper(this)" aria-expanded="false">
+          <svg class="helper-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <span class="label">Como selecionar produtos</span>
+          <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="helper-panel">
+          <div class="helper-panel-inner">
+            <p class="helper-text">Escolha os produtos que quer anunciar. Produtos com boas avaliações e fotos caprichadas tendem a performar melhor nos anúncios.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1355,6 +1551,18 @@
       <div class="primary-row">
         <button class="cta" type="button" onclick="startPreview()">Criar campanha</button>
       </div>
+      <div class="helper">
+        <button type="button" class="footer-helper" onclick="toggleHelper(this)" aria-expanded="false">
+          <svg class="helper-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <span class="label">Sobre duração e orçamento</span>
+          <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="helper-panel">
+          <div class="helper-panel-inner">
+            <p class="helper-text">Defina por quantos dias a campanha roda e quanto investir por dia. Dá pra pausar ou ajustar o orçamento quando quiser.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Preview -->
@@ -1399,7 +1607,26 @@
         <p class="preview-caption" id="preview-caption" aria-live="polite">Home</p>
       </div>
       <div class="primary-row">
-        <button class="cta" type="button" onclick="createCampaign()">Confirmar e criar campanha</button>
+        <button class="cta" type="button" onclick="confirmCampaignCreation()">Confirmar e criar campanha</button>
+      </div>
+      <div class="helper">
+        <button type="button" class="footer-helper" onclick="toggleHelper(this)" aria-expanded="false">
+          <svg class="helper-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <span class="label">O que são placements</span>
+          <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="helper-panel">
+          <div class="helper-panel-inner">
+            <p class="helper-text">Placement é o lugar onde seu anúncio aparece no app, como a Home ou os resultados de busca. Veja como fica em cada um antes de confirmar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Loading (creating campaign) -->
+    <section class="screen" id="screen-loading">
+      <div class="loading-center" aria-live="polite" aria-label="Criando campanha">
+        <span class="spinner spinner-lg"></span>
       </div>
     </section>
 
@@ -1440,7 +1667,7 @@
             <span><span class="lbl">Produtos a serem anunciados</span><span class="val" id="summary-products"></span></span>
           </div>
         </div>
-        <button class="cta" type="button" onclick="goTo('screen-list')">Ver minhas campanhas</button>
+        <button class="cta" type="button" onclick="goToCampaignList()">Ver minhas campanhas</button>
       </div>
     </section>
 
@@ -1448,17 +1675,19 @@
     <section class="screen" id="screen-list">
       <header class="topbar list-topbar">
         <span class="logo"><img src="logo-magalu.svg" alt="Magalu Ads" /></span>
-        <button class="menu-icon" type="button" onclick="toggleListMenu()" aria-label="Abrir menu" aria-expanded="false" aria-controls="list-menu">
+        <button class="menu-icon" type="button" onclick="toggleListMenu(this)" aria-label="Abrir menu" aria-expanded="false">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M4 12h16M4 18h16M4 6h16" />
           </svg>
         </button>
-        <div class="list-menu" id="list-menu" hidden>
+        <div class="list-menu" hidden>
           <button type="button" onclick="restartFlow()">Nova campanha</button>
+          <button type="button" onclick="resetFlow()">Início</button>
+          <button type="button" onclick="resetFlow()">Sair</button>
         </div>
       </header>
       <header class="list-header">
-        <h1>Minhas campanhas</h1>
+        <h1>Campanhas</h1>
         <button class="list-create-button" type="button" onclick="restartFlow()">Criar campanha</button>
         <span class="list-results" id="campaign-results"></span>
       </header>
@@ -1470,7 +1699,7 @@
     <!-- Campaign dashboard -->
     <section class="screen" id="screen-dashboard">
       <header class="dashboard-header">
-        <button class="dashboard-back" type="button" onclick="goTo('screen-list')">
+        <button class="dashboard-back" type="button" onclick="goToCampaignList()">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="m15 18-6-6 6-6" />
           </svg>
@@ -1515,6 +1744,7 @@
         duration: 5,
         budgetPerDay: 20,
         campaigns: [],
+        expanded: false,
       };
 
       var baseScreen = "screen-empty";
@@ -1661,6 +1891,13 @@
         });
       }
 
+      function confirmCampaignCreation() {
+        goTo("screen-loading");
+        setTimeout(function () {
+          createCampaign();
+        }, 1000);
+      }
+
       function createCampaign() {
         var total = state.duration * state.budgetPerDay;
         var name = document.getElementById("campaign-name").value || "Campanha #0" + (state.campaigns.length + 1);
@@ -1689,7 +1926,85 @@
         goTo("screen-success");
       }
 
-      function renderCampaignList() {
+      var mockCampaignNames = [
+        "Camisetas de Verão",
+        "Liquidação de Inverno",
+        "Dia das Mães",
+        "Black Friday Antecipada",
+        "Linha Infantil",
+        "Eletrônicos em Alta",
+        "Casa e Decoração",
+        "Semana do Consumidor",
+        "Moda Fitness",
+        "Volta às Aulas",
+        "Ofertas de Fim de Semana",
+      ];
+
+      function generateMockCampaigns(count) {
+        var now = Date.now();
+        var list = [];
+        for (var i = 0; i < count; i++) {
+          var budgetPerDay = [15, 20, 25, 30, 40, 50][i % 6];
+          var duration = [7, 10, 14, 20, 30][i % 5];
+          var total = budgetPerDay * duration;
+          var spent = total * (0.3 + (i % 5) * 0.12);
+          var revenue = spent * (3.2 + (i % 4) * 0.6);
+          list.push({
+            id: now + i + 1,
+            name: mockCampaignNames[i % mockCampaignNames.length],
+            duration: duration,
+            budgetPerDay: budgetPerDay,
+            total: total,
+            products: 1 + (i % 4),
+            productIds: [],
+            spent: spent,
+            revenue: revenue,
+            active: i % 4 !== 0,
+          });
+        }
+        return list;
+      }
+
+      function expandCampaigns() {
+        if (state.expanded) return;
+        state.expanded = true;
+        var mocks = generateMockCampaigns(11);
+        var newIds = mocks.map(function (m) {
+          return m.id;
+        });
+        state.campaigns.unshift.apply(state.campaigns, mocks);
+        renderCampaignList(newIds);
+      }
+
+      function goToCampaignList() {
+        goTo("screen-list");
+        if (!state.expanded && state.campaigns.length <= 1) {
+          setTimeout(function () {
+            showListLoading();
+            setTimeout(function () {
+              hideListLoading();
+              expandCampaigns();
+            }, 1000);
+          }, 2000);
+        }
+      }
+
+      function showListLoading() {
+        var body = document.getElementById("list-body");
+        if (document.getElementById("list-loading")) return;
+        var loading = document.createElement("div");
+        loading.className = "list-loading";
+        loading.id = "list-loading";
+        loading.innerHTML = '<span class="spinner"></span>';
+        body.appendChild(loading);
+      }
+
+      function hideListLoading() {
+        var loading = document.getElementById("list-loading");
+        if (loading) loading.remove();
+      }
+
+      function renderCampaignList(newIds) {
         var body = document.getElementById("list-body");
         var resultCount = state.campaigns.length;
         document.getElementById("campaign-results").textContent =
@@ -1708,6 +2023,10 @@
         state.campaigns.slice().reverse().forEach(function (c) {
           var row = document.createElement("tr");
           row.className = "campaign-row";
+          if (newIds && newIds.indexOf(c.id) !== -1) {
+            row.classList.add("campaign-row-enter");
+            row.style.animationDelay = newIds.indexOf(c.id) * 45 + "ms";
+          }
           row.tabIndex = 0;
           row.setAttribute("role", "button");
           row.setAttribute("aria-label", "Abrir campanha " + c.name);
@@ -1754,11 +2073,17 @@
         body.replaceChildren(wrap);
       }
 
-      function toggleListMenu() {
-        var menu = document.getElementById("list-menu");
-        var button = document.querySelector(".list-topbar .menu-icon");
+      function toggleListMenu(button) {
+        var header = button.closest(".topbar");
+        var menu = header.querySelector(".list-menu");
         var isOpen = menu.hidden;
         menu.hidden = !isOpen;
+        button.setAttribute("aria-expanded", String(isOpen));
+      }
+
+      function toggleHelper(button) {
+        var helper = button.closest(".helper");
+        var isOpen = helper.classList.toggle("open");
         button.setAttribute("aria-expanded", String(isOpen));
       }
 
@@ -1858,11 +2183,34 @@
         });
       }
 
+      function resetFlow() {
+        document.querySelectorAll(".list-menu").forEach(function (menu) {
+          menu.hidden = true;
+        });
+        document.querySelectorAll(".topbar .menu-icon[aria-expanded]").forEach(function (button) {
+          button.setAttribute("aria-expanded", "false");
+        });
+        state.selected = new Set();
+        state.duration = 5;
+        state.budgetPerDay = 20;
+        state.campaigns = [];
+        state.expanded = false;
+        baseScreen = "screen-empty";
+        document.getElementById("campaign-name").value = "";
+        delete document.getElementById("campaign-name").dataset.touched;
+        renderProductList();
+        updateSelectionSummary();
+        updateBudgetScreen();
+        goTo("screen-empty");
+      }
+
       function restartFlow() {
-        var menu = document.getElementById("list-menu");
-        if (menu) menu.hidden = true;
-        var menuButton = document.querySelector(".list-topbar .menu-icon");
-        if (menuButton) menuButton.setAttribute("aria-expanded", "false");
+        document.querySelectorAll(".list-menu").forEach(function (menu) {
+          menu.hidden = true;
+        });
+        document.querySelectorAll(".topbar .menu-icon[aria-expanded]").forEach(function (button) {
+          button.setAttribute("aria-expanded", "false");
+        });
         state.selected = new Set();
         document.getElementById("campaign-name").value = "";
         delete document.getElementById("campaign-name").dataset.touched;
