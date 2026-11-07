@@ -3,71 +3,25 @@ import {
   ArrowUpRight,
   BarChart3,
   CheckSquare,
-  Globe,
   Image as ImageIcon,
   LayoutTemplate,
-  Menu,
   MousePointerClick,
   Palette,
   PencilRuler,
   Search,
-  Send,
   Sparkles,
-  Sun,
-  Moon,
-  X,
 } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom"
+import { createPortal } from "react-dom"
+import { cases } from "./caseContent"
+import type { CategoryKey } from "./caseContent"
+import CasePage from "./CasePage"
 import { LangProvider, useLang } from "./i18n"
-import type { Lang } from "./i18n"
-
-type Theme = "dark" | "light"
-type SectionId = "inicio" | "cases" | "sobre" | "contato"
-type CategoryKey = "product" | "branding" | "creative"
-
-const navItems: { href: `#${SectionId}`; key: SectionId }[] = [
-  { href: "#inicio", key: "inicio" },
-  { href: "#cases", key: "cases" },
-  { href: "#sobre", key: "sobre" },
-  { href: "#contato", key: "contato" },
-]
-
-const cases: {
-  company: string
-  categoryKey: CategoryKey
-  logo: string
-}[] = [
-  {
-    company: "Luiza Labs",
-    categoryKey: "product",
-    logo: "/assets/logos/logo-magalu.svg",
-  },
-  {
-    company: "Loft",
-    categoryKey: "product",
-    logo: "/assets/logos/logo-loft.svg",
-  },
-  {
-    company: "Incognia",
-    categoryKey: "product",
-    logo: "/assets/logos/logo-incognia.svg",
-  },
-  {
-    company: "Ume",
-    categoryKey: "product",
-    logo: "/assets/logos/logo-ume.svg",
-  },
-  {
-    company: "Vila Laut",
-    categoryKey: "branding",
-    logo: "/assets/logos/logo-laut.svg",
-  },
-  {
-    company: "Teho",
-    categoryKey: "branding",
-    logo: "/assets/logos/logo-sabia.svg",
-  },
-]
+import { ContactModal, Footer, Header, navItems } from "./layout"
+import type { SectionId } from "./layout"
+import { publicAsset } from "./publicAsset"
+import { ThemeProvider, useTheme } from "./theme"
 
 const skillIcons = [
   { key: "research", icon: Search },
@@ -80,171 +34,15 @@ const skillIcons = [
   { key: "craft", icon: PencilRuler },
 ] as const
 
-function Logo({
-  showAvatar = false,
-  muted = false,
-}: {
-  showAvatar?: boolean
-  muted?: boolean
-}) {
-  const { t } = useLang()
-  return (
-    <a
-      className={`logo${muted ? " logo-muted" : ""}`}
-      href="#inicio"
-      aria-label={t.aria.backToHome}
-    >
-      {showAvatar && (
-        <span className="logo-avatar" aria-hidden="true">
-          <img src="/assets/ee689.png" alt="" />
-        </span>
-      )}
-      <span className="logo-copy">
-        <strong>Victor Araújo</strong>
-        <span>SENIOR PRODUCT DESIGNER</span>
-      </span>
-    </a>
-  )
-}
-
-function NavLinks({
-  activeSection,
-  onContact,
-  onNavigate,
-  showActive = true,
-}: {
-  activeSection: SectionId
-  onContact?: () => void
-  onNavigate?: () => void
-  showActive?: boolean
-}) {
-  const { t } = useLang()
-  return (
-    <nav className="nav-links" aria-label={t.aria.mainNav}>
-      {navItems.map(({ href, key }) => {
-        const isActive = showActive && href === `#${activeSection}`
-
-        return (
-          <a
-            className={isActive ? "active" : undefined}
-            href={href}
-            aria-current={isActive ? "location" : undefined}
-            onClick={(event) => {
-              if (href === "#contato" && onContact) {
-                event.preventDefault()
-                onContact()
-              }
-              onNavigate?.()
-            }}
-            key={href}
-          >
-            {t.nav[key]}
-          </a>
-        )
-      })}
-    </nav>
-  )
-}
-
-function ThemeButton({
-  theme,
-  onToggle,
-}: {
-  theme: Theme
-  onToggle: () => void
-}) {
-  const { t } = useLang()
-  return (
-    <button
-      className="theme-button"
-      type="button"
-      onClick={onToggle}
-      aria-label={theme === "dark" ? t.aria.activateLightTheme : t.aria.activateDarkTheme}
-    >
-      {theme === "dark" ? <Moon size={16} /> : <Sun size={16} />}
-    </button>
-  )
-}
-
-function LangButton() {
-  const { lang, t, toggleLang } = useLang()
-  return (
-    <button
-      className="lang-button"
-      type="button"
-      onClick={toggleLang}
-      aria-label={lang === "pt" ? t.aria.switchToEnglish : t.aria.switchToPortuguese}
-    >
-      <Globe size={16} />
-      {lang.toUpperCase()}
-    </button>
-  )
-}
-
-function Header({
-  theme,
-  activeSection,
-  onContact,
-  onToggleTheme,
-}: {
-  theme: Theme
-  activeSection: SectionId
-  onContact: () => void
-  onToggleTheme: () => void
-}) {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const { t } = useLang()
-
-  return (
-    <header className="header shell">
-      <Logo showAvatar />
-      <div className="desktop-nav">
-        <NavLinks activeSection={activeSection} onContact={onContact} />
-        <div className="lang-theme-group">
-          <LangButton />
-          <ThemeButton theme={theme} onToggle={onToggleTheme} />
-        </div>
-      </div>
-      <div className="mobile-actions">
-        <div className="lang-theme-group">
-          <LangButton />
-          <ThemeButton theme={theme} onToggle={onToggleTheme} />
-        </div>
-        <button
-          className="menu-button"
-          type="button"
-          aria-label={menuOpen ? t.aria.closeMenu : t.aria.openMenu}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </div>
-      {menuOpen && (
-        <div className="mobile-menu">
-          <NavLinks
-            activeSection={activeSection}
-            onContact={onContact}
-            onNavigate={() => setMenuOpen(false)}
-          />
-        </div>
-      )}
-    </header>
-  )
-}
-
 function Hero({
-  theme,
   activeSection,
   onContact,
-  onToggleTheme,
 }: {
-  theme: Theme
   activeSection: SectionId
   onContact: () => void
-  onToggleTheme: () => void
 }) {
-  const { t } = useLang()
+  const { t, lang } = useLang()
+  const { theme } = useTheme()
 
   return (
     <section className="hero" id="inicio">
@@ -252,28 +50,34 @@ function Hero({
       <video
         key={theme}
         ref={(el) => {
-          if (el) el.playbackRate = 1 / 1.5
+          if (!el) return
+          el.playbackRate = 1 / 1.5
+          el.muted = true
+          const tryPlay = () => {
+            const p = el.play()
+            if (p) p.catch(() => {})
+          }
+          tryPlay()
         }}
         className="hero-background"
-        src={theme === "dark" ? "/videos/scene-dark.webm" : "/videos/scene-light.webm"}
+        src={publicAsset(theme === "dark" ? "/videos/scene-dark.webm" : "/videos/scene-light.webm")}
         autoPlay
         loop
         muted
         playsInline
+        webkit-playsinline="true"
+        disablePictureInPicture
+        disableRemotePlayback
         preload="auto"
         aria-hidden="true"
       />
       <div className="hero-shade" aria-hidden="true" />
-      <Header
-        theme={theme}
-        activeSection={activeSection}
-        onContact={onContact}
-        onToggleTheme={onToggleTheme}
-      />
       <div className="hero-content shell">
         <img
           className="hero-diagram"
-          src={theme === "dark" ? "/assets/diagram/diagrama-dark.svg" : "/assets/diagram/diagrama-light.svg"}
+          src={publicAsset(
+            `/assets/diagram/diagrama-${theme}${lang === "en" ? "-en" : ""}.svg`,
+          )}
           alt=""
           aria-hidden="true"
         />
@@ -285,11 +89,11 @@ function Hero({
         </p>
         <div className="hero-proof">
           <div className="hero-proof-avatars" aria-hidden="true">
-            <img src="/assets/0e969.png" alt="" />
-            <img src="/assets/logos/logo-ume.svg" alt="" />
-            <img src="/assets/logos/logo-incognia.svg" alt="" />
-            <img src="/assets/logos/logo-loft.svg" alt="" />
-            <img src="/assets/logos/logo-magalu.svg" alt="" />
+            <img src={publicAsset("/assets/logos/logo-ufpe.svg")} alt="" />
+            <img src={publicAsset("/assets/logos/logo-ume.svg")} alt="" />
+            <img src={publicAsset("/assets/logos/logo-incognia.svg")} alt="" />
+            <img src={publicAsset("/assets/logos/logo-loft.svg")} alt="" />
+            <img src={publicAsset("/assets/logos/logo-magalu.svg")} alt="" />
           </div>
           <p className="hero-proof-text">
             <strong>{t.hero.proofStrong}</strong> {t.hero.proofRest}
@@ -300,11 +104,7 @@ function Hero({
           <a className="button button-primary" href="#cases">
             {t.hero.ctaCases} <ArrowDown size={16} />
           </a>
-          <button
-            className="button button-secondary"
-            type="button"
-            onClick={onContact}
-          >
+          <button className="button button-secondary" type="button" onClick={onContact}>
             {t.hero.ctaContact}
           </button>
         </div>
@@ -315,10 +115,44 @@ function Hero({
 
 function CasesSection() {
   const { t } = useLang()
-  const [filter, setFilter] = useState<"all" | CategoryKey>("all")
-  const categories: ("all" | CategoryKey)[] = ["all", "product", "branding", "creative"]
-  const visibleCases =
-    filter === "all" ? cases : cases.filter((item) => item.categoryKey === filter)
+  const [filter, setFilter] = useState<"all" | CategoryKey | "ai">("all")
+  const [subtitleTooltip, setSubtitleTooltip] = useState<{
+    slug: string
+    text: string
+    x: number
+    y: number
+  } | null>(null)
+  const categories: ("all" | CategoryKey | "ai")[] = ["all", "product", "branding", "creative", "ai"]
+  const visibleCases = cases.filter(
+    (item) =>
+      item.slug !== "ume" &&
+      item.slug !== "casa-nui" &&
+      (filter === "all" || (filter === "ai" ? item.aiAssisted : item.categoryKey === filter)),
+  )
+
+  const updateSubtitleTooltip = (
+    event: React.MouseEvent<HTMLParagraphElement>,
+    slug: string,
+    text: string,
+  ) => {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      return
+    }
+
+    const target = event.currentTarget
+    if (target.scrollWidth <= target.clientWidth) {
+      setSubtitleTooltip(null)
+      return
+    }
+
+    const horizontalInset = Math.min(192, window.innerWidth / 2)
+    setSubtitleTooltip({
+      slug,
+      text,
+      x: Math.max(horizontalInset, Math.min(event.clientX, window.innerWidth - horizontalInset)),
+      y: event.clientY,
+    })
+  }
 
   return (
     <section className="cases-section" id="cases">
@@ -329,35 +163,78 @@ function CasesSection() {
           {categories.map((category) => (
             <button
               type="button"
-              className={filter === category ? "active" : ""}
+              className={`${filter === category ? "active" : ""}${category === "ai" ? " filter-ai" : ""}`}
               onClick={() => setFilter(category)}
               key={category}
             >
               {t.cases.categories[category]}
+              {category === "ai" && <Sparkles size={13} strokeWidth={1.5} fill="currentColor" />}
             </button>
           ))}
         </div>
         <div className="cases-grid">
           {visibleCases.map((item) => (
-            <article className="case-card" key={item.company}>
+            <Link
+              className={`case-card${item.coverImage ? " has-cover" : ""}`}
+              to={`/cases/${item.slug}`}
+              key={item.slug}
+            >
               <div className="case-image" aria-hidden="true">
-                <ImageIcon size={32} strokeWidth={1.25} />
+                {item.coverImage ? (
+                  <img src={publicAsset(item.coverImage)} alt="" loading="lazy" />
+                ) : (
+                  <ImageIcon size={32} strokeWidth={1.25} />
+                )}
               </div>
+              {item.coverImage && <div className="case-card-overlay" aria-hidden="true" />}
               <div className="case-footer">
                 <div className="case-meta">
-                  <img src={item.logo} alt="" />
+                  <img src={publicAsset(item.logo)} alt="" />
                   <div>
                     <h3>{item.company}</h3>
-                    <p>{t.cases.titles[item.company]}</p>
+                    <p
+                      aria-describedby={
+                        subtitleTooltip?.slug === item.slug ? "case-subtitle-tooltip" : undefined
+                      }
+                      onMouseEnter={(event) =>
+                        updateSubtitleTooltip(event, item.slug, t.cases.titles[item.company])
+                      }
+                      onMouseMove={(event) =>
+                        updateSubtitleTooltip(event, item.slug, t.cases.titles[item.company])
+                      }
+                      onMouseLeave={() => setSubtitleTooltip(null)}
+                    >
+                      {t.cases.titles[item.company]}
+                    </p>
                   </div>
                 </div>
-                <span className="case-tag" data-category={item.categoryKey}>
-                  {t.cases.categories[item.categoryKey]}
-                </span>
+                <div className="case-tag-group">
+                  <span className="case-tag" data-category={item.categoryKey}>
+                    {t.cases.categories[item.categoryKey]}
+                  </span>
+                  {item.aiAssisted && (
+                    <span className="case-tag case-tag-ai">
+                      {t.cases.categories.ai}
+                      <Sparkles size={12} strokeWidth={1.5} fill="currentColor" />
+                    </span>
+                  )}
+                </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
+        {subtitleTooltip &&
+          createPortal(
+            <div
+              className="case-subtitle-tooltip"
+              id="case-subtitle-tooltip"
+              role="tooltip"
+              style={{ left: subtitleTooltip.x, top: subtitleTooltip.y }}
+            >
+              {subtitleTooltip.text}
+            </div>,
+            document.body,
+          )}
       </div>
     </section>
   )
@@ -407,7 +284,7 @@ function AboutSection({ onContact }: { onContact: () => void }) {
                 <h3>{t.about.education}</h3>
                 <div className="education">
                   <span className="education-logo">
-                    <img src="/assets/0e969.png" alt="" />
+                    <img src={publicAsset("/assets/logos/logo-ufpe.svg")} alt="" />
                   </span>
                   <span>
                     <strong>{t.about.school}</strong>
@@ -426,17 +303,13 @@ function AboutSection({ onContact }: { onContact: () => void }) {
             </div>
             <div className="about-portrait">
               <div className="portrait">
-                <img src="/assets/dff8f.png" alt={t.about.portraitAlt} />
+                <img src={publicAsset("/assets/dff8f.png")} alt={t.about.portraitAlt} />
               </div>
             </div>
           </div>
           <div className="contact-row" id="contato">
             <strong>{t.about.contactRow}</strong>
-            <button
-              className="button contact-button"
-              type="button"
-              onClick={onContact}
-            >
+            <button className="button contact-button" type="button" onClick={onContact}>
               {t.about.ctaContact} <ArrowUpRight size={16} />
             </button>
           </div>
@@ -446,151 +319,24 @@ function AboutSection({ onContact }: { onContact: () => void }) {
   )
 }
 
-function Footer({
-  theme,
-  activeSection,
-  onToggleTheme,
-}: {
-  theme: Theme
-  activeSection: SectionId
-  onToggleTheme: () => void
-}) {
-  return (
-    <footer className="footer">
-      <div className="shell footer-inner">
-        <Logo showAvatar muted />
-        <div className="desktop-nav">
-          <NavLinks activeSection={activeSection} showActive={false} />
-          <div className="lang-theme-group">
-            <LangButton />
-            <ThemeButton theme={theme} onToggle={onToggleTheme} />
-          </div>
-        </div>
-      </div>
-    </footer>
-  )
-}
-
-function ContactModal({ onClose }: { onClose: () => void }) {
-  const { t } = useLang()
-  const nameRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = "hidden"
-    nameRef.current?.focus()
-
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose()
-    }
-    window.addEventListener("keydown", closeOnEscape)
-
-    return () => {
-      document.body.style.overflow = previousOverflow
-      window.removeEventListener("keydown", closeOnEscape)
-    }
-  }, [onClose])
-
-  return (
-    <div
-      className="modal-backdrop"
-      role="presentation"
-      onMouseDown={(event) => {
-        if (event.target === event.currentTarget) onClose()
-      }}
-    >
-      <section
-        className="contact-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="contact-title"
-      >
-        <button
-          className="modal-close"
-          type="button"
-          aria-label={t.aria.closeForm}
-          onClick={onClose}
-        >
-          <X size={20} />
-        </button>
-        <p className="kicker">{t.contact.kicker}</p>
-        <h2 id="contact-title">{t.contact.title}</h2>
-        <p className="modal-intro">{t.contact.intro}</p>
-        <form
-          onSubmit={(event) => {
-            event.preventDefault()
-            const data = new FormData(event.currentTarget)
-            const name = String(data.get("name"))
-            const email = String(data.get("email"))
-            const message = String(data.get("message"))
-            const subject = encodeURIComponent(t.contact.mailSubject(name))
-            const body = encodeURIComponent(t.contact.mailBody(name, email, message))
-            window.location.href = `mailto:contato@victoraraujo.design?subject=${subject}&body=${body}`
-            onClose()
-          }}
-        >
-          <label>
-            {t.contact.nameLabel}
-            <input
-              ref={nameRef}
-              type="text"
-              name="name"
-              autoComplete="name"
-              placeholder={t.contact.namePlaceholder}
-              required
-            />
-          </label>
-          <label>
-            {t.contact.emailLabel}
-            <input
-              type="email"
-              name="email"
-              autoComplete="email"
-              placeholder={t.contact.emailPlaceholder}
-              required
-            />
-          </label>
-          <label>
-            {t.contact.messageLabel}
-            <textarea
-              name="message"
-              placeholder={t.contact.messagePlaceholder}
-              rows={5}
-              required
-            />
-          </label>
-          <button className="button modal-submit" type="submit">
-            {t.contact.submit} <Send size={16} />
-          </button>
-        </form>
-      </section>
-    </div>
-  )
-}
-
 export default function App() {
   return (
-    <LangProvider>
-      <AppContent />
-    </LangProvider>
+    <ThemeProvider>
+      <LangProvider>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cases/:slug" element={<CasePage />} />
+          </Routes>
+        </BrowserRouter>
+      </LangProvider>
+    </ThemeProvider>
   )
 }
 
-function AppContent() {
+function Home() {
   const [activeSection, setActiveSection] = useState<SectionId>("inicio")
   const [contactOpen, setContactOpen] = useState(false)
-  const [theme, setTheme] = useState<Theme>(() => {
-    const saved = localStorage.getItem("portfolio-theme")
-    if (saved === "light" || saved === "dark") return saved
-    return window.matchMedia("(prefers-color-scheme: light)").matches
-      ? "light"
-      : "dark"
-  })
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme
-    localStorage.setItem("portfolio-theme", theme)
-  }, [theme])
 
   useEffect(() => {
     let scrollFrame = 0
@@ -599,14 +345,12 @@ function AppContent() {
       cancelAnimationFrame(scrollFrame)
       scrollFrame = requestAnimationFrame(() => {
         const scrollPosition = window.scrollY + 1
-        const current = navItems.reduce<SectionId>((active, { href }) => {
-          const section = document.querySelector<HTMLElement>(href)
+        const current = navItems.reduce<SectionId>((active, { key }) => {
+          const section = document.getElementById(key)
           const sectionTop = section
             ? section.getBoundingClientRect().top + window.scrollY
             : Number.POSITIVE_INFINITY
-          return scrollPosition >= sectionTop
-            ? (href.slice(1) as SectionId)
-            : active
+          return scrollPosition >= sectionTop ? key : active
         }, "inicio")
         setActiveSection(current)
       })
@@ -631,19 +375,11 @@ function AppContent() {
 
   return (
     <main>
-      <Hero
-        theme={theme}
-        activeSection={activeSection}
-        onContact={() => setContactOpen(true)}
-        onToggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")}
-      />
+      <Header activeSection={activeSection} onContact={() => setContactOpen(true)} />
+      <Hero activeSection={activeSection} onContact={() => setContactOpen(true)} />
       <CasesSection />
       <AboutSection onContact={() => setContactOpen(true)} />
-      <Footer
-        theme={theme}
-        activeSection={activeSection}
-        onToggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")}
-      />
+      <Footer activeSection={activeSection} />
       {contactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
     </main>
   )

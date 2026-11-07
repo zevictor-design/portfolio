@@ -1,0 +1,1139 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Loft — Details</title>
+    <style>
+      :root {
+        --text: #191f23;
+        --muted: #536470;
+        --border: #e1e9ef;
+        --border-strong: #b7c8d5;
+        --orange: #f56738;
+        --orange-border: #d94616;
+        --teal: #20a483;
+        --card-bg: #f3f7fa;
+        --card-border: #c3dae8;
+        --brown-bg: #f7f2f2;
+        --scale: 0.72533;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        background: #fff;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        color: var(--text);
+      }
+
+      .viewport {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .scaled-wrap {
+        position: relative;
+        width: 100%;
+        /* native canvas height * scale, trimmed to actual content */
+        height: 1455px;
+      }
+
+      .canvas {
+        width: 375px;
+        transform-origin: top left;
+        transform: scale(var(--scale));
+        background: #fff;
+      }
+
+      img,
+      svg {
+        display: block;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      button {
+        font-family: inherit;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ---------- header ---------- */
+
+      .status-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 44px;
+        padding: 0 24px;
+        background: #fff;
+        opacity: 0.7;
+      }
+
+      .status-bar img {
+        height: 13px;
+        width: auto;
+      }
+
+      .header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 56px;
+        padding: 0 24px;
+        border-bottom: 1px solid var(--border);
+        background: #fff;
+      }
+
+      .header-back {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        background: none;
+        border: none;
+        padding: 0;
+        color: var(--text);
+        font-family: inherit;
+        font-size: 14px;
+        line-height: 24px;
+        cursor: pointer;
+      }
+
+      .header-logo {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        height: 28px;
+        width: auto;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .header-actions button {
+        background: none;
+        border: none;
+        padding: 0;
+        color: var(--text);
+        display: flex;
+      }
+
+      /* ---------- gallery ---------- */
+
+      .gallery {
+        position: relative;
+        height: 277px;
+        background: url('../assets/cases/loft/sala-loft.webp') center / cover no-repeat;
+        overflow: hidden;
+      }
+
+      .gallery-more {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        padding: 4px 12px;
+        border: 1px solid #fff;
+        border-radius: 8px;
+        background: rgba(25, 31, 35, 0.28);
+        backdrop-filter: blur(6px);
+        color: #fff;
+        font-family: inherit;
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      .gallery-stats {
+        position: absolute;
+        left: 16px;
+        bottom: 16px;
+        display: flex;
+        gap: 8px;
+      }
+
+      .gallery-pill {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 8px;
+        border-radius: 8px;
+        background: rgba(70, 70, 70, 0.4);
+        backdrop-filter: blur(9px);
+        color: #fff;
+        font-size: 14px;
+        line-height: 24px;
+      }
+
+      /* ---------- title / address ---------- */
+
+      .content {
+        padding: 0 16px;
+      }
+
+      .title {
+        margin-top: 20px;
+        font-family: "Inter", sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 28px;
+      }
+
+      .address {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+        margin-top: 16px;
+        font-size: 14px;
+        line-height: 24px;
+      }
+
+      .address a {
+        color: var(--teal);
+        border-bottom: 1px solid var(--teal);
+      }
+
+      .address .dot {
+        color: var(--text);
+      }
+
+      /* ---------- price card ---------- */
+
+      .price-card {
+        margin-top: 28px;
+        border: 1px solid var(--border-strong);
+        border-radius: 12px;
+        padding: 24px 20px;
+      }
+
+      .price-label {
+        font-size: 14px;
+        line-height: 24px;
+        color: var(--text);
+      }
+
+      .price-value {
+        margin-top: 4px;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 32px;
+      }
+
+      .price-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        line-height: 24px;
+        transition: opacity 150ms ease;
+      }
+
+      .btn:hover {
+        opacity: 0.85;
+      }
+
+      .btn-primary {
+        background: var(--orange);
+        border: 1px solid var(--orange-border);
+        color: #fff;
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 1px solid var(--text);
+        color: var(--text);
+      }
+
+      .btn-outline-lg {
+        border-radius: 12px;
+        padding: 12px 24px;
+        font-size: 16px;
+      }
+
+      .price-caption {
+        margin-top: 16px;
+        text-align: center;
+        font-size: 12px;
+        line-height: 20px;
+        color: var(--muted);
+      }
+
+      .price-divider {
+        margin-top: 28px;
+        height: 1px;
+        background: var(--border-strong);
+      }
+
+      .price-fees {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 12px;
+      }
+
+      .price-fee-label {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        line-height: 20px;
+        color: var(--muted);
+      }
+
+      .price-fee-value {
+        margin-top: 4px;
+        font-size: 12px;
+        line-height: 20px;
+      }
+
+      .price-fee-value.link {
+        color: var(--teal);
+        border-bottom: 1px solid var(--teal);
+        width: fit-content;
+      }
+
+      .price-fee-col:last-child {
+        text-align: right;
+      }
+      .price-fee-col:last-child .price-fee-label {
+        justify-content: flex-end;
+      }
+
+      /* ---------- specs ---------- */
+
+      .specs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 32px;
+        column-gap: 16px;
+        margin-top: 32px;
+      }
+
+      .spec-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .spec-item .icon {
+        color: var(--text);
+        flex: 0 0 auto;
+      }
+
+      .spec-main {
+        font-size: 14px;
+        line-height: 24px;
+      }
+
+      .spec-sub {
+        font-size: 12px;
+        line-height: 20px;
+        color: var(--muted);
+      }
+
+      .spec-main.strike {
+        text-decoration: line-through;
+        color: var(--muted);
+      }
+
+      /* ---------- amenities ---------- */
+
+      .section-divider {
+        margin-top: 32px;
+        height: 1px;
+        background: var(--border);
+      }
+
+      .overline {
+        margin-top: 32px;
+        font-weight: 700;
+        font-size: 10px;
+        line-height: 16px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .amenities {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 16px;
+        column-gap: 16px;
+        margin-top: 16px;
+      }
+
+      .amenity-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        line-height: 24px;
+      }
+
+      .amenity-item .icon {
+        color: var(--teal);
+        flex: 0 0 auto;
+      }
+
+      /* ---------- help card ---------- */
+
+      .help-card {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 24px 16px;
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        background: var(--card-bg);
+        text-align: center;
+      }
+
+      .help-avatars {
+        display: flex;
+      }
+
+      .help-avatars img {
+        width: 140px;
+        height: auto;
+        display: block;
+      }
+
+      .help-title {
+        margin-top: 16px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      .help-text {
+        margin-top: 8px;
+        font-size: 14px;
+        line-height: 24px;
+      }
+
+      .help-card .btn {
+        margin-top: 24px;
+      }
+
+      /* ---------- loft account card ---------- */
+
+      .loft-card {
+        position: relative;
+        margin-top: 40px;
+        padding: 24px;
+        border-radius: 16px;
+        background: var(--brown-bg);
+        overflow: hidden;
+      }
+
+      .loft-card-illustration {
+        width: 100%;
+        height: 160px;
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--brown-bg);
+      }
+
+      .loft-card-illustration img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .loft-card-title {
+        margin-top: 24px;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 28px;
+      }
+
+      .loft-card-text {
+        margin-top: 12px;
+        font-size: 14px;
+        line-height: 24px;
+      }
+
+      .loft-card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 24px;
+        color: var(--orange);
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 24px;
+      }
+
+      /* ---------- financing ---------- */
+
+      .financing {
+        margin-top: 40px;
+        padding-top: 32px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .financing-thumb {
+        width: 220px;
+        height: 130px;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .financing-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      .financing-text {
+        margin-top: 24px;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 28px;
+        max-width: 295px;
+      }
+
+      .financing-text .highlight {
+        color: var(--teal);
+      }
+
+      .financing .btn {
+        margin-top: 24px;
+        max-width: 295px;
+      }
+
+      .financing-bottom-divider {
+        margin-top: 32px;
+        width: 100%;
+        height: 1px;
+        background: var(--border);
+      }
+
+      /* ---------- accordions ---------- */
+
+      .accordions {
+        margin-top: 32px;
+        padding-bottom: 48px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .accordion-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .accordion-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        background: none;
+        border: none;
+        padding: 0;
+        text-align: left;
+        color: var(--text);
+      }
+
+      .accordion-head span {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 28px;
+      }
+
+      .accordion-head .icon {
+        transition: transform 200ms ease;
+        flex: 0 0 auto;
+      }
+
+      .accordion-item.open .accordion-head .icon {
+        transform: rotate(180deg);
+      }
+
+      .accordion-sub {
+        font-size: 12px;
+        line-height: 20px;
+        color: var(--muted);
+      }
+
+      .accordion-panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 220ms ease;
+      }
+
+      .accordion-item.open .accordion-panel {
+        grid-template-rows: 1fr;
+      }
+
+      .accordion-panel-inner {
+        overflow: hidden;
+      }
+
+      .accordion-panel-content {
+        padding-top: 12px;
+        font-size: 14px;
+        line-height: 24px;
+        color: var(--text);
+      }
+
+      .accordion-divider {
+        margin-top: 24px;
+        height: 1px;
+        background: var(--border-strong);
+      }
+
+      /* ---------- photo gallery modal ---------- */
+
+      .photo-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        background: #fff;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .photo-modal.open {
+        display: block;
+      }
+
+      .photo-modal-scaled-wrap {
+        position: relative;
+        width: 100%;
+      }
+
+      .photo-modal-canvas {
+        width: 375px;
+        zoom: var(--scale);
+        background: #fff;
+      }
+
+      .photo-modal-statusbar {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 44px;
+        padding: 0 24px;
+        background: #fff;
+        opacity: 0.7;
+      }
+
+      .photo-modal-statusbar img {
+        height: 13px;
+        width: auto;
+      }
+
+      .photo-modal-header {
+        position: sticky;
+        top: 44px;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(8px);
+      }
+
+      .photo-modal-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border: none;
+        border-radius: 50%;
+        background: var(--card-bg);
+        color: var(--text);
+        flex: 0 0 auto;
+      }
+
+      .photo-modal-title {
+        flex: 1 1 auto;
+      }
+
+      .photo-modal-title strong {
+        display: block;
+        font-size: 13px;
+        line-height: 18px;
+      }
+
+      .photo-modal-title span {
+        display: block;
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 16px;
+      }
+
+      .photo-modal-filters {
+        position: sticky;
+        top: 112px;
+        z-index: 1;
+        display: flex;
+        gap: 6px;
+        padding: 8px 16px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(8px);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .photo-modal-filters::-webkit-scrollbar {
+        display: none;
+      }
+
+      .photo-modal-filter {
+        flex: 0 0 auto;
+        padding: 4px 10px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: #fff;
+        color: var(--muted);
+        font-family: inherit;
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 16px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .photo-modal-filter.is-active {
+        border-color: var(--text);
+        background: var(--text);
+        color: #fff;
+      }
+
+      .photo-modal-body {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        padding: 16px;
+      }
+
+      .photo-modal-group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .photo-modal-group.is-hidden {
+        display: none;
+      }
+
+      .photo-modal-group-title {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      .photo-modal-group-title span {
+        color: var(--muted);
+        font-weight: 400;
+        font-size: 12px;
+      }
+
+      .photo-modal-body img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+      }
+
+      .photo-modal-caption {
+        margin-top: -4px;
+        margin-bottom: 4px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="viewport">
+      <div class="scaled-wrap">
+        <div class="canvas" id="canvas">
+          <!-- status bar -->
+          <div class="status-bar">
+            <img src="status-time.svg" alt="19:02" />
+            <img src="status-sinais.svg" alt="Sinal, Wi-Fi e bateria" />
+          </div>
+
+          <!-- header -->
+          <div class="header">
+            <button class="header-back" type="button">
+              <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              Ver outros
+            </button>
+            <img class="header-logo" src="logo-loft-wordmark.webp" alt="Loft" />
+            <div class="header-actions">
+              <button type="button" aria-label="Favoritar" id="heart-btn">
+                <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg>
+              </button>
+              <button type="button" aria-label="Mais opções">
+                <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- gallery -->
+          <div class="gallery">
+            <button class="gallery-more" type="button" onclick="openGallery()">Ver mais fotos</button>
+            <div class="gallery-stats">
+              <div class="gallery-pill">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+                50
+              </div>
+              <div class="gallery-pill">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l5-3v10l-5-3"/><rect x="2" y="6" width="13" height="12" rx="2"/></svg>
+                1
+              </div>
+              <div class="gallery-pill">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/><path d="M2 12h20"/></svg>
+                360
+              </div>
+            </div>
+          </div>
+
+          <div class="content">
+            <!-- title / address -->
+            <p class="title">Apartamento à venda em Pinheiros com 101 m², 2 quartos, 2 vagas</p>
+            <div class="address">
+              <a href="#">Condomínio O2 Jardim Sul</a>
+              <span class="dot">&bull;</span>
+              <a href="#">Rua Doutor José Rodrigues</a>
+              <span class="dot">&bull;</span>
+              <span>Alto de Pinheiros, São Paulo-SP</span>
+            </div>
+
+            <!-- price card -->
+            <div class="price-card">
+              <p class="price-label">Valor à vista</p>
+              <p class="price-value">R$ 1.070.000</p>
+              <div class="price-actions">
+                <button class="btn btn-primary" type="button">Agendar visita</button>
+                <button class="btn btn-outline" type="button">Tirar dúvidas</button>
+              </div>
+              <p class="price-caption">Você pode visitar este imóvel ainda hoje</p>
+              <div class="price-divider"></div>
+              <div class="price-fees">
+                <div class="price-fee-col">
+                  <p class="price-fee-label">Parcelas a partir de</p>
+                  <p class="price-fee-value link">R$ 12.300/mês</p>
+                </div>
+                <div class="price-fee-col">
+                  <p class="price-fee-label">
+                    IPTU
+                    <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                  </p>
+                  <p class="price-fee-value">R$ 4.000/ano</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- specs -->
+            <div class="specs">
+              <div class="spec-item">
+                <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                <div>
+                  <p class="spec-main">85 m&sup2;</p>
+                  <p class="spec-sub">R$ 10.588/m&sup2;</p>
+                </div>
+              </div>
+              <div class="spec-item">
+                <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2"/></svg>
+                <div>
+                  <p class="spec-main">3 Quartos</p>
+                  <p class="spec-sub">1 su&iacute;te</p>
+                </div>
+              </div>
+              <div class="spec-item">
+                <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16"/><path d="M4 12a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2"/><path d="M6 18v2"/><path d="M18 18v2"/><path d="M12 2v3"/><path d="M9 5l1.5 1.5"/><path d="M15 5l-1.5 1.5"/></svg>
+                <div>
+                  <p class="spec-main">2 Banheiros</p>
+                </div>
+              </div>
+              <div class="spec-item">
+                <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 15l4-4a2 2 0 0 1 3 0l5 5"/><path d="M14 13l1-1a2 2 0 0 1 3 0l2 2"/><circle cx="9" cy="8" r="1.5"/><path d="M4 21h16"/></svg>
+                <div>
+                  <p class="spec-main">Metr&ocirc; pr&oacute;ximo</p>
+                  <p class="spec-sub">esta&ccedil;&atilde;o &agrave; 253m</p>
+                </div>
+              </div>
+              <div class="spec-item">
+                <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg>
+                <div>
+                  <p class="spec-main">Sol da manh&atilde;</p>
+                  <p class="spec-sub">na sala e su&iacute;te</p>
+                </div>
+              </div>
+              <div class="spec-item">
+                <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M4 9a2 2 0 0 0-2 2v4h20v-4a2 2 0 0 0-2-2H4Z"/><path d="M2 17v2"/><path d="M22 17v2"/></svg>
+                <div>
+                  <p class="spec-main strike">Sem mob&iacute;lia</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+            <p class="overline">Caracter&iacute;sticas do im&oacute;vel</p>
+            <div class="amenities">
+              <div class="amenity-item">
+                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Lavabo
+              </div>
+              <div class="amenity-item">
+                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Chuveiro
+              </div>
+              <div class="amenity-item">
+                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Aquecedor a g&aacute;s
+              </div>
+            </div>
+
+            <!-- help card -->
+            <div class="help-card">
+              <div class="help-avatars">
+                <img src="../assets/cases/loft/pessoas.webp" alt="" />
+              </div>
+              <p class="help-title">Quer mais informa&ccedil;&otilde;es?</p>
+              <p class="help-text">Fale com um de nossos especialistas.</p>
+              <button class="btn btn-outline" type="button" style="max-width: 272px;">Enviar mensagem</button>
+            </div>
+
+            <!-- loft account card -->
+            <div class="loft-card">
+              <div class="loft-card-illustration">
+                <img src="../assets/cases/loft/casal.webp" alt="" />
+              </div>
+              <p class="loft-card-title">A Loft do seu jeitinho</p>
+              <p class="loft-card-text">Entre na sua conta para salvar seus filtros favoritos, receber recomenda&ccedil;&otilde;es exclusiva e ter acesso a mais informa&ccedil;&otilde;es.</p>
+              <a class="loft-card-link" href="#">
+                Salvar prefer&ecirc;ncias
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <!-- financing -->
+            <div class="financing">
+              <div class="financing-thumb"><img src="../assets/cases/loft/pessoa pc.webp" alt="" /></div>
+              <p class="financing-text">Financie este im&oacute;vel com a Loft por <span class="highlight">at&eacute; R$ 6.900 na primeira parcela</span></p>
+              <button class="btn btn-outline btn-outline-lg" type="button">Simular financiamento</button>
+              <div class="financing-bottom-divider"></div>
+            </div>
+
+            <!-- accordions -->
+            <div class="accordions">
+              <div class="accordion-item" data-accordion>
+                <button class="accordion-head" type="button" onclick="toggleAccordion(this)">
+                  <span>Localiza&ccedil;&atilde;o</span>
+                  <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <p class="accordion-sub">Pr&oacute;ximo ao Shopping Morumbi Town e mais...</p>
+                <div class="accordion-panel">
+                  <div class="accordion-panel-inner">
+                    <p class="accordion-panel-content">
+                      A poucos minutos a p&eacute; do Shopping Morumbi Town, de parques e de uma esta&ccedil;&atilde;o de metr&ocirc;, com f&aacute;cil acesso &agrave;s principais vias da zona oeste de S&atilde;o Paulo.
+                    </p>
+                  </div>
+                </div>
+                <div class="accordion-divider"></div>
+              </div>
+              <div class="accordion-item" data-accordion>
+                <button class="accordion-head" type="button" onclick="toggleAccordion(this)">
+                  <span>Ambientes</span>
+                  <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <p class="accordion-sub">Veja fotos do im&oacute;vel separadas por ambientes</p>
+                <div class="accordion-panel">
+                  <div class="accordion-panel-inner">
+                    <p class="accordion-panel-content">
+                      Sala, cozinha, su&iacute;te master, dois quartos e banheiros, organizados em um &aacute;lbum para voc&ecirc; explorar cada ambiente em detalhe.
+                    </p>
+                  </div>
+                </div>
+                <div class="accordion-divider"></div>
+              </div>
+              <div class="accordion-item" data-accordion>
+                <button class="accordion-head" type="button" onclick="toggleAccordion(this)">
+                  <span>Simulador de financiamento</span>
+                  <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <p class="accordion-sub">Saiba o valor das parcelas para esse im&oacute;vel</p>
+                <div class="accordion-panel">
+                  <div class="accordion-panel-inner">
+                    <p class="accordion-panel-content">
+                      Simule o financiamento deste im&oacute;vel com a Loft e veja o valor estimado das parcelas antes de agendar sua visita.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- photo gallery modal -->
+      <div class="photo-modal" id="photoModal">
+        <div class="photo-modal-scaled-wrap" id="photoModalScaledWrap">
+          <div class="photo-modal-canvas" id="photoModalCanvas">
+            <div class="photo-modal-statusbar">
+              <img src="status-time.svg" alt="19:02" />
+              <img src="status-sinais.svg" alt="Sinal, Wi-Fi e bateria" />
+            </div>
+            <div class="photo-modal-header">
+              <div class="photo-modal-title">
+                <strong>Fotos do im&oacute;vel</strong>
+                <span>15 fotos</span>
+              </div>
+              <button class="photo-modal-close" type="button" onclick="closeGallery()" aria-label="Fechar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </button>
+            </div>
+            <div class="photo-modal-filters">
+          <button class="photo-modal-filter is-active" type="button" data-filter="all" onclick="filterGallery('all', this)">Todas</button>
+          <button class="photo-modal-filter" type="button" data-filter="sala" onclick="filterGallery('sala', this)">Sala</button>
+          <button class="photo-modal-filter" type="button" data-filter="quarto" onclick="filterGallery('quarto', this)">Quarto</button>
+          <button class="photo-modal-filter" type="button" data-filter="escritorio" onclick="filterGallery('escritorio', this)">Escrit&oacute;rio</button>
+        </div>
+        <div class="photo-modal-body">
+          <div class="photo-modal-group" data-group="sala">
+            <p class="photo-modal-group-title">Sala <span>7 fotos</span></p>
+            <img src="../assets/cases/loft/sala-loft.webp" alt="Sala de estar" loading="lazy" />
+            <img src="../assets/cases/loft/loft-gallery-sofa.webp" alt="Sala com sof&aacute; e espelho" loading="lazy" />
+            <img src="../assets/cases/loft/loft-gallery-cantinho.webp" alt="Cantinho com plantas" loading="lazy" />
+            <img src="../assets/cases/loft/loft-gallery-sala-4.webp" alt="Poltrona com manta e plantas" loading="lazy" />
+            <img src="../assets/cases/loft/loft-gallery-sala-2.webp" alt="Estante com p&oacute;ster e plantas" loading="lazy" />
+            <img src="../assets/cases/loft/loft-gallery-sala-3.webp" alt="Sala de estar com TV e mesa de centro" loading="lazy" />
+            <img src="../assets/cases/loft/loft-gallery-porta.webp" alt="Corredor com plantas" loading="lazy" />
+          </div>
+          <div class="photo-modal-group" data-group="quarto">
+            <p class="photo-modal-group-title">Quarto <span>4 fotos</span></p>
+            <img src="../assets/cases/loft/loft-gallery-quarto-2.webp" alt="Quarto com cama e janela com vista verde" loading="lazy" />
+            <img src="../assets/cases/loft/loft-gallery-quarto-4.webp" alt="Quarto com c&ocirc;moda e espelho redondo" loading="lazy" />
+            <img src="../assets/cases/loft/loft-gallery-quarto-1.webp" alt="Quarto com cama e banco de madeira" loading="lazy" />
+            <img src="../assets/cases/loft/loft-gallery-quarto-3.webp" alt="Quarto com cama e planta no canto" loading="lazy" />
+          </div>
+          <div class="photo-modal-group" data-group="escritorio">
+            <p class="photo-modal-group-title">Escrit&oacute;rio <span>4 fotos</span></p>
+            <img src="../assets/cases/loft/loft-gallery-estante.webp" alt="Mesa de trabalho com estante" loading="lazy" />
+            <img src="../assets/cases/loft/loft-gallery-escritorio-1.webp" alt="Mesa de trabalho com notebook e estante de livros" loading="lazy" />
+            <img src="../assets/cases/loft/loft-gallery-escritorio-2.webp" alt="Mesa de trabalho &agrave; noite" loading="lazy" />
+            <img src="../assets/cases/loft/loft-gallery-escritorio-3.webp" alt="Mesa de trabalho, outro &acirc;ngulo" loading="lazy" />
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function openGallery() {
+        document.getElementById('photoModal').classList.add('open');
+        document.body.style.overflow = 'hidden';
+        fitModalCanvas();
+      }
+
+      function closeGallery() {
+        document.getElementById('photoModal').classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      function filterGallery(filter, button) {
+        document.querySelectorAll('.photo-modal-filter').forEach(function (el) {
+          el.classList.toggle('is-active', el === button);
+        });
+        document.querySelectorAll('.photo-modal-group').forEach(function (group) {
+          var show = filter === 'all' || group.getAttribute('data-group') === filter;
+          group.classList.toggle('is-hidden', !show);
+        });
+        fitModalCanvas();
+      }
+
+      function fitModalCanvas() {
+        // zoom handles sizing natively; nothing to compute here.
+      }
+
+      function toggleAccordion(button) {
+        var item = button.closest('[data-accordion]');
+        item.classList.toggle('open');
+      }
+
+      function fitCanvas() {
+        var canvas = document.getElementById('canvas');
+        var wrap = document.querySelector('.scaled-wrap');
+        var scale = window.innerWidth / 375;
+        document.documentElement.style.setProperty('--scale', scale);
+        var nativeHeight = canvas.scrollHeight;
+        wrap.style.height = Math.ceil(nativeHeight * scale) + 'px';
+      }
+
+      window.addEventListener('load', fitCanvas);
+      window.addEventListener('resize', fitCanvas);
+      window.addEventListener('resize', fitModalCanvas);
+    </script>
+  </body>
+</html>

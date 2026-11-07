@@ -5,6 +5,11 @@ export type Lang = "pt" | "en"
 
 export const translations = {
   pt: {
+    meta: {
+      title: "Victor Araújo • Senior Product Designer",
+      description:
+        "Product Designer com +11 anos de experiência. Desenho produtos que simplificam problemas complexos, do discovery à implementação assistida com agentes de IA.",
+    },
     nav: {
       inicio: "Início",
       cases: "Cases",
@@ -32,7 +37,7 @@ export const translations = {
       title: "Design centrado no usuário",
       scriptPre: "com o ",
       scriptEm: "poder",
-      scriptPost: " da IA agêntica.",
+      scriptPost: " dos agentes de IA.",
       description: <>Desenhando produtos que simplificam problemas complexos.</>,
       ctaCases: "Ver cases",
       ctaContact: "Entrar em contato",
@@ -42,17 +47,19 @@ export const translations = {
       title: "Cases que me dão orgulho",
       categories: {
         all: "All",
-        product: "Design de Produto",
+        product: "Produto",
         branding: "Branding",
-        creative: "Creative",
+        creative: "Craft",
+        ai: "IA",
       },
       titles: {
-        "Luiza Labs": "Criação do Magalu Ads",
-        Loft: "Consolidação do Design System",
+        "Luiza Labs": "Criação do novo Magalu Ads",
+        Magalu: "Da ilustração dos personagens ao desenvolvimento.",
+        Loft: "Conversão de agendamento e Design System",
         Incognia: "Complexidade exige clareza",
         Ume: "Uma nova experiência, um novo App",
         "Vila Laut": "Onde a natureza descansa",
-        Teho: "Neurociência e Cuidado Integrado",
+        "Sabiá": "Instituto de pediatria",
       } as Record<string, string>,
     },
     skills: {
@@ -102,20 +109,28 @@ export const translations = {
     contact: {
       kicker: "VAMOS CONVERSAR",
       title: "Conte um pouco sobre o seu projeto",
-      intro: "Preencha os campos abaixo. Sua mensagem será preparada para envio por e-mail.",
+      intro: "Preencha os campos abaixo e eu recebo sua mensagem por e-mail.",
       nameLabel: "Nome",
       namePlaceholder: "Como você se chama?",
       emailLabel: "E-mail",
       emailPlaceholder: "voce@empresa.com",
       messageLabel: "Mensagem",
       messagePlaceholder: "Conte sobre o projeto, desafio ou oportunidade.",
-      submit: "Preparar e-mail",
-      mailSubject: (name: string) => `Contato pelo portfólio — ${name}`,
+      submit: "Enviar contato",
+      submitSending: "Enviando...",
+      submitSent: "Mensagem enviada!",
+      submitError: "Não foi possível enviar. Tente de novo.",
+      mailSubject: (name: string) => `Contato pelo portfólio: ${name}`,
       mailBody: (name: string, email: string, message: string) =>
         `Nome: ${name}\nE-mail: ${email}\n\n${message}`,
     },
   },
   en: {
+    meta: {
+      title: "Victor Araújo • Senior Product Designer",
+      description:
+        "Product Designer with 11+ years of experience designing products that simplify complex problems, from discovery to AI-assisted implementation.",
+    },
     nav: {
       inicio: "Home",
       cases: "Cases",
@@ -153,17 +168,19 @@ export const translations = {
       title: "Cases I'm proud of",
       categories: {
         all: "All",
-        product: "Product Design",
+        product: "Product",
         branding: "Branding",
-        creative: "Creative",
+        creative: "Craft",
+        ai: "AI",
       },
       titles: {
         "Luiza Labs": "Building Magalu Ads",
+        Magalu: "From character illustration to development.",
         Loft: "Design System consolidation",
         Incognia: "Complexity demands clarity",
         Ume: "A new experience, a new app",
         "Vila Laut": "Where nature rests",
-        Teho: "Neuroscience and integrated care",
+        "Sabiá": "Pediatrics Institute",
       } as Record<string, string>,
     },
     skills: {
@@ -213,15 +230,18 @@ export const translations = {
     contact: {
       kicker: "LET'S TALK",
       title: "Tell me a bit about your project",
-      intro: "Fill in the fields below. Your message will be prepared to send by email.",
+      intro: "Fill in the fields below and I'll get your message by email.",
       nameLabel: "Name",
       namePlaceholder: "What's your name?",
       emailLabel: "Email",
       emailPlaceholder: "you@company.com",
       messageLabel: "Message",
       messagePlaceholder: "Tell me about the project, challenge or opportunity.",
-      submit: "Prepare email",
-      mailSubject: (name: string) => `Portfolio contact — ${name}`,
+      submit: "Send message",
+      submitSending: "Sending...",
+      submitSent: "Message sent!",
+      submitError: "Could not send it. Please try again.",
+      mailSubject: (name: string) => `Portfolio contact: ${name}`,
       mailBody: (name: string, email: string, message: string) =>
         `Name: ${name}\nEmail: ${email}\n\n${message}`,
     },
@@ -236,32 +256,51 @@ type LangContextValue = {
 
 const LangContext = createContext<LangContextValue | null>(null)
 
-export function LangProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>(() => {
-    const saved = localStorage.getItem("portfolio-lang")
-    if (saved === "en" || saved === "pt") return saved
+function resolveSystemLang(): Lang {
+  const browserLanguages =
+    typeof navigator !== "undefined"
+      ? navigator.languages?.length
+        ? navigator.languages
+        : [navigator.language]
+      : []
+  const prefersPortuguese = browserLanguages.some((code) => code?.toLowerCase().startsWith("pt"))
+  return prefersPortuguese ? "pt" : "en"
+}
 
-    const browserLanguages =
-      typeof navigator !== "undefined"
-        ? navigator.languages?.length
-          ? navigator.languages
-          : [navigator.language]
-        : []
-    const prefersPortuguese = browserLanguages.some((code) =>
-      code?.toLowerCase().startsWith("pt"),
-    )
-    return prefersPortuguese ? "pt" : "en"
+export function LangProvider({ children }: { children: ReactNode }) {
+  // Only an explicit click on the language toggle "sticks": it is what sets
+  // portfolio-lang-explicit. Without that flag, any older/unrelated
+  // portfolio-lang value is ignored and the browser language wins on every
+  // visit, instead of getting stuck on whatever resolved automatically once.
+  const hasExplicitChoice = () => localStorage.getItem("portfolio-lang-explicit") === "1"
+
+  const [lang, setLang] = useState<Lang>(() => {
+    if (hasExplicitChoice()) {
+      const saved = localStorage.getItem("portfolio-lang")
+      if (saved === "en" || saved === "pt") return saved
+    }
+    return resolveSystemLang()
   })
 
   useEffect(() => {
     document.documentElement.lang = lang === "pt" ? "pt-BR" : "en"
-    localStorage.setItem("portfolio-lang", lang)
+
+    const meta = translations[lang].meta
+    document.title = meta.title
+    const descriptionTag = document.querySelector('meta[name="description"]')
+    if (descriptionTag) descriptionTag.setAttribute("content", meta.description)
   }, [lang])
 
   const value: LangContextValue = {
     lang,
     t: translations[lang],
-    toggleLang: () => setLang((current) => (current === "pt" ? "en" : "pt")),
+    toggleLang: () =>
+      setLang((current) => {
+        const next = current === "pt" ? "en" : "pt"
+        localStorage.setItem("portfolio-lang", next)
+        localStorage.setItem("portfolio-lang-explicit", "1")
+        return next
+      }),
   }
 
   return <LangContext.Provider value={value}>{children}</LangContext.Provider>

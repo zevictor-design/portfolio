@@ -1,8 +1,8 @@
 {
-  "title": "Porfolio",
-  "description": "Site de navegação com rolagem suave, menus que destacam a página atual e botões com estados de hover ajustados para temas claro e escuro.",
+  "title": "Victor Araújo • Senior Product Designer",
+  "description": "Product Designer com +11 anos de experiência. Desenho produtos que simplificam problemas complexos, do discovery à implementação assistida com agentes de IA.",
   "robots": {
-    "index": false
+    "index": true
   },
   "accessibility": {
     "addBypassLinks": false,
