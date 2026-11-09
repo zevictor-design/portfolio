@@ -232,7 +232,7 @@ export default function CasePage() {
           <span className="case-icon-slot">
             <ArrowLeft size={16} />
           </span>
-          Voltar
+          {t.casePage.back}
         </a>
 
         <div className={isDemo ? "case-layout case-layout-demo" : "case-layout"}>
@@ -259,7 +259,7 @@ export default function CasePage() {
               </div>
             </div>
             <h1 className="case-title">{caseData.title}</h1>
-            <p className="case-subtitle">{caseData.subtitle}</p>
+            {caseData.subtitle && <p className="case-subtitle">{caseData.subtitle}</p>}
 
             {!isDemo && caseData.highlightCards && (
               <div className={`case-highlight-row${caseData.slug === "incognia" ? " case-highlight-row-clean" : ""}`}>
@@ -269,31 +269,27 @@ export default function CasePage() {
               </div>
             )}
 
-            {!isDesktopGallery && (
-              <>
-                {caseData.context.length > 0 && (
-                  <section className="case-section">
-                    <h2>Contexto</h2>
-                    {caseData.context.map((paragraph) => (
-                      <p key={paragraph.slice(0, 24)}>{paragraph}</p>
-                    ))}
-                  </section>
-                )}
+            {caseData.context.length > 0 && (
+              <section className="case-section">
+                <h2>{t.casePage.context}</h2>
+                {caseData.context.map((paragraph) => (
+                  <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+                ))}
+              </section>
+            )}
 
-                {!isBrandingSingleSolution && (
-                  <section className="case-section">
-                    <h2>Desafio</h2>
-                    <div className="case-card-row">
-                      {caseData.challenge.cards.map((card) => (
-                        <HighlightCardItem card={card} key={card.title} />
-                      ))}
-                    </div>
-                    {caseData.challenge.paragraphs.map((paragraph) => (
-                      <p key={paragraph.slice(0, 24)}>{paragraph}</p>
-                    ))}
-                  </section>
-                )}
-              </>
+            {!isDesktopGallery && !isBrandingSingleSolution && (
+              <section className="case-section">
+                <h2>{t.casePage.challenge}</h2>
+                <div className="case-card-row">
+                  {caseData.challenge.cards.map((card) => (
+                    <HighlightCardItem card={card} key={card.title} />
+                  ))}
+                </div>
+                {caseData.challenge.paragraphs.map((paragraph) => (
+                  <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+                ))}
+              </section>
             )}
           </div>
 
@@ -305,7 +301,7 @@ export default function CasePage() {
         </div>
 
         <section className="case-section case-section-wide">
-          {!isDesktopGallery && <h2>Solução</h2>}
+          <h2>{t.casePage.solution}</h2>
           {caseData.solution.paragraphs.map((paragraph) => (
             <p key={paragraph.slice(0, 24)}>{paragraph}</p>
           ))}
@@ -354,7 +350,7 @@ export default function CasePage() {
         {!isDesktopGallery && !isBrandingSingleSolution && (
           <>
             <section className="case-section case-section-wide">
-              <h2>Processo</h2>
+              <h2>{t.casePage.process}</h2>
               {caseData.process.paragraphs.map((paragraph) => (
                 <p key={paragraph.slice(0, 24)}>{paragraph}</p>
               ))}
@@ -372,7 +368,7 @@ export default function CasePage() {
             </section>
 
             <section className="case-section case-section-wide">
-              <h2>Resultado</h2>
+              <h2>{t.casePage.results}</h2>
               <div className="case-card-row">
                 {caseData.results.cards.map((card) => (
                   <HighlightCardItem card={card} iconName="ArrowUp" key={card.title} />

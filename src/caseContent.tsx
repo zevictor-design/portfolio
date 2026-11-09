@@ -802,7 +802,7 @@ const loftDetailEn: CaseDetail = {
   logo: "/assets/logos/logo-loft.svg",
   coverImage: "/assets/cases/loft/loft cover 2.webp",
   tags: ["Product", "Design Systems", "PropTech", "Conversion", "A/B Testing"],
-  title: "Conversion and consistency across the Loft ecosystem",
+  title: "Booking conversion and Design System",
   subtitle:
     "Two chapters here: the revamp of the Details page, the name given to the apartment's detail page and one of the most important conversion points in Loft's customer journey, and the consolidation of the Design System after the CredPago and Vista CRM acquisitions.",
   type: "demo",
@@ -856,7 +856,10 @@ export const caseDetails: Record<string, CaseDetail> = Object.fromEntries(
           ...buildDetail(summary, caseTitles[summary.slug], "no-demo", "Além de liderar o produto, assumi pessoalmente o desenvolvimento da landing page do Magalu Ads: mais rápido construir do zero, do wireframe ao conteúdo final, do que repassar o briefing pra outro time. Revisei o conteúdo de perto com o time de Marketing e criei uma linha própria de personagens ilustrados para dar identidade visual ao produto, hoje usada em outros pontos de contato da marca."),
           highlightCards: undefined,
           tags: ["Craft", "Content", "UI/UX", "Desenvolvimento"],
-          context: [],
+          subtitle: "",
+          context: [
+            "Além de liderar o produto, assumi pessoalmente o desenvolvimento da landing page do Magalu Ads: mais rápido construir do zero, do wireframe ao conteúdo final, do que repassar o briefing pra outro time. Revisei o conteúdo de perto com o time de Marketing e criei uma linha própria de personagens ilustrados para dar identidade visual ao produto, hoje usada em outros pontos de contato da marca.",
+          ],
           challenge: { paragraphs: [], cards: [] },
           solution: {
             paragraphs: [],
@@ -966,12 +969,13 @@ const magaluCraftDetailEn: CaseDetail = {
   logo: "/assets/logos/logo-magalu.svg",
   coverImage: "/assets/cases/magalu-craft/cover-magalu-craft 3.webp",
   tags: ["Craft", "Content", "UI/UX", "Development"],
-  title: "Craft for Magalu Ads",
-  subtitle:
-    "Beyond leading the product, I personally took on building the Magalu Ads landing page: faster to build it myself from scratch, from wireframe to final content, than to hand the brief off to another team. I reviewed the content closely with the Marketing team and created an original line of illustrated characters to give the product its visual identity, one that's now used across other brand touchpoints.",
+  title: "From character illustration to development.",
+  subtitle: "",
   type: "no-demo",
   highlightCards: undefined,
-  context: [],
+  context: [
+    "Beyond leading the product, I personally took on building the Magalu Ads landing page: faster to build it myself from scratch, from wireframe to final content, than to hand the brief off to another team. I reviewed the content closely with the Marketing team and created an original line of illustrated characters to give the product its visual identity, one that's now used across other brand touchpoints.",
+  ],
   challenge: { paragraphs: [], cards: [] },
   solution: {
     paragraphs: [],
@@ -1003,7 +1007,16 @@ const vilaLautDetailEn: CaseDetail = {
     "Vila Laut is a boutique inn in Porto de Galinhas, designed as a barefoot-luxury retreat: the feeling of Bali translated into architecture, nature and the sea, in a destination where most brands only talk about \"the beach\". Through 008 Design, I led the brand's creation from scratch, from the name to the symbol, through positioning, closing with a full identity manual.",
   ],
   challenge: { paragraphs: [], cards: [] },
-  solution: { paragraphs: [], withImages: false },
+  solution: {
+    paragraphs: [],
+    withImages: true,
+    images: {
+      rows: [
+        ["/assets/cases/laut/laut brand 0.1webp.webp"],
+        ["/assets/cases/laut/laut brand 02.webp"],
+      ],
+    },
+  },
   process: { paragraphs: [] },
   results: { cards: [] },
 }

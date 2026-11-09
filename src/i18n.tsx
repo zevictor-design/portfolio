@@ -31,6 +31,14 @@ export const translations = {
       nextCases: "Ver próximos cases",
       closeForm: "Fechar formulário",
     },
+    casePage: {
+      back: "Voltar",
+      context: "Contexto",
+      challenge: "Desafio",
+      solution: "Solução",
+      process: "Processo",
+      results: "Resultado",
+    },
     hero: {
       proofStrong: "+ 11 ANOS",
       proofRest: "atuando em design de produto",
@@ -152,6 +160,14 @@ export const translations = {
       nextCases: "View next cases",
       closeForm: "Close form",
     },
+    casePage: {
+      back: "Back",
+      context: "Context",
+      challenge: "Challenge",
+      solution: "Solution",
+      process: "Process",
+      results: "Results",
+    },
     hero: {
       proofStrong: "+ 11 YEARS",
       proofRest: "in product design",
@@ -176,7 +192,7 @@ export const translations = {
       titles: {
         "Luiza Labs": "Building Magalu Ads",
         Magalu: "From character illustration to development.",
-        Loft: "Design System consolidation",
+        Loft: "Booking conversion and Design System",
         Incognia: "Complexity demands clarity",
         Ume: "A new experience, a new app",
         "Vila Laut": "Where nature rests",
