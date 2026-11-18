@@ -901,7 +901,6 @@ export const caseDetails: Record<string, CaseDetail> = Object.fromEntries(
             images: {
               rows: [
                 ["/assets/cases/laut/laut brand 0.1webp.webp"],
-                ["/assets/cases/laut/laut brand 02.webp"],
               ],
             },
           },
@@ -1013,7 +1012,6 @@ const vilaLautDetailEn: CaseDetail = {
     images: {
       rows: [
         ["/assets/cases/laut/laut brand 0.1webp.webp"],
-        ["/assets/cases/laut/laut brand 02.webp"],
       ],
     },
   },
