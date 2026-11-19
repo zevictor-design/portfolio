@@ -1910,6 +1910,7 @@
 .case-image-stack-laut .case-image-row .case-image-block {
   flex: 0 0 auto;
   width: 100%;
+  aspect-ratio: 8484 / 5908;
 }
 
 .case-image-stack-magalu-craft .case-image-row {
